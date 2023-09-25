@@ -1,16 +1,16 @@
 # cakeke
 
-## git 규칙
+A new Flutter project.
 
-## branch
+## Getting Started
 
-main : 릴리즈 단위로 최종 작업물을 PR하는 브랜치, push를 직접적으로 제한하며 꼼꼼한 검토 후 merge\
-|-- develop : 하위 branch를 merge하여 커밋을 모으는 branch, 하위 branch는 항상 작업전 develop branch를 merge한 후 작업한다\
-|----- feat/\* : 기능 개발할때 사용\
-|----- refact/\* : 리팩토링할 때 사용\
-|----- docs/\* : docs 작업할때 사용
+This project is a starting point for a Flutter application.
 
-### commit message
+A few resources to get you started if this is your first Flutter project:
 
-- git commitizen의 규칙을 따른다. 아래의 사이트 참고\
-  https://blog.dnd.ac/github-commitzen-template
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
