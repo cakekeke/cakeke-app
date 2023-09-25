@@ -1,4 +1,4 @@
-import 'package:cakeke/ui/app.dart';
+import 'package:cakeke/view/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
