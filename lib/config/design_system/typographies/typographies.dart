@@ -1,4 +1,5 @@
-import 'package:cakeke/ui/foundation/design_system.dart';
+
+import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/widgets.dart';
 
 class Typographies {
@@ -10,7 +11,7 @@ class Typographies {
 
   TextStyle display1() {
     return _typography(
-      textStyle: DS.textStyle.bold,
+      textStyle: DesignSystem.textStyle.bold,
       fontSize: 30.0,
       height: 1.33,
       debugLabel: 'display1',
@@ -20,7 +21,7 @@ class Typographies {
 
   TextStyle display2() {
     return _typography(
-      textStyle: DS.textStyle.bold,
+      textStyle: DesignSystem.textStyle.bold,
       fontSize: 26.0,
       height: 1.38,
       debugLabel: 'display2',
@@ -30,7 +31,7 @@ class Typographies {
 
   TextStyle heading1([TextStyle? textStyle]) {
     return _typography(
-      textStyle: textStyle ?? DS.textStyle.bold,
+      textStyle: textStyle ?? DesignSystem.textStyle.bold,
       fontSize: 24.0,
       height: 1.42,
       debugLabel: 'heading1',
@@ -40,7 +41,7 @@ class Typographies {
 
   TextStyle heading2([TextStyle? textStyle]) {
     return _typography(
-      textStyle: textStyle ?? DS.textStyle.bold,
+      textStyle: textStyle ?? DesignSystem.textStyle.bold,
       fontSize: 22.0,
       height: 1.41,
       debugLabel: 'heading2',
@@ -50,7 +51,7 @@ class Typographies {
 
   TextStyle heading3([TextStyle? textStyle]) {
     return _typography(
-      textStyle: textStyle ?? DS.textStyle.bold,
+      textStyle: textStyle ?? DesignSystem.textStyle.bold,
       fontSize: 20.0,
       height: 1.40,
       debugLabel: 'heading3',
@@ -60,7 +61,7 @@ class Typographies {
 
   TextStyle title1([TextStyle? textStyle]) {
     return _typography(
-      textStyle: textStyle ?? DS.textStyle.bold,
+      textStyle: textStyle ?? DesignSystem.textStyle.bold,
       fontSize: 16.0,
       height: 1.50,
       debugLabel: 'title1',
@@ -70,7 +71,7 @@ class Typographies {
 
   TextStyle title2([TextStyle? textStyle]) {
     return _typography(
-      textStyle: textStyle ?? DS.textStyle.bold,
+      textStyle: textStyle ?? DesignSystem.textStyle.bold,
       fontSize: 15.0,
       height: 1.50,
       debugLabel: 'title2',
@@ -80,7 +81,7 @@ class Typographies {
 
   TextStyle title3([TextStyle? textStyle]) {
     return _typography(
-      textStyle: textStyle ?? DS.textStyle.bold,
+      textStyle: textStyle ?? DesignSystem.textStyle.bold,
       fontSize: 14.0,
       height: 1.50,
       debugLabel: 'title3',
@@ -90,7 +91,7 @@ class Typographies {
 
   TextStyle body([TextStyle? textStyle]) {
     return _typography(
-      textStyle: textStyle ?? DS.textStyle.medium,
+      textStyle: textStyle ?? DesignSystem.textStyle.medium,
       fontSize: 16.0,
       height: 1.60,
       debugLabel: 'body',
@@ -100,7 +101,7 @@ class Typographies {
 
   TextStyle caption1([TextStyle? textStyle]) {
     return _typography(
-      textStyle: textStyle ?? DS.textStyle.regular,
+      textStyle: textStyle ?? DesignSystem.textStyle.regular,
       fontSize: 12.0,
       height: 1.50,
       debugLabel: 'caption1',
