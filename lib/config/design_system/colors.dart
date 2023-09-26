@@ -9,6 +9,15 @@ class Colors {
 
   Color get appPrimary => const Color(0xFFF7476C);
 
+  Color get black => const Color(0xFF000000);
+
+  Color get white =>  const Color(0xFFFFFFFF);
+
+  Color get gray400 =>  const Color(0xFFD4D4D4);
+
+  Color get gray100 =>  const Color(0xFFE1E1E1);
+
+
   // text
   Color get textPrimary => const Color(0xFF000000);
 
