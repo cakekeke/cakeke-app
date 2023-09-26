@@ -99,6 +99,16 @@ class Typographies {
     );
   }
 
+  TextStyle body2([TextStyle? textStyle]) {
+    return _typography(
+      textStyle: textStyle ?? DesignSystem.textStyle.medium,
+      fontSize: 14.0,
+      height: 1.60,
+      debugLabel: 'body',
+      validations: [FontWeight.w400, FontWeight.w500],
+    );
+  }
+
   TextStyle caption1([TextStyle? textStyle]) {
     return _typography(
       textStyle: textStyle ?? DesignSystem.textStyle.regular,
