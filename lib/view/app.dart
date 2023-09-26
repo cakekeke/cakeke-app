@@ -24,8 +24,9 @@ class _AppState extends State<App> {
     // todo: bloc provider를 주입하여 토큰 여부에 따라 라우팅
     return const MaterialApp(
       title: 'Cakeke',
+      debugShowCheckedModeBanner: false,
       onGenerateRoute: RouteGenerator.generateRoute,
-      initialRoute: true ? Routes.home : Routes.landing,
+      initialRoute: false ? Routes.home : Routes.landing,
     );
   }
 }
