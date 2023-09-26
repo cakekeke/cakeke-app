@@ -1,9 +1,10 @@
-import 'package:cakeke/routes/routes.dart';
-import 'package:cakeke/ui/pages/home_page.dart';
-import 'package:cakeke/ui/pages/landing_page.dart';
-import 'package:cakeke/ui/pages/sign_in_page.dart';
-import 'package:cakeke/ui/pages/sign_up_page.dart';
+import 'package:cakeke/config/routes/routes.dart';
+import 'package:cakeke/view/pages/home_page.dart';
+import 'package:cakeke/view/pages/landing_page.dart';
+import 'package:cakeke/view/pages/sign_in_page.dart';
 import 'package:flutter/material.dart';
+
+import '../../view/pages/sign_up_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
