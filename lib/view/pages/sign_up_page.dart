@@ -9,6 +9,8 @@ import 'package:cakeke/view/widgets/common/sign_text_field.dart';
 import 'package:cakeke/view/widgets/sign_up/duplication_check_text.dart';
 import 'package:cakeke/view/widgets/sign_up/hide_user_number_layout.dart';
 import 'package:cakeke/view/widgets/sign_up/duplication_check_button.dart';
+import 'package:cakeke/view/widgets/sign_up/profile_image_circle.dart';
+import 'package:cakeke/view/widgets/sign_up/profile_list_view.dart';
 import 'package:cakeke/view/widgets/sign_up/service_purpose_radio_layout.dart';
 import 'package:cakeke/view/widgets/sign_up/visible_field_layout.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +39,28 @@ class _SiginUpPageState extends State<SiginUpPage> {
             BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
           return Column(
             children: [
+              VisibleFieldLayout(
+                  nowChapter: nowChapter,
+                  thisChapter: 6,
+                  leftPadding: 16,
+                  fieldTitle: '프로필을 설정해주세요',
+                  child: Column(
+                    children: [
+                      Container(
+                          height: 130,
+                          width: 130,
+                          margin: const EdgeInsets.only(bottom: 15, top: 35),
+                          child: ProfileImageCircle(index: state.profileId)),
+                      Container(
+                        height: 80,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 15,
+                        ),
+                        color: DesignSystem.colors.backgroundProfileList,
+                        child: const ProfileListView(),
+                      )
+                    ],
+                  )),
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
@@ -161,7 +185,7 @@ class _SiginUpPageState extends State<SiginUpPage> {
               ),
               BottomButton(
                 buttonActive: state.isButtonActive,
-                text: '다음',
+                text: nowChapter <= 5 ? '다음' : '완료하기',
                 onTap: () {
                   nowChapter++;
                   context

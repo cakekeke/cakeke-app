@@ -10,6 +10,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<PasswordChangedEvent>(_handlePasswordChangedEvent);
     on<RePasswordChangedEvent>(_handlePasswordCheckEvent);
     on<PurposeChangedEvent>(_handlePurposeChangedEvent);
+    on<ProfileIdChangedEvent>(_handleProfileIdChangedEvent);
     on<BirthChangedEvent>(_handleBirthChangedEvent);
     on<GenderChangedEvent>(_handleGenderChangedEvent);
   }
@@ -93,5 +94,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   ) {
     emit(state.copyWith(
         purpose: event.purpose, isButtonActive: event.purpose.isNotEmpty));
+  }
+
+  void _handleProfileIdChangedEvent(
+    ProfileIdChangedEvent event,
+    Emitter<SignUpState> emit,
+  ) {
+    emit(state.copyWith(profileId: event.profileId, isButtonActive: true));
   }
 }

@@ -6,7 +6,7 @@ class SignUpState extends Equatable {
     this.isValidId,
     this.isButtonActive = false,
     this.passwordCheck,
-
+    this.profileId = 0,
     this.purpose = '',
     this.gender = '',
     this.birth = '',
@@ -20,6 +20,7 @@ class SignUpState extends Equatable {
   final bool isButtonActive;
   final bool? passwordCheck;
 
+  final int profileId;
   final String purpose;
   final String gender;
   final String birth;
@@ -32,6 +33,7 @@ class SignUpState extends Equatable {
     bool? isValidId,
     bool? isButtonActive,
     bool? passwordCheck,
+    int? profileId,
     String? purpose,
     String? gender,
     String? birth,
@@ -44,6 +46,7 @@ class SignUpState extends Equatable {
       isValidId: isValidId ?? this.isValidId,
       isButtonActive: isButtonActive ?? this.isButtonActive,
       passwordCheck: passwordCheck ?? this.passwordCheck,
+      profileId: profileId ?? this.profileId,
       purpose: purpose ?? this.purpose,
       gender: gender ?? this.gender,
       birth: birth ?? this.birth,
@@ -59,6 +62,7 @@ class SignUpState extends Equatable {
         isValidId,
         isButtonActive,
         passwordCheck,
+        profileId,
         purpose,
         gender,
         birth,

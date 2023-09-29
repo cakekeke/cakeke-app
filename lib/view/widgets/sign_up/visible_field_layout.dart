@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class VisibleFieldLayout extends StatelessWidget {
   const VisibleFieldLayout({
     super.key,
+    this.leftPadding = 0,
     required this.nowChapter,
     required this.thisChapter,
     required this.fieldTitle,
@@ -12,19 +13,25 @@ class VisibleFieldLayout extends StatelessWidget {
 
   final int nowChapter;
   final int thisChapter;
+  final double leftPadding;
   final String fieldTitle;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: nowChapter >= thisChapter,
+      visible: nowChapter < 6
+          ? nowChapter >= thisChapter
+          : nowChapter == thisChapter,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SignTitleText(
-            title: fieldTitle,
-            nowChapter: nowChapter == thisChapter,
+          Padding(
+            padding: EdgeInsets.only(left: leftPadding),
+            child: SignTitleText(
+              title: fieldTitle,
+              nowChapter: nowChapter == thisChapter,
+            ),
           ),
           child
         ],

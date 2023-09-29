@@ -94,3 +94,12 @@ class PurposeChangedEvent extends SignUpEvent {
   @override
   List<Object> get props => [purpose];
 }
+
+class ProfileIdChangedEvent extends SignUpEvent {
+  const ProfileIdChangedEvent({required this.profileId});
+
+  final int profileId;
+
+  @override
+  List<Object> get props => [profileId];
+}

@@ -32,6 +32,7 @@ class Colors {
 
   // background
   Color get backgroundDisabled => const Color(0xFFF3F3F3);
+  Color get backgroundProfileList => const Color(0xFFFAFAFA);
 
   Color get divider => const Color(0xFFE8E8E8);
 }
