@@ -7,6 +7,7 @@ class Routes {
 
 class Tab {
   static const int home = 0;
+  static const int curation = 1;
   static const int custom = 2;
   static const int myPage = 3;
 }
