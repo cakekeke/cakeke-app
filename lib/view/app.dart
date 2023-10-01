@@ -31,7 +31,7 @@ class App extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 onGenerateRoute: RouteGenerator.generateRoute,
                 initialRoute: state == AuthStateAuthenticated
-                    ? Routes.home
+                    ? Routes.main
                     : Routes.landing,
               ));
         });
