@@ -30,6 +30,8 @@ class Colors {
 
   Color get textDisabled => const Color(0xFFDBDBDB);
 
+  Color get textHint => const Color(0xFFAAAAAA);
+
   // background
   Color get backgroundDisabled => const Color(0xFFF3F3F3);
   Color get backgroundProfileList => const Color(0xFFFAFAFA);

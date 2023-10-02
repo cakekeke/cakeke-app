@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 class HomeMapLayout extends StatelessWidget {
-  const HomeMapLayout({super.key,
+  const HomeMapLayout({
+    super.key,
     required this.onMapReady,
   });
 
