@@ -48,6 +48,7 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
         stickerPaths.where((element) => element.contains('fruit_')).toList();
     final stickerImages =
         stickerPaths.where((element) => element.contains('sticker_')).toList();
+    stickerImages.sort((b, a) => a.compareTo(b));
 
     final newImagesMap = {
       "candle": candleImages,
