@@ -47,5 +47,14 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NMFClientId</key>
+        <string>YOUR_CLIENT_ID</string>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>주위 가게를 위치 표시를 위하여 위치 정보가 필요합니다.(필수 권한)</string>
+        <key>NSLocationAlwaysUsageDescription</key>
+        <string>주위 가게를 위치 표시를 위하여 위치 정보가 필요합니다.(필수 권한)</string>
+        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+        <string>주위 가게를 위치 표시를 위하여 위치 정보가 필요합니다.(필수 권한)</string>
+
 	</dict>
 </plist>
