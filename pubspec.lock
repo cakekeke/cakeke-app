@@ -272,6 +272,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
+  lindi_sticker_widget:
+    dependency: "direct main"
+    description:
+      name: lindi_sticker_widget
+      sha256: e23cb64e8ff2a90eab68d5c0e11e02ec574cc7aaf5d21a095ebba8f082947068
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   lints:
     dependency: transitive
     description:
