@@ -21,3 +21,21 @@ class SetBackgroundEvent extends CustomEvent {
   @override
   List<Object?> get props => [selectBackground];
 }
+
+class AddStickerEvent extends CustomEvent {
+  const AddStickerEvent({required this.asset});
+
+  final String asset;
+
+  @override
+  List<Object?> get props => [asset];
+}
+
+class DeleteStickerEvent extends CustomEvent {
+  const DeleteStickerEvent({required this.asset});
+
+  final String asset;
+
+  @override
+  List<Object?> get props => [asset];
+}

@@ -32,9 +32,19 @@ class Colors {
 
   Color get textHint => const Color(0xFFAAAAAA);
 
+  Color get textTabDisabled => const Color(0xFF919191);
+
+  Color get textCustomPink => const Color(0xFFFFB9DB);
+
+  Color get textCustomBlue => const Color(0xFFC0E8FF);
+  
+
   // background
   Color get backgroundDisabled => const Color(0xFFF3F3F3);
   Color get backgroundProfileList => const Color(0xFFFAFAFA);
+  Color get backgroundCustomList => const Color(0xFFF5F5F5);
+  Color get backgroundCustomText => const Color(0xFFF7F7F7);
 
   Color get divider => const Color(0xFFE8E8E8);
+  Color get dividerTab => const Color(0xFFF2F2F2);
 }

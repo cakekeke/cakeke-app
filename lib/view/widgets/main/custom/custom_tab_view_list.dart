@@ -1,7 +1,8 @@
+import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
-class CustomTabViewList extends StatelessWidget {
-  const CustomTabViewList({
+class CustomTabViewGrid extends StatelessWidget {
+  const CustomTabViewGrid({
     super.key,
     required this.addAssetList,
     required this.onTap,
@@ -15,18 +16,24 @@ class CustomTabViewList extends StatelessWidget {
     final iconImages =
         addAssetList.where((element) => element.contains('icon_'));
 
-    return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: iconImages.length,
-        itemBuilder: (context, index) {
-          final asset = iconImages.elementAt(index);
-          return GestureDetector(
-              onTap: () => onTap(addAssetList.elementAt(index)),
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Image.asset(asset),
-              ));
-        });
+    return Container(
+      color: DesignSystem.colors.white,
+      child: GridView.builder(
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+          ),
+          padding: EdgeInsets.zero,
+          itemCount: iconImages.length,
+          itemBuilder: (context, index) {
+            final asset = iconImages.elementAt(index);
+            return GestureDetector(
+                onTap: () => onTap(addAssetList.elementAt(index)),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Image.asset(asset),
+                ));
+          }),
+    );
   }
 }

@@ -11,7 +11,6 @@ class CustomTabItem extends StatelessWidget {
     return Tab(
         icon: Text(
       title,
-      style: DesignSystem.typography.body2(),
     ));
   }
 }
