@@ -21,8 +21,8 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
             textController: TextEditingController())) {
     on<InitImagesEvent>(_handleInitImagesEvent);
     on<SetBackgroundEvent>(_handleSetBackgroundEvent);
-    on<AddStickerEvent>(_handleAddStickerEvent);
-    on<DeleteStickerEvent>(_handleDeleteStickerEvent);
+    on<AddCustomEvent>(_handleAddCustomEvent);
+    on<DeleteCustomEvent>(_handleDeleteCustomEvent);
   }
 
   Future<void> _handleInitImagesEvent(
@@ -66,27 +66,32 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     emit(state.copyWith(selectBackground: event.selectBackground));
   }
 
-  void _handleAddStickerEvent(
-    AddStickerEvent event,
+  void _handleAddCustomEvent(
+    AddCustomEvent event,
     Emitter<CustomState> emit,
   ) {
-    state.controller.addWidget(
-      Image.asset(event.asset),
-    );
-    final newStickerList = [...state.stickerList, event.asset];
+    if (event.widget != null) {
+      state.controller.addWidget(event.widget!);
+    } else {
+      state.controller.addWidget(
+        Image.asset(event.asset),
+      );
+    }
+
+    final newStickerList = [...state.customList, event.asset];
     emit(state.copyWith(
         controller: state.controller, stickerList: newStickerList));
   }
 
-  void _handleDeleteStickerEvent(
-    DeleteStickerEvent event,
+  void _handleDeleteCustomEvent(
+    DeleteCustomEvent event,
     Emitter<CustomState> emit,
   ) {
-    final deleteIndex = state.stickerList.indexOf(event.asset);
+    final deleteIndex = state.customList.indexOf(event.asset);
     state.controller.widgets.removeAt(deleteIndex);
     state.controller.notifyListeners();
 
-    final newStickerList = [...state.stickerList];
+    final newStickerList = [...state.customList];
     newStickerList.removeAt(deleteIndex);
 
     emit(state.copyWith(

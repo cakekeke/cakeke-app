@@ -16,7 +16,7 @@ class CustomStickerList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CustomBloc, CustomState>(
       buildWhen: (previous, current) {
-        return previous.stickerList.length != current.stickerList.length;
+        return previous.customList.length != current.customList.length;
       },
       builder: (context, state) {
         return ListView.builder(
@@ -44,8 +44,8 @@ class CustomStickerList extends StatelessWidget {
                       left: 15,
                       child: GestureDetector(
                         onTap: () {
-                          context.read<CustomBloc>().add(DeleteStickerEvent(
-                              asset: state.stickerList.elementAt(index)));
+                          context.read<CustomBloc>().add(DeleteCustomEvent(
+                              asset: state.customList.elementAt(index)));
                         },
                         child: Container(
                           margin: const EdgeInsets.only(left: 10),

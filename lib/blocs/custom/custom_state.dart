@@ -7,7 +7,7 @@ class CustomState extends Equatable {
     required this.controller,
     required this.textController,
     this.sticker = const {},
-    this.stickerList = const [],
+    this.customList = const [],
     this.background = const [],
     this.selectBackground =
         'assets/images/background/background_version1_white.png',
@@ -16,7 +16,7 @@ class CustomState extends Equatable {
   final LindiController controller;
   final TextEditingController textController;
   final Map<String, List<String>> sticker;
-  final List<String> stickerList;
+  final List<String> customList;
   final List<String> background;
   final String selectBackground;
 
@@ -31,7 +31,7 @@ class CustomState extends Equatable {
       controller: controller ?? this.controller,
       textController: textController ?? this.textController,
       sticker: sticker ?? this.sticker,
-      stickerList: stickerList ?? this.stickerList,
+      customList: stickerList ?? this.customList,
       background: background ?? this.background,
       selectBackground: selectBackground ?? this.selectBackground,
     );
@@ -42,7 +42,7 @@ class CustomState extends Equatable {
         controller,
         textController,
         sticker,
-        stickerList,
+        customList,
         background,
         selectBackground
       ];

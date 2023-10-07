@@ -9,25 +9,28 @@ class CustomTabBarLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TabBar(
-      isScrollable: true,
-      indicatorSize: TabBarIndicatorSize.label,
-      indicatorColor: DesignSystem.colors.dividerTab,
-      unselectedLabelColor: DesignSystem.colors.textTabDisabled,
-      labelColor: DesignSystem.colors.black,
-      unselectedLabelStyle: DesignSystem.typography.body(),
-      labelStyle: DesignSystem.typography
-          .body(const TextStyle(fontWeight: FontWeight.w700)),
-      tabs: const [
-        CustomTabItem(title: '배경'),
-        CustomTabItem(title: '사진'),
-        CustomTabItem(title: '케이크'),
-        CustomTabItem(title: '문구'),
-        CustomTabItem(title: '크림'),
-        CustomTabItem(title: '촛불'),
-        CustomTabItem(title: '과일'),
-        CustomTabItem(title: '스티커'),
-      ],
+    return Container(
+      color: DesignSystem.colors.white,
+      child: TabBar(
+        isScrollable: true,
+        indicatorSize: TabBarIndicatorSize.label,
+        indicatorColor: DesignSystem.colors.appPrimary,
+        unselectedLabelColor: DesignSystem.colors.textTabDisabled,
+        labelColor: DesignSystem.colors.black,
+        unselectedLabelStyle: DesignSystem.typography.body(),
+        labelStyle: DesignSystem.typography
+            .body(const TextStyle(fontWeight: FontWeight.w700)),
+        tabs: const [
+          CustomTabItem(title: '배경'),
+          CustomTabItem(title: '사진'),
+          CustomTabItem(title: '케이크'),
+          CustomTabItem(title: '문구'),
+          CustomTabItem(title: '크림'),
+          CustomTabItem(title: '촛불'),
+          CustomTabItem(title: '과일'),
+          CustomTabItem(title: '스티커'),
+        ],
+      ),
     );
   }
 }

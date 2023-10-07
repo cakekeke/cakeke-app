@@ -22,8 +22,21 @@ class SetBackgroundEvent extends CustomEvent {
   List<Object?> get props => [selectBackground];
 }
 
-class AddStickerEvent extends CustomEvent {
-  const AddStickerEvent({required this.asset});
+class AddCustomEvent extends CustomEvent {
+  const AddCustomEvent({
+    required this.asset,
+    required this.widget,
+  });
+
+  final String asset;
+  final Widget? widget;
+
+  @override
+  List<Object?> get props => [asset, widget];
+}
+
+class DeleteCustomEvent extends CustomEvent {
+  const DeleteCustomEvent({required this.asset});
 
   final String asset;
 
@@ -31,8 +44,17 @@ class AddStickerEvent extends CustomEvent {
   List<Object?> get props => [asset];
 }
 
-class DeleteStickerEvent extends CustomEvent {
-  const DeleteStickerEvent({required this.asset});
+class AddTextEvent extends CustomEvent {
+  const AddTextEvent({required this.asset});
+
+  final String asset;
+
+  @override
+  List<Object?> get props => [asset];
+}
+
+class DeleteTextEvent extends CustomEvent {
+  const DeleteTextEvent({required this.asset});
 
   final String asset;
 
