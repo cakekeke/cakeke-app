@@ -61,3 +61,19 @@ class DeleteTextEvent extends CustomEvent {
   @override
   List<Object?> get props => [asset];
 }
+
+class AddPhotoEvent extends CustomEvent {
+  const AddPhotoEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class DeletePhotoEvent extends CustomEvent {
+  const DeletePhotoEvent({required this.path});
+
+  final String path;
+
+  @override
+  List<Object?> get props => [path];
+}

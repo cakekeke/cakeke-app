@@ -9,6 +9,7 @@ class CustomState extends Equatable {
     this.sticker = const {},
     this.customList = const [],
     this.background = const [],
+    this.photoPath = '',
     this.selectBackground =
         'assets/images/background/background_version1_white.png',
   });
@@ -18,6 +19,7 @@ class CustomState extends Equatable {
   final Map<String, List<String>> sticker;
   final List<String> customList;
   final List<String> background;
+  final String photoPath;
   final String selectBackground;
 
   CustomState copyWith(
@@ -25,13 +27,15 @@ class CustomState extends Equatable {
       TextEditingController? textController,
       Map<String, List<String>>? sticker,
       List<String>? background,
-      List<String>? stickerList,
+      List<String>? customList,
+      String? photoPath,
       String? selectBackground}) {
     return CustomState(
       controller: controller ?? this.controller,
       textController: textController ?? this.textController,
       sticker: sticker ?? this.sticker,
-      customList: stickerList ?? this.customList,
+      customList: customList ?? this.customList,
+      photoPath: photoPath ?? this.photoPath,
       background: background ?? this.background,
       selectBackground: selectBackground ?? this.selectBackground,
     );
@@ -43,6 +47,7 @@ class CustomState extends Equatable {
         textController,
         sticker,
         customList,
+        photoPath,
         background,
         selectBackground
       ];

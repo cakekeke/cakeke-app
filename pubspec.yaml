@@ -44,6 +44,7 @@ dependencies:
   flutter_naver_map: ^1.0.2
   location: ^5.0.3
   lindi_sticker_widget: ^0.1.1
+  image_picker: ^1.0.4
 
 dev_dependencies:
   flutter_test:

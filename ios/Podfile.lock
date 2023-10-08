@@ -12,6 +12,8 @@ PODS:
   - NMapsGeometry (1.0.1)
   - NMapsMap (3.16.2):
     - NMapsGeometry
+  - image_picker_ios (0.0.1):
+    - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -25,6 +27,7 @@ DEPENDENCIES:
   - flutter_naver_map (from `.symlinks/plugins/flutter_naver_map/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - location (from `.symlinks/plugins/location/ios`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
 
@@ -44,6 +47,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   shared_preferences_foundation:
@@ -57,6 +62,7 @@ SPEC CHECKSUMS:
   location: d5cf8598915965547c3f36761ae9cc4f4e87d22e
   NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83
   NMapsMap: aaa64717249b06ae82c3a3addb3a01f0e33100ab
+  image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
 

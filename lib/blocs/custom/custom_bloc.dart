@@ -6,6 +6,7 @@ import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lindi_sticker_widget/lindi_controller.dart';
 
 class CustomBloc extends Bloc<CustomEvent, CustomState> {
@@ -23,6 +24,8 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     on<SetBackgroundEvent>(_handleSetBackgroundEvent);
     on<AddCustomEvent>(_handleAddCustomEvent);
     on<DeleteCustomEvent>(_handleDeleteCustomEvent);
+    on<AddPhotoEvent>(_handleAddPhotoEvent);
+    on<DeletePhotoEvent>(_handleDeletePhotoEvent);
   }
 
   Future<void> _handleInitImagesEvent(
@@ -78,9 +81,9 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
       );
     }
 
-    final newStickerList = [...state.customList, event.asset];
+    final newCustomList = [...state.customList, event.asset];
     emit(state.copyWith(
-        controller: state.controller, stickerList: newStickerList));
+        controller: state.controller, customList: newCustomList));
   }
 
   void _handleDeleteCustomEvent(
@@ -91,10 +94,36 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     state.controller.widgets.removeAt(deleteIndex);
     state.controller.notifyListeners();
 
-    final newStickerList = [...state.customList];
-    newStickerList.removeAt(deleteIndex);
+    final newCustomList = [...state.customList];
+    newCustomList.removeAt(deleteIndex);
 
     emit(state.copyWith(
-        controller: state.controller, stickerList: newStickerList));
+        controller: state.controller, customList: newCustomList));
+  }
+
+  Future<void> _handleAddPhotoEvent(
+    AddPhotoEvent event,
+    Emitter<CustomState> emit,
+  ) async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      _handleAddCustomEvent(
+          AddCustomEvent(asset: pickedImage.path, widget: null), emit);
+
+      emit(state.copyWith(
+        photoPath: pickedImage.path,
+      ));
+    }
+  }
+
+  void _handleDeletePhotoEvent(
+    DeletePhotoEvent event,
+    Emitter<CustomState> emit,
+  ) {
+    _handleDeleteCustomEvent(DeleteCustomEvent(asset: event.path), emit);
+
+    emit(state.copyWith(photoPath: ''));
   }
 }
