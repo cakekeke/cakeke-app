@@ -45,6 +45,8 @@ dependencies:
   location: ^5.0.3
   lindi_sticker_widget: ^0.1.1
   image_picker: ^1.0.4
+  image_gallery_saver: ^2.0.3
+  permission_handler: ^11.0.1
 
 dev_dependencies:
   flutter_test:

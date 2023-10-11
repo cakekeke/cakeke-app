@@ -1,11 +1,16 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:cakeke/blocs/custom/custom_event.dart';
 import 'package:cakeke/blocs/custom/custom_state.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
+import 'package:cakeke/utils/permission_util.dart';
+import 'package:cakeke/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lindi_sticker_widget/lindi_controller.dart';
 
@@ -26,12 +31,14 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     on<DeleteCustomEvent>(_handleDeleteCustomEvent);
     on<AddPhotoEvent>(_handleAddPhotoEvent);
     on<DeletePhotoEvent>(_handleDeletePhotoEvent);
+    on<CaptureAndSaveEvent>(_handleCaptureAndSaveEvent);
   }
 
   Future<void> _handleInitImagesEvent(
     InitImagesEvent event,
     Emitter<CustomState> emit,
   ) async {
+    PermissionUtil.requestAll();
     final manifestContent = await rootBundle.loadString('AssetManifest.json');
     final Map<String, dynamic> manifestMap = json.decode(manifestContent);
 
@@ -125,5 +132,31 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     _handleDeleteCustomEvent(DeleteCustomEvent(asset: event.path), emit);
 
     emit(state.copyWith(photoPath: ''));
+  }
+
+  Future<void> _handleCaptureAndSaveEvent(
+    CaptureAndSaveEvent event,
+    Emitter<CustomState> emit,
+  ) async {
+    if (event.globalKey.currentContext != null) {
+      final RenderRepaintBoundary boundary = event.globalKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary;
+
+      final image = await boundary.toImage();
+      final byteData = await image.toByteData(format: ImageByteFormat.png);
+      final pngBytes = byteData?.buffer.asUint8List();
+
+      if (pngBytes != null) {
+        final result =
+            await ImageGallerySaver.saveImage(Uint8List.fromList(pngBytes));
+        if (result != null && result.isNotEmpty) {
+          Utils.showSnackBar(event.globalKey.currentContext!, '이미지가 저장되었습니다');
+          return;
+        }
+      }
+      Utils.showSnackBar(event.globalKey.currentContext!, '이미지을 실패하였습니다');
+    }
+
+    emit(state.copyWith());
   }
 }

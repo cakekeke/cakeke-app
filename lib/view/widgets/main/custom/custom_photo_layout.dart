@@ -4,7 +4,6 @@ import 'package:cakeke/blocs/custom/custom_state.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CustomPhotoLayout extends StatelessWidget {
   const CustomPhotoLayout({

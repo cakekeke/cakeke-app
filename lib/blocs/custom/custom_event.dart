@@ -77,3 +77,12 @@ class DeletePhotoEvent extends CustomEvent {
   @override
   List<Object?> get props => [path];
 }
+
+class CaptureAndSaveEvent extends CustomEvent {
+  const CaptureAndSaveEvent({required this.globalKey});
+
+  final GlobalKey globalKey;
+
+  @override
+  List<Object?> get props => [globalKey];
+}

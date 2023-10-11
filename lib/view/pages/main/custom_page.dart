@@ -8,8 +8,6 @@ import 'package:cakeke/view/widgets/main/custom/custom_save_button.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_sticker_list.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_tab_bar_layout.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_tab_view_list.dart';
-import 'package:cakeke/view/widgets/main/custom/custom_text_color_grid_view.dart';
-import 'package:cakeke/view/widgets/main/custom/custom_text_field.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_text_field_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +21,8 @@ class CustomPage extends StatefulWidget {
 }
 
 class _CustomPageState extends State<CustomPage> {
+  final GlobalKey globalKey = GlobalKey();
+
   @override
   void initState() {
     context.read<CustomBloc>().add(const InitImagesEvent());
@@ -46,19 +46,26 @@ class _CustomPageState extends State<CustomPage> {
             Expanded(
               child: Stack(
                 children: [
-                  LindiStickerWidget(
-                    controller: state.controller,
-                    child: SizedBox.expand(
-                        child: Image.asset(
-                      state.selectBackground,
-                      fit: BoxFit.cover,
-                    )),
+                  RepaintBoundary(
+                    key: globalKey,
+                    child: LindiStickerWidget(
+                      controller: state.controller,
+                      child: SizedBox.expand(
+                          child: Image.asset(
+                        state.selectBackground,
+                        fit: BoxFit.cover,
+                      )),
+                    ),
                   ),
                   Positioned(
                     right: 16,
                     top: 60,
                     child: CustomSaveButton(
-                      onTap: () {},
+                      onTap: () {
+                        context
+                            .read<CustomBloc>()
+                            .add(CaptureAndSaveEvent(globalKey: globalKey));
+                      },
                     ),
                   )
                 ],
