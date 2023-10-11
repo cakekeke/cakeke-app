@@ -94,7 +94,7 @@ class Typographies {
       fontSize: 16.0,
       height: 1.60,
       debugLabel: 'body',
-      validations: [FontWeight.w400, FontWeight.w500],
+      validations: [FontWeight.w400, FontWeight.w500, FontWeight.w700],
     );
   }
 

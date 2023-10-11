@@ -55,6 +55,13 @@
         <string>주위 가게를 위치 표시를 위하여 위치 정보가 필요합니다.(필수 권한)</string>
         <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
         <string>주위 가게를 위치 표시를 위하여 위치 정보가 필요합니다.(필수 권한)</string>
-
+		<key>NSCameraUsageDescription</key>
+    	<string>이미지를 가져오기 위해 권한을 허용해주세요.</string>
+    	<key>NSMicrophoneUsageDescription</key>
+    	<string>이미지를 가져오기 위해 권한을 허용해주세요.</string>
+    	<key>NSPhotoLibraryUsageDescription</key>
+    	<string>이미지를 가져오기 위해 권한을 허용해주세요.</string>
+    	<key>NSPhotoLibraryAddUsageDescription</key>
+    	<string>이미지 저장을 위해 권한을 허용해주세요.</string>
 	</dict>
 </plist>
