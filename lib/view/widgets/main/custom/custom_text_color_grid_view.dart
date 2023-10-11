@@ -1,14 +1,19 @@
+import 'package:cakeke/blocs/custom/custom_bloc.dart';
+import 'package:cakeke/blocs/custom/custom_state.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_stroke_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomTextColorGridView extends StatelessWidget {
   const CustomTextColorGridView({
     super.key,
     required this.onColorTap,
+    required this.selectTextColor,
   });
 
   final Function(Color) onColorTap;
+  final Color selectTextColor;
   final colorList = const ['하양', '핑크', '파랑'];
 
   Color thisColor(String colorText) {
@@ -42,7 +47,11 @@ class CustomTextColorGridView extends StatelessWidget {
               decoration: ShapeDecoration(
                 color: DesignSystem.colors.backgroundCustomText,
                 shape: RoundedRectangleBorder(
-                  side: const BorderSide(width: 2, color: Color(0xFFF2F2F2)),
+                  side: BorderSide(
+                      width: 2,
+                      color: color == selectTextColor
+                          ? DesignSystem.colors.appPrimary
+                          : const Color(0xFFF2F2F2)),
                   borderRadius: BorderRadius.circular(999),
                 ),
               ),

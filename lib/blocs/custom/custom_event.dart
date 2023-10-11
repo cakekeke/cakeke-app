@@ -13,13 +13,22 @@ class InitImagesEvent extends CustomEvent {
   List<Object?> get props => [];
 }
 
-class SetBackgroundEvent extends CustomEvent {
-  const SetBackgroundEvent({required this.selectBackground});
+class SelectBackgroundEvent extends CustomEvent {
+  const SelectBackgroundEvent({required this.selectBackground});
 
   final String selectBackground;
 
   @override
   List<Object?> get props => [selectBackground];
+}
+
+class SelectTextColorEvent extends CustomEvent {
+  const SelectTextColorEvent({required this.selectTextColor});
+
+  final Color selectTextColor;
+
+  @override
+  List<Object?> get props => [selectTextColor];
 }
 
 class AddCustomEvent extends CustomEvent {

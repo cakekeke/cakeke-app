@@ -26,7 +26,8 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
             ),
             textController: TextEditingController())) {
     on<InitImagesEvent>(_handleInitImagesEvent);
-    on<SetBackgroundEvent>(_handleSetBackgroundEvent);
+    on<SelectBackgroundEvent>(_handleSelectBackgroundEvent);
+    on<SelectTextColorEvent>(_handleSelectTextColorEvent);
     on<AddCustomEvent>(_handleAddCustomEvent);
     on<DeleteCustomEvent>(_handleDeleteCustomEvent);
     on<AddPhotoEvent>(_handleAddPhotoEvent);
@@ -69,11 +70,18 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     emit(state.copyWith(sticker: newImagesMap, background: backgroundPaths));
   }
 
-  void _handleSetBackgroundEvent(
-    SetBackgroundEvent event,
+  void _handleSelectBackgroundEvent(
+    SelectBackgroundEvent event,
     Emitter<CustomState> emit,
   ) {
     emit(state.copyWith(selectBackground: event.selectBackground));
+  }
+
+  void _handleSelectTextColorEvent(
+    SelectTextColorEvent event,
+    Emitter<CustomState> emit,
+  ) {
+    emit(state.copyWith(selectTextColor: event.selectTextColor));
   }
 
   void _handleAddCustomEvent(

@@ -95,14 +95,15 @@ class _CustomPageState extends State<CustomPage> {
                           addAssetList: state.background,
                           onTap: (asset) {
                             context.read<CustomBloc>().add(
-                                SetBackgroundEvent(selectBackground: asset));
+                                SelectBackgroundEvent(selectBackground: asset));
                           }),
                       const CustomPhotoLayout(),
                       Container(),
                       CustomTextFieldLayout(
                         textController: state.textController,
-                        addWidget: (text, widget) =>
-                            addCustomWidget(text, widget: widget),
+                        event: (customEvent) {
+                          context.read<CustomBloc>().add(customEvent);
+                        },
                       ),
                       CustomTabViewGrid(
                         addAssetList: state.sticker['cream'] ?? [],

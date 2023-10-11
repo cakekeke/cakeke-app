@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:lindi_sticker_widget/lindi_controller.dart';
 
 class CustomState extends Equatable {
@@ -12,6 +12,7 @@ class CustomState extends Equatable {
     this.photoPath = '',
     this.selectBackground =
         'assets/images/background/background_version1_white.png',
+    this.selectTextColor = Colors.white,
   });
 
   final LindiController controller;
@@ -21,6 +22,7 @@ class CustomState extends Equatable {
   final List<String> background;
   final String photoPath;
   final String selectBackground;
+  final Color selectTextColor;
 
   CustomState copyWith(
       {LindiController? controller,
@@ -29,6 +31,7 @@ class CustomState extends Equatable {
       List<String>? background,
       List<String>? customList,
       String? photoPath,
+      Color? selectTextColor,
       String? selectBackground}) {
     return CustomState(
       controller: controller ?? this.controller,
@@ -37,6 +40,7 @@ class CustomState extends Equatable {
       customList: customList ?? this.customList,
       photoPath: photoPath ?? this.photoPath,
       background: background ?? this.background,
+      selectTextColor: selectTextColor ?? this.selectTextColor,
       selectBackground: selectBackground ?? this.selectBackground,
     );
   }
@@ -49,6 +53,7 @@ class CustomState extends Equatable {
         customList,
         photoPath,
         background,
+        selectTextColor,
         selectBackground
       ];
 }
