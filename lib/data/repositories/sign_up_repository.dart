@@ -1,5 +1,5 @@
 import 'package:cakeke/data/models/sign_up/service_purpose.dart';
-import 'package:cakeke/data/models/sign_up/user.dart';
+import 'package:cakeke/data/models/common/user.dart';
 import 'package:cakeke/data/providers/sign_up_provider.dart';
 
 class SignUpRepository {

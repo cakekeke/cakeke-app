@@ -1,6 +1,6 @@
 import 'package:cakeke/blocs/sign_up/sign_up_event.dart';
 import 'package:cakeke/blocs/sign_up/sign_up_state.dart';
-import 'package:cakeke/data/models/sign_up/user.dart';
+import 'package:cakeke/data/models/common/user.dart';
 import 'package:cakeke/data/providers/sign_up_provider.dart';
 import 'package:cakeke/data/repositories/sign_up_repository.dart';
 import 'package:cakeke/data/source/local/prefs.dart';
