@@ -26,7 +26,8 @@ class ProfileListView extends StatelessWidget {
               height: 50,
               width: 50,
               margin: EdgeInsets.only(left: index == 0 ? 16 : 0, right: 16),
-              child: ProfileImageCircle(index: index),
+              child:
+                  ProfileImageCircle(fileName: 'profile_icon_${index + 1}.svg'),
             ),
           );
         });

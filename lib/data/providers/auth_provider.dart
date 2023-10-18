@@ -1,26 +1,16 @@
 import 'package:cakeke/data/models/auth_model.dart';
-import 'package:cakeke/data/models/signup_model.dart';
 import 'package:cakeke/data/models/user_model.dart';
+import 'package:cakeke/data/source/network/client_dio.dart';
 
 class AuthProvider {
+  final client = ApiClient.client;
+
   Future<Auth> signin({
     required String id,
     required String password,
   }) async {
     await Future.delayed(Duration(seconds: 1));
     // 로그인 성공시 Auth를 반환하고, 실패시 Exception을 반환한다.
-    // secure storage에 access token 저장
-    return Auth(
-      accessToken: "",
-      refreshToken: "",
-      expiresIn: 0,
-      refreshTokenExpiresIn: 0,
-    );
-  }
-
-  Future<Auth> signup(Signup singup) async {
-    await Future.delayed(Duration(seconds: 1));
-    // 회원가입 성공시 Auth를 반환하고, 실패시 Exception을 반환한다.
     // secure storage에 access token 저장
     return Auth(
       accessToken: "",

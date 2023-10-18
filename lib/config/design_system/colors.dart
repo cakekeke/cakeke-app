@@ -37,7 +37,6 @@ class Colors {
   Color get textCustomPink => const Color(0xFFFFB9DB);
 
   Color get textCustomBlue => const Color(0xFFC0E8FF);
-  
 
   Color get textCustomNoti => const Color(0xFF999999);
 
