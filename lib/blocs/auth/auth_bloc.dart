@@ -11,7 +11,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.authRepository}) : super(AuthStateUnknown()) {
     on<AppStarted>(_onAppStarted);
     on<AuthEventSignin>(_onSignin);
-    on<AuthEventSignup>(_onSignup);
     on<AuthEventSignout>(_onSignout);
   }
 
@@ -30,22 +29,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthStateLoading());
     final Auth auth =
         await authRepository.signin(id: event.id, password: event.password);
-    final User user =
-        await authRepository.getUser(accessToken: auth.accessToken);
-    emit(AuthStateAuthenticated(user: user));
-  }
-
-  void _onSignup(AuthEventSignup event, Emitter<AuthState> emit) async {
-    emit(AuthStateLoading());
-    final Auth auth = await authRepository.signup(
-      id: event.id,
-      password: event.password,
-      birth: event.birth,
-      gener: event.gener,
-      purpose: event.purpose,
-      profileId: event.profileId,
-    );
-
     final User user =
         await authRepository.getUser(accessToken: auth.accessToken);
     emit(AuthStateAuthenticated(user: user));

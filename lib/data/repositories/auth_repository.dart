@@ -1,5 +1,4 @@
 import 'package:cakeke/data/models/auth_model.dart';
-import 'package:cakeke/data/models/signup_model.dart';
 import 'package:cakeke/data/models/user_model.dart';
 import 'package:cakeke/data/providers/auth_provider.dart';
 
@@ -7,25 +6,6 @@ class AuthRepository {
   final AuthProvider authProvider;
 
   AuthRepository({required this.authProvider});
-
-  Future<Auth> signup({
-    required id,
-    required password,
-    required birth,
-    required gener,
-    required purpose,
-    required profileId,
-  }) async {
-    return await authProvider.signup(
-      Signup(
-          id: id,
-          password: password,
-          birth: birth,
-          gener: gener,
-          purpose: purpose,
-          profileId: profileId),
-    );
-  }
 
   Future<bool> signout() async {
     return await authProvider.signout();

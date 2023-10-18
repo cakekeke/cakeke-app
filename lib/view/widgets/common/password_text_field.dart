@@ -26,9 +26,9 @@ class PasswordTextField extends StatelessWidget {
                 enabled: enabled,
                 onChanged: (text) {
                   if (isPasswordCheck) {
-                    context.read<SignUpBloc>().add(RePasswordChangedEvent(
+                    context.read<SignUpBloc>().add(CheckPasswordChangedEvent(
                           index: index,
-                          rePassword: text,
+                          checkPassword: text,
                         ));
                   } else {
                     context.read<SignUpBloc>().add(PasswordChangedEvent(
