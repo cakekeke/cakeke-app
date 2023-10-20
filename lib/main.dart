@@ -1,4 +1,5 @@
 import 'package:cakeke/config/api_config.dart';
+import 'package:cakeke/data/source/local/prefs.dart';
 import 'package:cakeke/view/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -10,6 +11,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await dotenv.load(fileName: 'assets/config/.env');
   await NaverMapSdk.instance.initialize(clientId: naverMapClientId);
+  await Prefs.init();
 
   runApp(const App());
 }

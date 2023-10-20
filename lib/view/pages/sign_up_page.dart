@@ -218,17 +218,17 @@ class _SiginUpPageState extends State<SiginUpPage> {
                 ),
               ),
               Visibility(
-                  visible: nowChapter >= 7,
+                  visible: nowChapter > 6,
                   child: CompleteView(
                       imageName: state.user.image, name: state.name)),
               BottomButton(
                 buttonActive: state.isButtonActive,
-                text: nowChapter < 6
+                text: nowChapter < 7
                     ? '다음'
-                    : (nowChapter > 7 ? '홈 화면으로 이동' : '완료하기'),
+                    : (nowChapter > 6 ? '홈 화면으로 이동' : '완료하기'),
                 onTap: () {
                   nowChapter++;
-                  if (nowChapter >= 7) {
+                  if (nowChapter > 6) {
                     Navigator.pushNamed(context, Routes.main);
                   } else {
                     context.read<SignUpBloc>().add(ButtonTapEvent(

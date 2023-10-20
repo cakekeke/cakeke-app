@@ -2,7 +2,9 @@ import 'package:cakeke/blocs/sign_up/sign_up_event.dart';
 import 'package:cakeke/blocs/sign_up/sign_up_state.dart';
 import 'package:cakeke/data/models/common/user.dart';
 import 'package:cakeke/data/providers/sign_up_provider.dart';
+import 'package:cakeke/data/repositories/auth_repository.dart';
 import 'package:cakeke/data/repositories/sign_up_repository.dart';
+import 'package:cakeke/data/source/local/prefs.dart';
 import 'package:cakeke/utils/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -53,9 +55,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
               image: user.image,
               checkPassword: state.checkPassword.join(),
               servicePurpose: user.servicePurpose)
-          .then((isComplete) {
+          .then((isComplete) async {
         if (isComplete) {
-          emit(state.copyWith(isButtonActive: false));
+          Prefs.setString(Prefs.id, user.userId);
+          Prefs.setString(Prefs.password, state.password.join());
+          Prefs.setString(Prefs.profileFileName, user.image);
         } else {
           Utils.showSnackBar(event.context, '회원가입에 실패하였습니다.');
         }
