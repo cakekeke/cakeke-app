@@ -69,10 +69,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     IdChangedEvent event,
     Emitter<SignUpState> emit,
   ) {
-    bool isValidId = true;
-    if (!RegExp(r"^[a-zA-Z0-9]*$").hasMatch(event.id) || event.id.length < 8) {
-      isValidId = false;
-    }
+    bool isValidId = Utils.validateId(event.id);
 
     emit(state.copyWith(
         user: state.user.copyWith(userId: event.id), isValidId: isValidId));

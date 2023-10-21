@@ -2,6 +2,7 @@ import 'package:cakeke/blocs/sign_in/sign_in_event.dart';
 import 'package:cakeke/blocs/sign_in/sign_in_state.dart';
 import 'package:cakeke/data/providers/sign_in_provider.dart';
 import 'package:cakeke/data/repositories/sign_in_repository.dart';
+import 'package:cakeke/utils/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
@@ -18,10 +19,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     IdChangedEvent event,
     Emitter<SignInState> emit,
   ) {
-    bool isValidId = true;
-    if (!RegExp(r"^[a-zA-Z0-9]*$").hasMatch(event.id) || event.id.length < 8) {
-      isValidId = false;
-    }
+    bool isValidId = Utils.validateId(event.id);
 
     emit(state.copyWith(
         id: event.id,

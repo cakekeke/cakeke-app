@@ -8,4 +8,8 @@ class Utils {
       content: Text(text),
     ));
   }
+
+  static bool validateId(String id) {
+    return RegExp(r"^[a-zA-Z0-9]*$").hasMatch(id) && id.length >= 8;
+  }
 }
