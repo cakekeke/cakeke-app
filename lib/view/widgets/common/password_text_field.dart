@@ -9,10 +9,12 @@ class PasswordTextField extends StatelessWidget {
     super.key,
     this.isPasswordCheck = false,
     this.enabled = true,
+    this.autoFocus = false,
   });
 
   final bool isPasswordCheck;
   final bool enabled;
+  final bool autoFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class PasswordTextField extends StatelessWidget {
                         ));
                   }
                 },
-                autoFocus: index == 0,
+                autoFocus: autoFocus && index == 0,
                 inputType: TextInputType.number,
                 maxLength: 1,
                 isPassword: true,
