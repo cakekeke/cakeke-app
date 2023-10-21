@@ -125,8 +125,15 @@ class _SiginUpPageState extends State<SiginUpPage> {
                               nowChapter: nowChapter,
                               thisChapter: 3,
                               fieldTitle: '한 번 더 입력해 주세요',
-                              child: const PasswordTextField(
-                                isPasswordCheck: true,
+                              child: PasswordTextField(
+                                onChanged: (text, index) {
+                                  context
+                                      .read<SignUpBloc>()
+                                      .add(RePasswordChangedEvent(
+                                        index: index,
+                                        rePassword: text,
+                                      ));
+                                },
                               )),
                         ),
                         VisibleFieldLayout(
@@ -135,6 +142,14 @@ class _SiginUpPageState extends State<SiginUpPage> {
                             fieldTitle: '비밀번호를 만들어 주세요',
                             child: PasswordTextField(
                               enabled: nowChapter < 3,
+                              onChanged: (text, index) {
+                                context
+                                    .read<SignUpBloc>()
+                                    .add(PasswordChangedEvent(
+                                      index: index,
+                                      password: text,
+                                    ));
+                              },
                             )),
                         VisibleFieldLayout(
                           nowChapter: nowChapter,

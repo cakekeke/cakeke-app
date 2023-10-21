@@ -1,4 +1,3 @@
-import 'package:cakeke/data/models/user_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class AuthState extends Equatable {}
@@ -9,12 +8,10 @@ class AuthStateUnknown extends AuthState {
 }
 
 class AuthStateAuthenticated extends AuthState {
-  final User user;
-
-  AuthStateAuthenticated({required this.user});
+  AuthStateAuthenticated();
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [];
 }
 
 class AuthStateUnauthenticated extends AuthState {
