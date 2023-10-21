@@ -3,7 +3,6 @@ import 'package:cakeke/blocs/sign_up/sign_up_state.dart';
 import 'package:cakeke/data/models/common/user.dart';
 import 'package:cakeke/data/providers/sign_up_provider.dart';
 import 'package:cakeke/data/repositories/sign_up_repository.dart';
-import 'package:cakeke/data/source/local/prefs.dart';
 import 'package:cakeke/utils/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -86,8 +85,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     final password = List.of(state.password);
     password[event.index] = event.password;
     emit(state.copyWith(
-      user: state.user.copyWith(password: password.join()),
-        password: password, isButtonActive: password.join().length > 5));
+        user: state.user.copyWith(password: password.join()),
+        password: password,
+        isButtonActive: password.join().length > 5));
   }
 
   void _handlePasswordCheckEvent(
