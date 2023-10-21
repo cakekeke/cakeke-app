@@ -4,7 +4,8 @@ import 'package:dio/dio.dart';
 class ApiClient {
   static final ApiClient client = ApiClient();
 
-  final Dio _clientDio = Dio(BaseOptions(baseUrl: baseUrl));
+  final Dio _clientDio =
+      Dio(BaseOptions(baseUrl: baseUrl, contentType: Headers.jsonContentType));
 
   get dio => _clientDio;
 

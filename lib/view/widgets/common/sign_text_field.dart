@@ -57,7 +57,7 @@ class SignTextField extends StatelessWidget {
             if (text.length == 1 && !isLast) {
               FocusScope.of(context).nextFocus();
             }
-            if (text.isEmpty && autoFocus) {
+            if (text.isEmpty) {
               FocusScope.of(context).previousFocus();
             }
           }

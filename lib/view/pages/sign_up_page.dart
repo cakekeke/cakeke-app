@@ -134,20 +134,36 @@ class _SiginUpPageState extends State<SiginUpPage> {
                                 Visibility(
                                   visible: nowChapter == 3,
                                   child: VisibleFieldLayout(
-                                      nowChapter: nowChapter,
-                                      thisChapter: 3,
-                                      fieldTitle: '한 번 더 입력해 주세요',
-                                      child: const PasswordTextField(
-                                        isPasswordCheck: true,
-                                      )),
+                                    nowChapter: nowChapter,
+                                    thisChapter: 3,
+                                    fieldTitle: '한 번 더 입력해 주세요',
+                                    child: PasswordTextField(
+                                      onChanged: (text, index) {
+                                        context
+                                            .read<SignUpBloc>()
+                                            .add(CheckPasswordChangedEvent(
+                                              index: index,
+                                              checkPassword: text,
+                                            ));
+                                      },
+                                    ),
+                                  ),
                                 ),
                                 VisibleFieldLayout(
-                                    nowChapter: nowChapter,
-                                    thisChapter: 2,
-                                    fieldTitle: '비밀번호를 만들어 주세요',
-                                    child: PasswordTextField(
-                                      enabled: nowChapter < 3,
-                                    )),
+                                  nowChapter: nowChapter,
+                                  thisChapter: 2,
+                                  fieldTitle: '비밀번호를 만들어 주세요',
+                                  child: PasswordTextField(
+                                    onChanged: (text, index) {
+                                      context.read<SignUpBloc>().add(
+                                            PasswordChangedEvent(
+                                              index: index,
+                                              password: text,
+                                            ),
+                                          );
+                                    },
+                                  ),
+                                ),
                                 VisibleFieldLayout(
                                   nowChapter: nowChapter,
                                   thisChapter: 1,

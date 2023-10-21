@@ -32,6 +32,8 @@ class Colors {
 
   Color get textHint => const Color(0xFFAAAAAA);
 
+  Color get textError => const Color(0xFFFF8080);
+
   Color get textTabDisabled => const Color(0xFF919191);
 
   Color get textCustomPink => const Color(0xFFFFB9DB);
