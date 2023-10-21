@@ -19,7 +19,7 @@ class SiginInPage extends StatelessWidget {
         appBarText: '로그인',
         bodyWidget:
             BlocBuilder<SignInBloc, SignInState>(builder: (context, state) {
-          if (state is SignInStateSuccess) {
+          if (state.loginSuccess == true) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.pushNamedAndRemoveUntil(
                   context, Routes.main, (route) => false);
@@ -76,7 +76,7 @@ class SiginInPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 34),
-                    if (state is SignInStateFailure)
+                    if (state.loginFailure == true)
                       Center(
                         child: Text(
                           "아이디 혹은 비밀번호가 일치하지 않습니다.",

@@ -35,6 +35,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   ) {
     final password = List.of(state.password);
     password[event.index] = event.password;
+
     emit(state.copyWith(
         password: password, isButtonActive: password.join().length > 5));
   }
@@ -43,15 +44,12 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     LoginEvent event,
     Emitter<SignInState> emit,
   ) async {
-    emit(const SignInStateLoading());
-
     try {
       await signInRepository.signin(id: event.id, password: event.password);
-      emit(const SignInStateSuccess(message: '로그인 성공'));
-      return;
+      emit(state.copyWith(
+          loginSuccess: true, loginFailure: false, isButtonActive: false));
     } catch (e) {
-      emit(const SignInStateFailure(message: '로그인 실패'));
-      return;
+      emit(state.copyWith(loginSuccess: false, loginFailure: true));
     }
   }
 }
