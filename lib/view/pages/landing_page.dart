@@ -23,6 +23,8 @@ class LandingPage extends StatelessWidget {
               context, Routes.main, (route) => false);
           FlutterNativeSplash.remove();
         });
+      } else if (state is AuthStateUnauthenticated) {
+        FlutterNativeSplash.remove();
       }
       return Scaffold(
         body: SafeArea(
