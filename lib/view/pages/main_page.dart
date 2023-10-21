@@ -1,5 +1,6 @@
 import 'package:cakeke/blocs/tab/tab_bloc.dart';
-import 'package:cakeke/view/pages/main/curation_page.dart';
+import 'package:cakeke/view/pages/main/map_page.dart';
+import 'package:cakeke/view/pages/main/reservation_page.dart';
 import 'package:cakeke/view/pages/main/custom_page.dart';
 import 'package:cakeke/view/pages/main/home_page.dart';
 import 'package:cakeke/view/pages/main/my_page.dart';
@@ -16,7 +17,13 @@ class MainPage extends StatelessWidget {
       return Scaffold(
         body: IndexedStack(
           index: state.tabIndex,
-          children: const [HomePage(), CurationPage(), CustomPage(), MyPage()],
+          children: const [
+            HomePage(),
+            MapPage(),
+            ReservationPage(),
+            CustomPage(),
+            MyPage()
+          ],
         ),
         bottomNavigationBar: const BottomNavigation(),
       );

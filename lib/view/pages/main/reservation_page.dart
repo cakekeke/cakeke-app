@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CurationPage extends StatelessWidget {
-  const CurationPage({super.key});
+class ReservationPage extends StatelessWidget {
+  const ReservationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("curation page"),
+      child: Text("reservation page"),
     );
   }
 }
