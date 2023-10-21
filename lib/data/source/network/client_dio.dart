@@ -13,18 +13,21 @@ class ApiClient {
     _clientDio.options.headers["Authorization"] = token;
   }
 
-  RequestOptions settingOptions(String method, String path,
-      {Map<String, dynamic>? headers,
-      Map<String, dynamic>? extra,
-      Map<String, dynamic>? queryParameters,
-      Map<String, dynamic>? data,
-      int? receiveTimeout}) {
+  RequestOptions clientOptions(
+    String method,
+    String path, {
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? data,
+    int? receiveTimeout,
+  }) {
     Map<String, dynamic> _extra = extra ?? {};
     final Map<String, dynamic> _queryParameters = queryParameters ?? {};
     final Map<String, dynamic> _headers = headers ?? {};
     final Map<String, dynamic> _data = data ?? {};
 
-    return Options(
+    final options = Options(
             method: method,
             headers: _headers,
             extra: _extra,
@@ -32,6 +35,8 @@ class ApiClient {
         .compose(_clientDio.options, path,
             queryParameters: _queryParameters, data: _data)
         .copyWith(baseUrl: _clientDio.options.baseUrl);
+
+    return setStreamType(options);
   }
 
   RequestOptions setStreamType<T>(RequestOptions requestOptions) {
