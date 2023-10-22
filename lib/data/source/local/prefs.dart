@@ -36,9 +36,6 @@ class Prefs {
 
   static Future<bool> clear() async => await _prefs.clear();
 
-  static const String id = "id";
-  static const String password = "password";
+  static const String name = "name";
   static const String profileFileName = "profilefilename";
-  static const String accessToken = "accesstoken";
-  static const String refreshToken = "refreshtoken";
 }

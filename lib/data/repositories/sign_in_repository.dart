@@ -13,7 +13,8 @@ class SignInRepository {
     required String password,
   }) async {
     final res = await signinProvider.signin(id: id, password: password);
-    await tokenRepository.saveAccessToken(res.accessToken);
+    await tokenRepository
+        .saveAccessToken('${res.grantType} ${res.accessToken}');
 
     return res;
   }
