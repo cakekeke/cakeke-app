@@ -1,16 +1,20 @@
 import 'package:cakeke/blocs/sign_up/sign_up_event.dart';
 import 'package:cakeke/blocs/sign_up/sign_up_state.dart';
-import 'package:cakeke/data/models/common/user.dart';
+import 'package:cakeke/data/models/common/sign_user.dart';
+import 'package:cakeke/data/providers/sign_in_provider.dart';
 import 'package:cakeke/data/providers/sign_up_provider.dart';
-import 'package:cakeke/data/repositories/auth_repository.dart';
+import 'package:cakeke/data/providers/user_provider.dart';
+import 'package:cakeke/data/repositories/sign_in_repository.dart';
 import 'package:cakeke/data/repositories/sign_up_repository.dart';
+import 'package:cakeke/data/repositories/user_repository.dart';
 import 'package:cakeke/data/source/local/prefs.dart';
+import 'package:cakeke/data/source/local/storage.dart';
 import 'package:cakeke/utils/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  SignUpBloc() : super(SignUpState(user: User())) {
+  SignUpBloc() : super(SignUpState(user: SignUser())) {
     on<IdDuplicationCheck>(_handleDuplicationIdCheckEvent);
     on<IdChangedEvent>(_handleIdChangedEvent);
     on<ButtonTapEvent>(_handleButtonTapEvent);
@@ -20,9 +24,46 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<ProfileIdChangedEvent>(_handleProfileIdChangedEvent);
     on<BirthChangedEvent>(_handleBirthChangedEvent);
     on<SexChangedEvent>(_handleSexChangedEvent);
+    on<SignUpProgressEvent>(_handleSignUpProgressEvent);
   }
 
-  final repository = SignUpRepository(signUpProvider: SignUpProvider());
+  final SignUpRepository repository =
+      SignUpRepository(signUpProvider: SignUpProvider());
+
+  Future<void> _handleSignUpProgressEvent(
+    SignUpProgressEvent event,
+    Emitter<SignUpState> emit,
+  ) async {
+    final user = state.user;
+
+    await repository
+        .signUp(
+            userId: user.userId,
+            age: user.age,
+            sex: user.sex,
+            password: user.password,
+            image: user.image,
+            checkPassword: state.checkPassword.join(),
+            servicePurpose: user.servicePurpose)
+        .then((isComplete) async {
+      if (isComplete) {
+        await SignInRepository(signinProvider: SignInProvider())
+            .signin(id: user.userId, password: state.password.join());
+        final userInfo =
+            await UserRepository(userProvider: UserProvider()).getUser();
+
+        Storage.write(Storage.id, user.userId);
+        Storage.write(Storage.password, state.password.join());
+        Prefs.setString(Prefs.profileFileName, user.image);
+        Prefs.setString(Prefs.name, userInfo.name);
+        emit(state.copyWith(name: userInfo.name, chapter: state.chapter + 1));
+      } else {
+        Utils.showSnackBar(event.context, '회원가입에 실패하였습니다.');
+      }
+    }).catchError((_) {
+      Utils.showSnackBar(event.context, '회원가입 중 오류가 발생하였습니다.');
+    });
+  }
 
   Future<void> _handleDuplicationIdCheckEvent(
     IdDuplicationCheck event,
@@ -39,34 +80,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     ButtonTapEvent event,
     Emitter<SignUpState> emit,
   ) async {
-    if (event.isPurposeLevel) {
+    if (event.isNextPurposeLevel) {
       final result = await repository.getServicePurpose();
       emit(state.copyWith(purpose: result));
     }
-    if (event.isLastSignLevel) {
-      final user = state.user;
 
-      await repository
-          .signUp(
-              userId: user.userId,
-              age: user.age,
-              sex: user.sex,
-              password: user.password,
-              image: user.image,
-              checkPassword: state.checkPassword.join(),
-              servicePurpose: user.servicePurpose)
-          .then((isComplete) async {
-        if (isComplete) {
-          Prefs.setString(Prefs.id, user.userId);
-          Prefs.setString(Prefs.password, state.password.join());
-          Prefs.setString(Prefs.profileFileName, user.image);
-        } else {
-          Utils.showSnackBar(event.context, '회원가입에 실패하였습니다.');
-        }
-      });
-    } else {
-      emit(state.copyWith(isButtonActive: false));
-    }
+    emit(state.copyWith(isButtonActive: false, chapter: state.chapter + 1));
   }
 
   void _handleIdChangedEvent(

@@ -6,6 +6,15 @@ abstract class SignUpEvent extends Equatable {
   const SignUpEvent();
 }
 
+class SignUpProgressEvent extends SignUpEvent {
+  const SignUpProgressEvent({required this.context});
+
+  final BuildContext context;
+
+  @override
+  List<Object?> get props => [context];
+}
+
 class ButtonPressedEvent extends SignUpEvent {
   const ButtonPressedEvent();
 
@@ -16,16 +25,14 @@ class ButtonPressedEvent extends SignUpEvent {
 class ButtonTapEvent extends SignUpEvent {
   const ButtonTapEvent({
     required this.context,
-    required this.isLastSignLevel,
-    required this.isPurposeLevel,
+    required this.isNextPurposeLevel,
   });
 
   final BuildContext context;
-  final bool isLastSignLevel;
-  final bool isPurposeLevel;
+  final bool isNextPurposeLevel;
 
   @override
-  List<Object?> get props => [context, isLastSignLevel, isPurposeLevel];
+  List<Object?> get props => [context, isNextPurposeLevel];
 }
 
 class IdChangedEvent extends SignUpEvent {

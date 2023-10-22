@@ -18,28 +18,19 @@ import 'package:cakeke/view/widgets/sign_up/visible_field_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SiginUpPage extends StatefulWidget {
+class SiginUpPage extends StatelessWidget {
   const SiginUpPage({super.key});
 
   @override
-  State<SiginUpPage> createState() => _SiginUpPageState();
-}
-
-class _SiginUpPageState extends State<SiginUpPage> {
-  int nowChapter = 1;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return ScaffoldLayout(
-        appBarText: nowChapter < 7 ? '회원가입' : null,
-        bodyWidget:
-            BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
-          return Column(
+    return BlocProvider(
+      create: (_) => SignUpBloc(),
+      child: BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
+        final nowChapter = state.chapter;
+
+        return ScaffoldLayout(
+          appBarText: nowChapter < 7 ? '회원가입' : null,
+          bodyWidget: Column(
             children: [
               Visibility(
                 visible: nowChapter < 7,
@@ -227,19 +218,22 @@ class _SiginUpPageState extends State<SiginUpPage> {
                     ? '다음'
                     : (nowChapter > 6 ? '홈 화면으로 이동' : '완료하기'),
                 onTap: () {
-                  nowChapter++;
                   if (nowChapter > 6) {
                     Navigator.pushNamed(context, Routes.main);
+                  } else if (nowChapter > 5) {
+                    context.read<SignUpBloc>().add(SignUpProgressEvent(
+                          context: context,
+                        ));
                   } else {
                     context.read<SignUpBloc>().add(ButtonTapEvent(
-                        context: context,
-                        isLastSignLevel: nowChapter >= 7,
-                        isPurposeLevel: nowChapter == 5));
+                        context: context, isNextPurposeLevel: nowChapter == 4));
                   }
                 },
               )
             ],
-          );
-        }));
+          ),
+        );
+      }),
+    );
   }
 }

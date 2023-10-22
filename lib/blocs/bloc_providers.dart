@@ -11,7 +11,6 @@ class AppBlocProviders {
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => TabBloc()),
         BlocProvider(create: (context) => HomeBloc()),
-        BlocProvider(create: (context) => SignUpBloc()),
         BlocProvider(create: (context) => SignInBloc()),
         BlocProvider(create: (context) => CustomBloc()),
       ];

@@ -1,5 +1,5 @@
 import 'package:cakeke/data/models/sign_up/service_purpose.dart';
-import 'package:cakeke/data/models/common/user.dart';
+import 'package:cakeke/data/models/common/sign_user.dart';
 import 'package:equatable/equatable.dart';
 
 class SignUpState extends Equatable {
@@ -12,6 +12,7 @@ class SignUpState extends Equatable {
     this.purpose = const [],
     this.password = const ['', '', '', '', '', ''],
     this.checkPassword = const ['', '', '', '', '', ''],
+    this.chapter = 1,
     this.name = '',
   });
 
@@ -24,7 +25,8 @@ class SignUpState extends Equatable {
   final List<String> password;
   final List<String> checkPassword;
   final String name;
-  final User user;
+  final int chapter;
+  final SignUser user;
 
   SignUpState copyWith({
     bool? isDuplicationId,
@@ -35,7 +37,8 @@ class SignUpState extends Equatable {
     List<String>? password,
     List<String>? checkPassword,
     String? name,
-    User? user,
+    int? chapter,
+    SignUser? user,
   }) {
     return SignUpState(
       isDuplicationId: isDuplicationId ?? this.isDuplicationId,
@@ -46,6 +49,7 @@ class SignUpState extends Equatable {
       checkPassword: checkPassword ?? this.checkPassword,
       password: password ?? this.password,
       name: name ?? this.name,
+      chapter: chapter ?? this.chapter,
       user: user ?? this.user,
     );
   }
@@ -60,6 +64,7 @@ class SignUpState extends Equatable {
         checkPassword,
         password,
         name,
+        chapter,
         user,
       ];
 }
