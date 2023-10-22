@@ -36,6 +36,7 @@ class Prefs {
 
   static Future<bool> clear() async => await _prefs.clear();
 
+  static const String appInstallFlag = "app_install_flag";
   static const String name = "name";
-  static const String profileFileName = "profilefilename";
+  static const String profileFileName = "profile_file_name";
 }
