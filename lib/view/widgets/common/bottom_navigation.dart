@@ -17,11 +17,15 @@ class BottomNavigation extends StatelessWidget {
                 label: '홈',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.text_snippet),
-                label: '큐레이션',
+                icon: Icon(Icons.map),
+                label: '지도',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.text_snippet),
+                icon: Icon(Icons.edit_document),
+                label: '예약',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.light_mode),
                 label: '커스텀',
               ),
               BottomNavigationBarItem(
