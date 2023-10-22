@@ -1,4 +1,4 @@
-class User {
+class SignUser {
   String userId = '';
   String sex = '';
   int age = 0;
@@ -6,7 +6,7 @@ class User {
   String servicePurpose = '';
   String image = '';
 
-  User(
+  SignUser(
       {this.userId = '',
       this.sex = '',
       this.age = 0,
@@ -14,7 +14,7 @@ class User {
       this.servicePurpose = '',
       this.image = ''});
 
-  User.fromJson(Map<String, dynamic> json) {
+  SignUser.fromJson(Map<String, dynamic> json) {
     userId = json['userId'];
     sex = json['sex'];
     age = json['age'];
@@ -34,7 +34,7 @@ class User {
     return data;
   }
 
-  User copyWith({
+  SignUser copyWith({
     String? userId,
     String? email,
     String? sex,
@@ -43,7 +43,7 @@ class User {
     String? servicePurpose,
     String? image,
   }) {
-    return User(
+    return SignUser(
       userId: userId ?? this.userId,
       sex: sex ?? this.sex,
       age: age ?? this.age,
