@@ -70,6 +70,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     Emitter<SignUpState> emit,
   ) async {
     await repository.checkIdDuplicate(state.user.userId).then((isDuplication) {
+      if(isDuplication){
+        Utils.showSnackBar(event.context, '중복되는 아이디 입니다.');
+      }
+
       emit(state.copyWith(
           isDuplicationId: isDuplication,
           isButtonActive: isDuplication == false));

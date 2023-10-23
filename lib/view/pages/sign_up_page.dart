@@ -181,7 +181,8 @@ class SiginUpPage extends StatelessWidget {
                                           DuplicationCheckButton(
                                             onTap: () {
                                               context.read<SignUpBloc>().add(
-                                                  const IdDuplicationCheck());
+                                                  IdDuplicationCheck(
+                                                      context: context));
                                             },
                                             text: state.user.userId,
                                           )
@@ -195,6 +196,7 @@ class SiginUpPage extends StatelessWidget {
                                                     .colors.allowedGreen
                                                 : DesignSystem
                                                     .colors.unacceptableRed),
+                                          isDuplicationId:state.isDuplicationId
                                       )
                                     ],
                                   ),
