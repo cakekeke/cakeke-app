@@ -11,7 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SiginInPage extends StatelessWidget {
-  const SiginInPage({super.key});
+  SiginInPage({super.key});
+
+  final passwordController = [
+    for (int index = 0; index < 6; index++) TextEditingController(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +72,7 @@ class SiginInPage extends StatelessWidget {
                         const SizedBox(height: 12),
                         PasswordTextField(
                           autoFocus: false,
+                          controllerList: passwordController,
                           onChanged: (text, index) {
                             context.read<SignInBloc>().add(PasswordChangedEvent(
                                 password: text, index: index));

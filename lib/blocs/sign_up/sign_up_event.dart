@@ -47,10 +47,12 @@ class IdChangedEvent extends SignUpEvent {
 }
 
 class IdDuplicationCheck extends SignUpEvent {
-  const IdDuplicationCheck();
+  const IdDuplicationCheck({required this.context});
+
+  final BuildContext context;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [context];
 }
 
 class PasswordChangedEvent extends SignUpEvent {

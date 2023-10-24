@@ -5,6 +5,7 @@ class SignTextField extends StatelessWidget {
   const SignTextField({
     super.key,
     required this.onChanged,
+    this.controller,
     this.hintText,
     this.inputType,
     this.maxLength,
@@ -15,6 +16,7 @@ class SignTextField extends StatelessWidget {
   });
 
   final Function(String) onChanged;
+  final TextEditingController? controller;
   final TextInputType? inputType;
   final String? hintText;
   final int? maxLength;
@@ -27,6 +29,7 @@ class SignTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
         enabled: enabled,
+        controller: controller,
         autofocus: autoFocus,
         obscureText: isPassword,
         maxLength: maxLength,
@@ -53,14 +56,6 @@ class SignTextField extends StatelessWidget {
         ),
         onChanged: (text) {
           onChanged(text);
-          if (isPassword) {
-            if (text.length == 1 && !isLast) {
-              FocusScope.of(context).nextFocus();
-            }
-            if (text.isEmpty) {
-              FocusScope.of(context).previousFocus();
-            }
-          }
         });
   }
 }
