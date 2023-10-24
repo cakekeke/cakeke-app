@@ -69,15 +69,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     IdDuplicationCheck event,
     Emitter<SignUpState> emit,
   ) async {
-    await repository.checkIdDuplicate(state.user.userId).then((isDuplication) {
-      if(isDuplication){
-        Utils.showSnackBar(event.context, '중복되는 아이디 입니다.');
-      }
+    final isDuplication = await repository.checkIdDuplicate(state.user.userId);
 
-      emit(state.copyWith(
-          isDuplicationId: isDuplication,
-          isButtonActive: isDuplication == false));
-    });
+    if (isDuplication && event.context.mounted) {
+      Utils.showSnackBar(event.context, '중복되는 아이디 입니다.');
+    }
+
+    emit(state.copyWith(
+        isDuplicationId: isDuplication,
+        isButtonActive: isDuplication == false));
   }
 
   Future<void> _handleButtonTapEvent(
@@ -140,7 +140,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           user: state.user.copyWith(
             age: DateTime.now().year - birthDate.year,
           ),
-          isButtonActive: state.user.age != 0 && state.user.sex.isNotEmpty));
+          isButtonActive: event.birth.length > 5 && state.user.sex.isNotEmpty));
+    } else {
+      emit(state.copyWith(
+        user: state.user.copyWith(age: 0),
+      ));
     }
   }
 
@@ -151,7 +155,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     final sex = (event.sex == "2" || event.sex == "4") ? "여성" : "남성";
     emit(state.copyWith(
         user: state.user.copyWith(sex: sex),
-        isButtonActive: state.user.age != 0 && state.user.sex.isNotEmpty));
+        isButtonActive: state.user.age != 0 && event.sex.isNotEmpty));
   }
 
   void _handlePurposeChangedEvent(
