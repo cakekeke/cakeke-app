@@ -19,7 +19,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SiginUpPage extends StatelessWidget {
-  const SiginUpPage({super.key});
+  SiginUpPage({super.key});
+
+  final passwordController = [
+    for (int index = 0; index < 6; index++) TextEditingController(),
+  ];
+  final checkPasswordController = [
+    for (int index = 0; index < 6; index++) TextEditingController(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +144,7 @@ class SiginUpPage extends StatelessWidget {
                                               checkPassword: text,
                                             ));
                                       },
+                                      controllerList: checkPasswordController,
                                     ),
                                   ),
                                 ),
@@ -145,6 +153,7 @@ class SiginUpPage extends StatelessWidget {
                                   thisChapter: 2,
                                   fieldTitle: '비밀번호를 만들어 주세요',
                                   child: PasswordTextField(
+                                    controllerList: passwordController,
                                     onChanged: (text, index) {
                                       context.read<SignUpBloc>().add(
                                             PasswordChangedEvent(
@@ -189,15 +198,15 @@ class SiginUpPage extends StatelessWidget {
                                         ],
                                       ),
                                       DuplicationCheckText(
-                                        color: state.isValidId == null
-                                            ? DesignSystem.colors.textTertiary
-                                            : (state.isValidId!
-                                                ? DesignSystem
-                                                    .colors.allowedGreen
-                                                : DesignSystem
-                                                    .colors.unacceptableRed),
-                                          isDuplicationId:state.isDuplicationId
-                                      )
+                                          color: state.isValidId == null
+                                              ? DesignSystem.colors.textTertiary
+                                              : (state.isValidId!
+                                                  ? DesignSystem
+                                                      .colors.allowedGreen
+                                                  : DesignSystem
+                                                      .colors.unacceptableRed),
+                                          isDuplicationId:
+                                              state.isDuplicationId)
                                     ],
                                   ),
                                 ),
