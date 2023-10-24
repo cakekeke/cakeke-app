@@ -8,7 +8,6 @@ class UserProvider {
     try {
       final response = await client.dio
           .fetch<Map<String, dynamic>>(client.clientOptions('GET', '/users'));
-
       return User.fromJson(response.data);
     } catch (e) {
       throw Exception(e);
