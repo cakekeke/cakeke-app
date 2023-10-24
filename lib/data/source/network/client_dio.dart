@@ -1,5 +1,4 @@
 import 'package:cakeke/config/api_config.dart';
-import 'package:cakeke/data/source/local/storage.dart';
 import 'package:dio/dio.dart';
 
 class ApiClient {
@@ -9,14 +8,6 @@ class ApiClient {
       Dio(BaseOptions(baseUrl: baseUrl, contentType: Headers.jsonContentType));
 
   get dio => _clientDio;
-
-  ApiClient() {
-    Storage.read(Storage.accessToken).then((token) {
-      if (token != null) {
-        _clientDio.options.headers["Authorization"] = token;
-      }
-    });
-  }
 
   void setClientUpdateToken(String token) {
     _clientDio.options.headers["Authorization"] = token;
