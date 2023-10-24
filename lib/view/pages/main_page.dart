@@ -18,11 +18,21 @@ class MainPage extends StatelessWidget {
         body: IndexedStack(
           index: state.tabIndex,
           children: const [
-            HomePage(),
-            MapPage(),
-            ReservationPage(),
-            CustomPage(),
-            MyPage()
+            HomePage(
+              key: PageStorageKey("home"),
+            ),
+            MapPage(
+              key: PageStorageKey("map"),
+            ),
+            ReservationPage(
+              key: PageStorageKey("reservation"),
+            ),
+            CustomPage(
+              key: PageStorageKey("custom"),
+            ),
+            MyPage(
+              key: PageStorageKey("my"),
+            )
           ],
         ),
         bottomNavigationBar: const BottomNavigation(),
