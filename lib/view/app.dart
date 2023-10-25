@@ -1,4 +1,4 @@
-import 'package:cakeke/blocs/bloc_providers.dart';
+import 'package:cakeke/blocs/multi_providers/bloc_providers.dart';
 import 'package:cakeke/config/routes/router_generator.dart';
 import 'package:cakeke/config/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: AppBlocProviders.allBlocProviders,
+      providers: AppBlocProviders.landingPageBlocProviders,
       child: const MaterialApp(
         title: 'Cakeke',
         debugShowCheckedModeBanner: false,
