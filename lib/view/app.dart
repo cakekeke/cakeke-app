@@ -1,4 +1,4 @@
-import 'package:cakeke/blocs/multi_providers/bloc_providers.dart';
+import 'package:cakeke/blocs/bloc_providers.dart';
 import 'package:cakeke/config/routes/router_generator.dart';
 import 'package:cakeke/config/routes/routes.dart';
 import 'package:flutter/material.dart';

@@ -10,35 +10,38 @@ class VersionInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Icon(
-          Icons.phone_iphone,
-          size: 24,
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-            child: Row(
-          children: [
-            const Text(
-              "현재버전",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Text(
-              version,
-              style: const TextStyle(
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.security_update,
+            size: 24,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+              child: Row(
+            children: [
+              const Text(
+                "현재버전",
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  color: Color(0xffC1C1C1)),
-            ),
-          ],
-        )),
-      ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                version,
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xffC1C1C1)),
+              ),
+            ],
+          )),
+        ],
+      ),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:cakeke/blocs/auth/auth_bloc.dart';
 import 'package:cakeke/blocs/auth/auth_state.dart';
-import 'package:cakeke/blocs/multi_providers/bloc_providers.dart';
+import 'package:cakeke/blocs/bloc_providers.dart';
 import 'package:cakeke/blocs/tab/tab_bloc.dart';
 import 'package:cakeke/config/routes/routes.dart';
 import 'package:cakeke/view/pages/main/map_page.dart';

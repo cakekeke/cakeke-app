@@ -2,6 +2,7 @@ import 'package:cakeke/blocs/auth/auth_bloc.dart';
 import 'package:cakeke/blocs/auth/auth_event.dart';
 import 'package:cakeke/blocs/auth/auth_state.dart';
 import 'package:cakeke/config/routes/routes.dart';
+import 'package:cakeke/view/pages/splash_page.dart';
 import 'package:cakeke/view/widgets/landing/landing_logo.dart';
 import 'package:cakeke/view/widgets/landing/signin_button.dart';
 import 'package:cakeke/view/widgets/landing/signup_button.dart';
@@ -25,34 +26,35 @@ class LandingPage extends StatelessWidget {
         });
       } else if (state is AuthStateUnauthenticated) {
         FlutterNativeSplash.remove();
-      }
-      return Scaffold(
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Expanded(
-                child: Center(
-                  child: LandingLogo(),
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Expanded(
+                  child: Center(
+                    child: LandingLogo(),
+                  ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    SignupButton(),
-                    SizedBox(height: 16),
-                    SigninButton()
-                  ],
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SignupButton(),
+                      SizedBox(height: 16),
+                      SigninButton()
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 40),
-            ],
+                const SizedBox(height: 40),
+              ],
+            ),
           ),
-        ),
-      );
+        );
+      }
+      return const SplashPage();
     });
   }
 }

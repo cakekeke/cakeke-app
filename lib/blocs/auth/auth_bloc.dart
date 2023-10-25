@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthStateUnknown()) {
     on<AppStarted>(_onAppStarted);
+    on<AuthEventSignout>(_onSignout);
+    on<AuthEventWithdrawal>(_onWithdrawal);
   }
 
   final AuthRepository authRepository = AuthRepository();
@@ -20,5 +22,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else {
       emit(AuthStateUnauthenticated());
     }
+  }
+
+  void _onSignout(AuthEventSignout event, Emitter<AuthState> emit) async {
+    await authRepository.signout();
+    emit(AuthStateUnknown());
+  }
+
+  void _onWithdrawal(AuthEventWithdrawal event, Emitter<AuthState> emit) async {
+    await authRepository.withdrawal();
+    emit(AuthStateUnknown());
   }
 }

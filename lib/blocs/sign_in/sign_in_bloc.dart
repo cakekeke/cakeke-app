@@ -10,6 +10,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     on<IdChangedEvent>(_handleIdChangedEvent);
     on<PasswordChangedEvent>(_handlePasswordChangedEvent);
     on<LoginEvent>(_handleLoginEvent);
+    on<LoginSucessEvent>(_handleLoginSucessEvent);
   }
 
   final SignInRepository signInRepository =
@@ -49,5 +50,12 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     } catch (e) {
       emit(state.copyWith(loginSuccess: false, loginFailure: true));
     }
+  }
+
+  void _handleLoginSucessEvent(
+    LoginSucessEvent event,
+    Emitter<SignInState> emit,
+  ) {
+    emit(state.copyWith(loginSuccess: false, loginFailure: false));
   }
 }

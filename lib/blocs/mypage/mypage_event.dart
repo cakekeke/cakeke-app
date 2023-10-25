@@ -12,3 +12,16 @@ class MypageInitialEvent extends MypageEvent {
   @override
   List<Object> get props => [];
 }
+
+class MypagePageChanged extends MypageEvent {
+  const MypagePageChanged({
+    required this.selectedPage,
+  });
+
+  final int selectedPage;
+
+  @override
+  List<Object> get props => [
+        selectedPage,
+      ];
+}

@@ -25,6 +25,7 @@ class SiginInPage extends StatelessWidget {
             BlocBuilder<SignInBloc, SignInState>(builder: (context, state) {
           if (state.loginSuccess == true) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
+              context.read<SignInBloc>().add(const LoginSucessEvent());
               Navigator.pushNamedAndRemoveUntil(
                   context, Routes.main, (route) => false);
             });
