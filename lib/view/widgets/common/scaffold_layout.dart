@@ -5,11 +5,13 @@ class ScaffoldLayout extends StatelessWidget {
   const ScaffoldLayout({
     super.key,
     this.appBarText,
+    this.isSafeArea = false,
     required this.bodyWidget,
   });
 
   final String? appBarText;
   final Widget bodyWidget;
+  final bool isSafeArea;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,11 @@ class ScaffoldLayout extends StatelessWidget {
               ),
             )
           : null,
-      body: bodyWidget,
+      body: isSafeArea
+          ? SafeArea(
+              child: bodyWidget,
+            )
+          : bodyWidget,
     );
   }
 }

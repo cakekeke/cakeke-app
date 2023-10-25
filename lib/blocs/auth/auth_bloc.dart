@@ -1,6 +1,7 @@
 import 'package:cakeke/blocs/auth/auth_event.dart';
 import 'package:cakeke/blocs/auth/auth_state.dart';
 import 'package:cakeke/data/repositories/auth_repository.dart';
+import 'package:cakeke/data/repositories/token_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -14,6 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthStateLoading());
     final String? accessToken = await authRepository.checkToken();
     if (accessToken != null) {
+      TokenRepository().saveAccessToken(accessToken);
       emit(AuthStateAuthenticated());
     } else {
       emit(AuthStateUnauthenticated());
