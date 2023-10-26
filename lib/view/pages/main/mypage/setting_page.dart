@@ -18,6 +18,7 @@ class SettingPage extends StatelessWidget {
       builder: (context, state) {
         return ScaffoldLayout(
             appBarText: "설정",
+            isDetailPage: true,
             onBackButtonPressed: () {
               context.read<MypageBloc>().add(const MypagePageChanged(
                     selectedPage: 0,

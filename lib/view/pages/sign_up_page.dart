@@ -37,6 +37,7 @@ class SiginUpPage extends StatelessWidget {
 
         return ScaffoldLayout(
           appBarText: nowChapter < 7 ? '회원가입' : null,
+          isDetailPage: true,
           bodyWidget: Column(
             children: [
               Visibility(

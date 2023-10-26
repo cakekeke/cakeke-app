@@ -1,12 +1,12 @@
-import 'package:cakeke/blocs/home/home_event.dart';
+import 'package:cakeke/blocs/map/map_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:location/location.dart';
 
-import 'home_state.dart';
+import 'map_state.dart';
 
-class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(HomeState(location: Location())) {
+class MapBloc extends Bloc<MapEvent, MapState> {
+  MapBloc() : super(MapState(location: Location())) {
     on<SetMapControllerEvent>(_handleSetMapControllerEvent);
     on<SetCurrentLocationEvent>(_handleSetCurrentLocationEvent);
     on<SearchTextChangedEvent>(_handleSearchTextChangedEvent);
@@ -15,14 +15,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   void _handleSetMapControllerEvent(
     SetMapControllerEvent event,
-    Emitter<HomeState> emit,
+    Emitter<MapState> emit,
   ) {
     emit(state.copyWith(mapController: event.mapController));
   }
 
   Future<void> _handleSetCurrentLocationEvent(
     SetCurrentLocationEvent event,
-    Emitter<HomeState> emit,
+    Emitter<MapState> emit,
   ) async {
     try {
       final userLocation = await state.location?.getLocation();
@@ -39,14 +39,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   void _handleSearchTextChangedEvent(
     SearchTextChangedEvent event,
-    Emitter<HomeState> emit,
+    Emitter<MapState> emit,
   ) {
     emit(state.copyWith(searchText: event.searchText));
   }
 
   void _handleSearchTextEvent(
     SearchTextEvent event,
-    Emitter<HomeState> emit,
+    Emitter<MapState> emit,
   ) {
     final searchText = event.searchText ?? state.searchText;
 

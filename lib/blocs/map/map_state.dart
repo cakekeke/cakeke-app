@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:location/location.dart';
 
-class HomeState extends Equatable {
-  const HomeState({
+class MapState extends Equatable {
+  const MapState({
     this.location,
     this.mapController,
     this.searchText = '',
@@ -13,12 +13,12 @@ class HomeState extends Equatable {
   final NaverMapController? mapController;
   final String searchText;
 
-  HomeState copyWith({
+  MapState copyWith({
     Location? location,
     NaverMapController? mapController,
     String? searchText,
   }) {
-    return HomeState(
+    return MapState(
       location: location ?? this.location,
       mapController: mapController ?? this.mapController,
       searchText: searchText ?? this.searchText,

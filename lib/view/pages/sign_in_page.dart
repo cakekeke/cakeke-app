@@ -21,6 +21,7 @@ class SiginInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldLayout(
         appBarText: '로그인',
+        isDetailPage: true,
         bodyWidget:
             BlocBuilder<SignInBloc, SignInState>(builder: (context, state) {
           if (state.loginSuccess == true) {
