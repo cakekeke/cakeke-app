@@ -32,3 +32,10 @@ final class AuthEventSignout extends AuthEvent {
   @override
   List<Object> get props => [];
 }
+
+final class AuthEventWithdrawal extends AuthEvent {
+  const AuthEventWithdrawal();
+
+  @override
+  List<Object> get props => [];
+}

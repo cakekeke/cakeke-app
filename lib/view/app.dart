@@ -9,7 +9,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: AppBlocProviders.allBlocProviders,
+      providers: AppBlocProviders.landingPageBlocProviders,
       child: const MaterialApp(
         title: 'Cakeke',
         debugShowCheckedModeBanner: false,

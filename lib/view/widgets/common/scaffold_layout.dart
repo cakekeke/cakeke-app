@@ -6,12 +6,14 @@ class ScaffoldLayout extends StatelessWidget {
     super.key,
     this.appBarText,
     this.isSafeArea = false,
+    this.onBackButtonPressed,
     required this.bodyWidget,
   });
 
   final String? appBarText;
   final Widget bodyWidget;
   final bool isSafeArea;
+  final VoidCallback? onBackButtonPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,11 @@ class ScaffoldLayout extends StatelessWidget {
               backgroundColor: Colors.transparent,
               leading: GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  if (onBackButtonPressed != null) {
+                    onBackButtonPressed!();
+                  } else {
+                    Navigator.pop(context);
+                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 18),

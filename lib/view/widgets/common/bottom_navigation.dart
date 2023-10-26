@@ -1,3 +1,5 @@
+import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
+import 'package:cakeke/blocs/mypage/mypage_event.dart';
 import 'package:cakeke/blocs/tab/tab_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +45,10 @@ class BottomNavigation extends StatelessWidget {
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
             onTap: (index) {
-              final tabBloc = BlocProvider.of<TabBloc>(context);
-              tabBloc.add(TabChanged(selectedIndex: index));
+              context.read<TabBloc>().add(TabChanged(selectedIndex: index));
+              context
+                  .read<MypageBloc>()
+                  .add(const MypagePageChanged(selectedPage: 0));
             });
       },
     );

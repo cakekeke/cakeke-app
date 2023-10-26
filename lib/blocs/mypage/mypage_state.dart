@@ -5,18 +5,22 @@ class MypageState extends Equatable {
   const MypageState({
     this.user,
     this.version,
+    this.selectedPage = 0,
   });
 
   final User? user;
   final String? version;
+  final int selectedPage;
 
   MypageState copyWith({
     User? user,
     String? version,
+    int? selectedPage,
   }) {
     return MypageState(
       user: user ?? this.user,
       version: version ?? this.version,
+      selectedPage: selectedPage ?? this.selectedPage,
     );
   }
 
@@ -24,5 +28,6 @@ class MypageState extends Equatable {
   List<Object?> get props => [
         user,
         version,
+        selectedPage,
       ];
 }

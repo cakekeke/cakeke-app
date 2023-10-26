@@ -42,3 +42,10 @@ class LoginEvent extends SignInEvent {
   @override
   List<Object> get props => [id, password];
 }
+
+class LoginSucessEvent extends SignInEvent {
+  const LoginSucessEvent();
+
+  @override
+  List<Object> get props => [];
+}

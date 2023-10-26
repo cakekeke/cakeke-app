@@ -7,11 +7,14 @@ import 'package:cakeke/blocs/tab/tab_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppBlocProviders {
-  static get allBlocProviders => [
+  static get landingPageBlocProviders => [
         BlocProvider(create: (context) => AuthBloc()),
+        BlocProvider(create: (context) => SignInBloc()),
+      ];
+
+  static get mainPageBlocProviders => [
         BlocProvider(create: (context) => TabBloc()),
         BlocProvider(create: (context) => HomeBloc()),
-        BlocProvider(create: (context) => SignInBloc()),
         BlocProvider(create: (context) => CustomBloc()),
         BlocProvider(create: (context) => MypageBloc()),
       ];
