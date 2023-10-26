@@ -1,3 +1,4 @@
+import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/view/widgets/common/score_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -43,12 +44,12 @@ class StoreCard extends StatelessWidget {
                         ? Icon(
                             Icons.favorite,
                             size: 20,
-                            color: Color(0xffF7476C),
+                            color: DesignSystem.colors.appPrimary,
                           )
                         : Icon(
                             Icons.favorite_border,
                             size: 20,
-                            color: Color(0xffF7476C),
+                            color: DesignSystem.colors.appPrimary,
                           )
                   ],
                 ),
