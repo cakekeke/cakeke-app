@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 @immutable
-abstract class HomeEvent extends Equatable {
-  const HomeEvent();
+abstract class MapEvent extends Equatable {
+  const MapEvent();
 }
 
-class SetMapControllerEvent extends HomeEvent {
+class SetMapControllerEvent extends MapEvent {
   const SetMapControllerEvent({
     required this.mapController,
   });
@@ -18,14 +18,14 @@ class SetMapControllerEvent extends HomeEvent {
   List<Object?> get props => [mapController];
 }
 
-class SetCurrentLocationEvent extends HomeEvent {
+class SetCurrentLocationEvent extends MapEvent {
   const SetCurrentLocationEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class SearchTextChangedEvent extends HomeEvent {
+class SearchTextChangedEvent extends MapEvent {
   const SearchTextChangedEvent({
     required this.searchText,
   });
@@ -36,7 +36,7 @@ class SearchTextChangedEvent extends HomeEvent {
   List<Object?> get props => [searchText];
 }
 
-class SearchTextEvent extends HomeEvent {
+class SearchTextEvent extends MapEvent {
   const SearchTextEvent({
     this.searchText,
   });

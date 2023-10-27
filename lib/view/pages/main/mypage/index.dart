@@ -6,7 +6,7 @@ import 'package:cakeke/view/pages/main/mypage/setting_page.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/main/mypage/mypage_action_button.dart';
 import 'package:cakeke/view/widgets/main/mypage/mypage_sub_title.dart';
-import 'package:cakeke/view/widgets/main/mypage/mypage_title.dart';
+import 'package:cakeke/view/widgets/common/scaffold_main_appbar.dart';
 import 'package:cakeke/view/widgets/main/mypage/version_info.dart';
 import 'package:cakeke/view/widgets/main/mypage/voc_button.dart';
 import 'package:flutter/material.dart';
@@ -26,10 +26,10 @@ class Mypage extends StatelessWidget {
           index: state.selectedPage,
           children: [
             ScaffoldLayout(
+              appBarText: "마이페이지",
               isSafeArea: true,
               bodyWidget: Column(
                 children: [
-                  const MypageTitle(),
                   MypageSubTitle(name: state.user?.name ?? ""),
                   Container(
                     height: 10,
