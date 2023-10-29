@@ -1,3 +1,5 @@
+import 'package:cakeke/view/widgets/common/empty_widget.dart';
+import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:flutter/material.dart';
 
 class ReservationPage extends StatelessWidget {
@@ -5,8 +7,13 @@ class ReservationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("reservation page"),
+    return ScaffoldLayout(
+      appBarText: "예약",
+      bodyWidget: Center(
+        child: EmptyWidget(
+          message: "아직 준비 중인 화면입니다.",
+        ),
+      ),
     );
   }
 }
