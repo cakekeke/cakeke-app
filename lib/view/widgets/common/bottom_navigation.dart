@@ -49,6 +49,9 @@ class BottomNavigation extends StatelessWidget {
             onTap: (index) {
               context.read<TabBloc>().add(TabChanged(selectedIndex: index));
               context
+                  .read<MapBloc>()
+                  .add(const MapPageChanged(selectedPage: 0));
+              context
                   .read<MypageBloc>()
                   .add(const MypagePageChanged(selectedPage: 0));
             });
