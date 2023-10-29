@@ -1,3 +1,5 @@
+import 'package:cakeke/blocs/map/map_bloc.dart';
+import 'package:cakeke/blocs/map/map_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
 import 'package:cakeke/blocs/tab/tab_bloc.dart';

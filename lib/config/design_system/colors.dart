@@ -7,7 +7,7 @@ class Colors {
 
   static Colors get instance => _instance;
 
-  Color get appPrimary => const Color(0xFFF7476C);
+  Color get appPrimary => const Color(0xFFFF4170);
 
   Color get black => const Color(0xFF000000);
 
@@ -51,6 +51,7 @@ class Colors {
   //diver
   Color get divider => const Color(0xFFE8E8E8);
   Color get dividerTab => const Color(0xFFF2F2F2);
+  Color get dividerCard => const Color(0xFFEFEFEF);
 
   //border
   Color get borderCustomPhoto => const Color(0xFF929292);

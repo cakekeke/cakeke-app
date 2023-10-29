@@ -11,6 +11,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<SetCurrentLocationEvent>(_handleSetCurrentLocationEvent);
     on<SearchTextChangedEvent>(_handleSearchTextChangedEvent);
     on<SearchTextEvent>(_handleSearchTextEvent);
+    on<MapPageChanged>(_handleMapPageChangedEvent);
   }
 
   void _handleSetMapControllerEvent(
@@ -52,5 +53,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     // API 진행 후 결과 emit
     // emit(state.copyWith();
+  }
+
+  void _handleMapPageChangedEvent(
+    MapPageChanged event,
+    Emitter<MapState> emit,
+  ) {
+    final nextPage = event.selectedPage ?? state.selectedPage;
+    emit(state.copyWith(
+      selectedPage: nextPage,
+    ));
   }
 }
