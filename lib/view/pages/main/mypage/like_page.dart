@@ -26,13 +26,12 @@ class LikePage extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Color(0xffF4F4F4),
             ),
-            child: ListView(
+            child: ListView.builder(
               padding: const EdgeInsets.all(16),
-              children: const [
-                LikeStoreCard(),
-                SizedBox(height: 8),
-                LikeStoreCard()
-              ],
+              itemCount: 2,
+              itemBuilder: (BuildContext context, int index) {
+                return const LikeStoreCard();
+              },
             ),
           ),
         );

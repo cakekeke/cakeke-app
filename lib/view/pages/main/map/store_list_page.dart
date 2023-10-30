@@ -25,6 +25,7 @@ class StoreListPage extends StatelessWidget {
           isSafeArea: true,
           bodyWidget: Container(
             decoration: BoxDecoration(
+              color: Colors.white,
               border: Border(
                 top: BorderSide(
                   color: DesignSystem.colors.dividerCard,
@@ -32,12 +33,14 @@ class StoreListPage extends StatelessWidget {
                 ),
               ),
             ),
-            child: ListView(
-              children: const [
-                MapStoreCard(),
-                MapStoreCard(),
-                MapStoreCard(),
-              ],
+            child: ListView.separated(
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) {
+                return const MapStoreCard();
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider();
+              },
             ),
           ),
         );

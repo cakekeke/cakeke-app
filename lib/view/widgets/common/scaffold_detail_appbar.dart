@@ -23,7 +23,7 @@ class ScaffoldDetailAppbar extends StatelessWidget
         appBarText!,
         style: DesignSystem.typography.title3(),
       ),
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       leading: GestureDetector(
         onTap: () {
           if (onBackButtonPressed != null) {
