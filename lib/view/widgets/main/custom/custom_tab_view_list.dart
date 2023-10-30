@@ -6,9 +6,11 @@ class CustomTabViewGrid extends StatelessWidget {
     super.key,
     required this.addAssetList,
     required this.onTap,
+    this.selectItem,
   });
 
   final List<String> addAssetList;
+  final String? selectItem;
   final Function(String) onTap;
 
   @override
@@ -28,11 +30,25 @@ class CustomTabViewGrid extends StatelessWidget {
           itemBuilder: (context, index) {
             final asset = iconImages.elementAt(index);
             return GestureDetector(
-                onTap: () => onTap(addAssetList.elementAt(index)),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Image.asset(asset),
-                ));
+              onTap: () => onTap(addAssetList.elementAt(index)),
+              child: Container(
+                margin: const EdgeInsets.all(27),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(asset),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(999)),
+                  border: Border.all(
+                    color: selectItem != null &&
+                            selectItem == addAssetList.elementAt(index)
+                        ? DesignSystem.colors.appPrimary
+                        : Colors.transparent,
+                    width: 2,
+                  ),
+                ),
+              ),
+            );
           }),
     );
   }

@@ -31,7 +31,9 @@ class MainPage extends StatelessWidget {
           }
           return BlocBuilder<TabBloc, TabState>(builder: (context, state) {
             if (state.tabIndex == 3) {
-              context.read<CustomBloc>().add(ShowTutorialEvent(context: context));
+              context
+                  .read<CustomBloc>()
+                  .add(ShowTutorialEvent(context: context));
             }
 
             return Scaffold(

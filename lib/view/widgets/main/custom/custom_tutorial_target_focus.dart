@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-TargetFocus customTutorialTargetFocus(GlobalKey? keyTarget,Widget child,{ShapeLightFocus? shape}){
+TargetFocus customTutorialTargetFocus(GlobalKey? keyTarget, Widget child,
+    {ShapeLightFocus? shape}) {
   return TargetFocus(
       keyTarget: keyTarget,
       shape: shape,
@@ -13,4 +14,3 @@ TargetFocus customTutorialTargetFocus(GlobalKey? keyTarget,Widget child,{ShapeLi
         )
       ]);
 }
-

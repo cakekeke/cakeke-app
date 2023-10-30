@@ -12,7 +12,7 @@ class CustomState extends Equatable {
     this.background = const [],
     this.photoPath = '',
     this.selectBackground =
-        'assets/images/background/background_version1_white.png',
+        'assets/images/background/background_1_white_version1.png',
     this.selectTextColor = Colors.white,
     this.isTutorialProgress = true,
   });

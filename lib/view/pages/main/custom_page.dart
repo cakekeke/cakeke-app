@@ -29,8 +29,8 @@ class _CustomPageState extends State<CustomPage> {
   void initState() {
     context.read<CustomBloc>().add(const InitImagesEvent());
     context.read<CustomBloc>().add(SetTutorialKeysEvent(
-      widgetKeys: [tabBarKey, saveButtonKey, customScreen],
-    ));
+          widgetKeys: [tabBarKey, saveButtonKey, customScreen],
+        ));
     super.initState();
   }
 
@@ -57,9 +57,9 @@ class _CustomPageState extends State<CustomPage> {
                       controller: state.controller,
                       child: SizedBox.expand(
                           child: Image.asset(
-                            state.selectBackground,
-                            fit: BoxFit.cover,
-                          )),
+                        state.selectBackground,
+                        fit: BoxFit.cover,
+                      )),
                     ),
                   ),
                   Positioned(
@@ -78,7 +78,7 @@ class _CustomPageState extends State<CustomPage> {
               ),
             ),
             DefaultTabController(
-              length: 8,
+              length: 7,
               child: Column(
                 children: [
                   CustomTabBarLayout(
@@ -100,13 +100,13 @@ class _CustomPageState extends State<CustomPage> {
                     height: state.customList.isNotEmpty ? 245 : 327,
                     child: TabBarView(children: [
                       CustomTabViewGrid(
+                          selectItem: state.selectBackground,
                           addAssetList: state.background,
                           onTap: (asset) {
                             context.read<CustomBloc>().add(
                                 SelectBackgroundEvent(selectBackground: asset));
                           }),
                       const CustomPhotoLayout(),
-                      Container(),
                       CustomTextFieldLayout(
                         textController: state.textController,
                         event: (customEvent) {

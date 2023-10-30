@@ -21,14 +21,14 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 class CustomBloc extends Bloc<CustomEvent, CustomState> {
   CustomBloc()
       : super(CustomState(
-      controller: LindiController(
-        borderColor: DesignSystem.colors.appPrimary,
-        iconColor: DesignSystem.colors.white,
-        showClose: false,
-        minScale: 0.5,
-        maxScale: 4,
-      ),
-      textController: TextEditingController())) {
+            controller: LindiController(
+              borderColor: DesignSystem.colors.appPrimary,
+              iconColor: DesignSystem.colors.white,
+              showClose: false,
+              minScale: 0.5,
+              maxScale: 4,
+            ),
+            textController: TextEditingController())) {
     on<InitImagesEvent>(_handleInitImagesEvent);
     on<SetTutorialKeysEvent>(_handleSetTutorialKeysEvent);
     on<ShowTutorialEvent>(_handleShowTutorialEvent);
@@ -42,9 +42,9 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
   }
 
   Future<void> _handleInitImagesEvent(
-      InitImagesEvent event,
-      Emitter<CustomState> emit,
-      ) async {
+    InitImagesEvent event,
+    Emitter<CustomState> emit,
+  ) async {
     PermissionUtil.requestAll();
     final manifestContent = await rootBundle.loadString('AssetManifest.json');
     final Map<String, dynamic> manifestMap = json.decode(manifestContent);
@@ -56,15 +56,16 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     final backgroundPaths = manifestMap.keys
         .where((String key) => key.contains('images/background'))
         .toList();
+    backgroundPaths.removeWhere((path) => path.contains('DS_Store'));
 
     final candleImages =
-    stickerPaths.where((element) => element.contains('candle_')).toList();
+        stickerPaths.where((element) => element.contains('candle_')).toList();
     final creamImages =
-    stickerPaths.where((element) => element.contains('cream_')).toList();
+        stickerPaths.where((element) => element.contains('cream_')).toList();
     final fruitImages =
-    stickerPaths.where((element) => element.contains('fruit_')).toList();
+        stickerPaths.where((element) => element.contains('fruit_')).toList();
     final stickerImages =
-    stickerPaths.where((element) => element.contains('sticker_')).toList();
+        stickerPaths.where((element) => element.contains('sticker_')).toList();
     stickerImages.sort((b, a) => a.compareTo(b));
 
     final newImagesMap = {
@@ -77,16 +78,16 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
   }
 
   void _handleSetTutorialKeysEvent(
-      SetTutorialKeysEvent event,
-      Emitter<CustomState> emit,
-      ) {
+    SetTutorialKeysEvent event,
+    Emitter<CustomState> emit,
+  ) {
     emit(state.copyWith(tutorialKeys: event.widgetKeys));
   }
 
   void _handleShowTutorialEvent(
-      ShowTutorialEvent event,
-      Emitter<CustomState> emit,
-      ) {
+    ShowTutorialEvent event,
+    Emitter<CustomState> emit,
+  ) {
     if (state.isTutorialProgress) {
       TutorialCoachMark tutorial = TutorialCoachMark(
         targets: [
@@ -107,7 +108,9 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
                   ),
                 )
               ],
-            ), shape: ShapeLightFocus.RRect,),
+            ),
+            shape: ShapeLightFocus.RRect,
+          ),
           customTutorialTargetFocus(
               state.tutorialKeys.elementAtOrNull(1),
               const Align(
@@ -115,7 +118,8 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
                   child: CustomTutorialText(
                     text: "이미지를 저장하고\n친구들에게 공유해보세요",
                     align: TextAlign.end,
-                  )), shape: ShapeLightFocus.Circle),
+                  )),
+              shape: ShapeLightFocus.Circle),
           customTutorialTargetFocus(
             state.tutorialKeys.last,
             Padding(
@@ -139,23 +143,23 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
   }
 
   void _handleSelectBackgroundEvent(
-      SelectBackgroundEvent event,
-      Emitter<CustomState> emit,
-      ) {
+    SelectBackgroundEvent event,
+    Emitter<CustomState> emit,
+  ) {
     emit(state.copyWith(selectBackground: event.selectBackground));
   }
 
   void _handleSelectTextColorEvent(
-      SelectTextColorEvent event,
-      Emitter<CustomState> emit,
-      ) {
+    SelectTextColorEvent event,
+    Emitter<CustomState> emit,
+  ) {
     emit(state.copyWith(selectTextColor: event.selectTextColor));
   }
 
   void _handleAddCustomEvent(
-      AddCustomEvent event,
-      Emitter<CustomState> emit,
-      ) {
+    AddCustomEvent event,
+    Emitter<CustomState> emit,
+  ) {
     if (event.widget != null) {
       state.controller.addWidget(event.widget!);
     } else {
@@ -170,9 +174,9 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
   }
 
   void _handleDeleteCustomEvent(
-      DeleteCustomEvent event,
-      Emitter<CustomState> emit,
-      ) {
+    DeleteCustomEvent event,
+    Emitter<CustomState> emit,
+  ) {
     final deleteIndex = state.customList.indexOf(event.asset);
     state.controller.widgets.removeAt(deleteIndex);
     state.controller.notifyListeners();
@@ -185,11 +189,11 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
   }
 
   Future<void> _handleAddPhotoEvent(
-      AddPhotoEvent event,
-      Emitter<CustomState> emit,
-      ) async {
+    AddPhotoEvent event,
+    Emitter<CustomState> emit,
+  ) async {
     final pickedImage =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
       _handleAddCustomEvent(
@@ -202,18 +206,18 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
   }
 
   void _handleDeletePhotoEvent(
-      DeletePhotoEvent event,
-      Emitter<CustomState> emit,
-      ) {
+    DeletePhotoEvent event,
+    Emitter<CustomState> emit,
+  ) {
     _handleDeleteCustomEvent(DeleteCustomEvent(asset: event.path), emit);
 
     emit(state.copyWith(photoPath: ''));
   }
 
   Future<void> _handleCaptureAndSaveEvent(
-      CaptureAndSaveEvent event,
-      Emitter<CustomState> emit,
-      ) async {
+    CaptureAndSaveEvent event,
+    Emitter<CustomState> emit,
+  ) async {
     if (event.globalKey.currentContext != null) {
       final RenderRepaintBoundary boundary = event.globalKey.currentContext!
           .findRenderObject() as RenderRepaintBoundary;
@@ -224,7 +228,7 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
 
       if (pngBytes != null) {
         final result =
-        await ImageGallerySaver.saveImage(Uint8List.fromList(pngBytes));
+            await ImageGallerySaver.saveImage(Uint8List.fromList(pngBytes));
         if (result != null && result.isNotEmpty) {
           Utils.showSnackBar(event.globalKey.currentContext!, '이미지가 저장되었습니다');
           return;
