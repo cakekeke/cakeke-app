@@ -18,7 +18,7 @@ class CustomStrokeText extends StatelessWidget {
               fontWeight: FontWeight.bold,
               foreground: Paint()
                 ..style = PaintingStyle.stroke
-                ..strokeWidth = 200
+                ..strokeWidth = 2
                 ..color = DesignSystem.colors.black),
         ),
         Text(

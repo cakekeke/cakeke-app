@@ -6,13 +6,17 @@ import 'package:cakeke/blocs/custom/custom_state.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/utils/permission_util.dart';
 import 'package:cakeke/utils/utils.dart';
+import 'package:cakeke/view/widgets/main/custom/custom_tutorial_target_focus.dart';
+import 'package:cakeke/view/widgets/main/custom/custom_tutorial_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lindi_sticker_widget/lindi_controller.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class CustomBloc extends Bloc<CustomEvent, CustomState> {
   CustomBloc()
@@ -26,6 +30,8 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
             ),
             textController: TextEditingController())) {
     on<InitImagesEvent>(_handleInitImagesEvent);
+    on<SetTutorialKeysEvent>(_handleSetTutorialKeysEvent);
+    on<ShowTutorialEvent>(_handleShowTutorialEvent);
     on<SelectBackgroundEvent>(_handleSelectBackgroundEvent);
     on<SelectTextColorEvent>(_handleSelectTextColorEvent);
     on<AddCustomEvent>(_handleAddCustomEvent);
@@ -50,6 +56,7 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     final backgroundPaths = manifestMap.keys
         .where((String key) => key.contains('images/background'))
         .toList();
+    backgroundPaths.removeWhere((path) => path.contains('DS_Store'));
 
     final candleImages =
         stickerPaths.where((element) => element.contains('candle_')).toList();
@@ -68,6 +75,71 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
       "sticker": stickerImages,
     };
     emit(state.copyWith(sticker: newImagesMap, background: backgroundPaths));
+  }
+
+  void _handleSetTutorialKeysEvent(
+    SetTutorialKeysEvent event,
+    Emitter<CustomState> emit,
+  ) {
+    emit(state.copyWith(tutorialKeys: event.widgetKeys));
+  }
+
+  void _handleShowTutorialEvent(
+    ShowTutorialEvent event,
+    Emitter<CustomState> emit,
+  ) {
+    if (state.isTutorialProgress) {
+      TutorialCoachMark tutorial = TutorialCoachMark(
+        targets: [
+          customTutorialTargetFocus(
+            state.tutorialKeys.first,
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const CustomTutorialText(text: "카테고리 별로 원하는 꾸미기 요소를 골라보세요"),
+                Padding(
+                  padding: const EdgeInsets.only(top: 60),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/images/icon_custom_tutorial_tab.svg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            shape: ShapeLightFocus.RRect,
+          ),
+          customTutorialTargetFocus(
+              state.tutorialKeys.elementAtOrNull(1),
+              const Align(
+                  alignment: Alignment.bottomRight,
+                  child: CustomTutorialText(
+                    text: "이미지를 저장하고\n친구들에게 공유해보세요",
+                    align: TextAlign.end,
+                  )),
+              shape: ShapeLightFocus.Circle),
+          customTutorialTargetFocus(
+            state.tutorialKeys.last,
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Center(
+                child: CustomTutorialText(
+                  text: "나만의 커스텀이미지를 꾸며보세요",
+                  style: DesignSystem.typography.heading3(TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: DesignSystem.colors.white)),
+                ),
+              ),
+            ),
+          ),
+        ], // List<TargetFocus>
+      );
+      tutorial.show(context: event.context);
+
+      emit(state.copyWith(isTutorialProgress: false));
+    }
   }
 
   void _handleSelectBackgroundEvent(

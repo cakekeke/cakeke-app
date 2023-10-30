@@ -95,3 +95,21 @@ class CaptureAndSaveEvent extends CustomEvent {
   @override
   List<Object?> get props => [globalKey];
 }
+
+class ShowTutorialEvent extends CustomEvent {
+  const ShowTutorialEvent({required this.context});
+
+  final BuildContext context;
+
+  @override
+  List<Object?> get props => [context];
+}
+
+class SetTutorialKeysEvent extends CustomEvent {
+  const SetTutorialKeysEvent({required this.widgetKeys});
+
+  final List<GlobalKey> widgetKeys;
+
+  @override
+  List<Object?> get props => [widgetKeys];
+}

@@ -1,6 +1,8 @@
 import 'package:cakeke/blocs/auth/auth_bloc.dart';
 import 'package:cakeke/blocs/auth/auth_state.dart';
 import 'package:cakeke/blocs/bloc_providers.dart';
+import 'package:cakeke/blocs/custom/custom_bloc.dart';
+import 'package:cakeke/blocs/custom/custom_event.dart';
 import 'package:cakeke/blocs/tab/tab_bloc.dart';
 import 'package:cakeke/config/routes/routes.dart';
 import 'package:cakeke/view/pages/main/map_page.dart';
@@ -28,10 +30,16 @@ class MainPage extends StatelessWidget {
             });
           }
           return BlocBuilder<TabBloc, TabState>(builder: (context, state) {
+            if (state.tabIndex == 3) {
+              context
+                  .read<CustomBloc>()
+                  .add(ShowTutorialEvent(context: context));
+            }
+
             return Scaffold(
               body: IndexedStack(
                 index: state.tabIndex,
-                children: [
+                children: const [
                   HomePage(
                     key: PageStorageKey("home"),
                   ),

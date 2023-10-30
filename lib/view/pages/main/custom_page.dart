@@ -21,11 +21,16 @@ class CustomPage extends StatefulWidget {
 }
 
 class _CustomPageState extends State<CustomPage> {
-  final GlobalKey globalKey = GlobalKey();
+  final GlobalKey tabBarKey = GlobalKey(debugLabel: 'customTabBar');
+  final GlobalKey saveButtonKey = GlobalKey(debugLabel: 'customSaveButtonKey');
+  final GlobalKey customScreen = GlobalKey(debugLabel: 'customScreenKey');
 
   @override
   void initState() {
     context.read<CustomBloc>().add(const InitImagesEvent());
+    context.read<CustomBloc>().add(SetTutorialKeysEvent(
+          widgetKeys: [tabBarKey, saveButtonKey, customScreen],
+        ));
     super.initState();
   }
 
@@ -39,99 +44,99 @@ class _CustomPageState extends State<CustomPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldLayout(
-        isDetailPage: true,
-        bodyWidget: BlocBuilder<CustomBloc, CustomState>(
-          builder: (context, state) {
-            return Column(
-              children: [
-                Expanded(
-                  child: Stack(
-                    children: [
-                      RepaintBoundary(
-                        key: globalKey,
-                        child: LindiStickerWidget(
-                          controller: state.controller,
-                          child: SizedBox.expand(
-                              child: Image.asset(
-                            state.selectBackground,
-                            fit: BoxFit.cover,
-                          )),
-                        ),
-                      ),
-                      Positioned(
-                        right: 16,
-                        top: 60,
-                        child: CustomSaveButton(
-                          onTap: () {
-                            context
-                                .read<CustomBloc>()
-                                .add(CaptureAndSaveEvent(globalKey: globalKey));
-                          },
-                        ),
-                      )
-                    ],
+    return ScaffoldLayout(bodyWidget: BlocBuilder<CustomBloc, CustomState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            Expanded(
+              child: Stack(
+                children: [
+                  RepaintBoundary(
+                    key: customScreen,
+                    child: LindiStickerWidget(
+                      controller: state.controller,
+                      child: SizedBox.expand(
+                          child: Image.asset(
+                        state.selectBackground,
+                        fit: BoxFit.cover,
+                      )),
+                    ),
                   ),
-                ),
-                DefaultTabController(
-                  length: 8,
-                  child: Column(
-                    children: [
-                      const CustomTabBarLayout(),
-                      Visibility(
-                        visible: state.customList.isNotEmpty,
-                        child: Container(
-                          height: 82,
-                          color: DesignSystem.colors.backgroundCustomList,
-                          padding: const EdgeInsets.all(16),
-                          child: const CustomStickerList(),
-                        ),
-                      ),
-                      const Divider(
-                        height: 1,
-                      ),
-                      SizedBox(
-                        height: state.customList.isNotEmpty ? 245 : 327,
-                        child: TabBarView(children: [
-                          CustomTabViewGrid(
-                              addAssetList: state.background,
-                              onTap: (asset) {
-                                context.read<CustomBloc>().add(
-                                    SelectBackgroundEvent(
-                                        selectBackground: asset));
-                              }),
-                          const CustomPhotoLayout(),
-                          Container(),
-                          CustomTextFieldLayout(
-                            textController: state.textController,
-                            event: (customEvent) {
-                              context.read<CustomBloc>().add(customEvent);
-                            },
-                          ),
-                          CustomTabViewGrid(
-                            addAssetList: state.sticker['cream'] ?? [],
-                            onTap: addCustomWidget,
-                          ),
-                          CustomTabViewGrid(
-                            addAssetList: state.sticker['candle'] ?? [],
-                            onTap: addCustomWidget,
-                          ),
-                          CustomTabViewGrid(
-                            addAssetList: state.sticker['fruit'] ?? [],
-                            onTap: addCustomWidget,
-                          ),
-                          CustomTabViewGrid(
-                            addAssetList: state.sticker['sticker'] ?? [],
-                            onTap: addCustomWidget,
-                          ),
-                        ]),
-                      )
-                    ],
+                  Positioned(
+                    right: 16,
+                    top: 60,
+                    child: CustomSaveButton(
+                      key: saveButtonKey,
+                      onTap: () {
+                        context
+                            .read<CustomBloc>()
+                            .add(CaptureAndSaveEvent(globalKey: customScreen));
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+            DefaultTabController(
+              length: 7,
+              child: Column(
+                children: [
+                  CustomTabBarLayout(
+                    key: tabBarKey,
                   ),
-                ),
-              ],
-            );
-          },
-        ));
+                  Visibility(
+                    visible: state.customList.isNotEmpty,
+                    child: Container(
+                      height: 82,
+                      color: DesignSystem.colors.backgroundCustomList,
+                      padding: const EdgeInsets.all(16),
+                      child: const CustomStickerList(),
+                    ),
+                  ),
+                  const Divider(
+                    height: 1,
+                  ),
+                  SizedBox(
+                    height: state.customList.isNotEmpty ? 245 : 327,
+                    child: TabBarView(children: [
+                      CustomTabViewGrid(
+                          selectItem: state.selectBackground,
+                          addAssetList: state.background,
+                          onTap: (asset) {
+                            context.read<CustomBloc>().add(
+                                SelectBackgroundEvent(selectBackground: asset));
+                          }),
+                      const CustomPhotoLayout(),
+                      CustomTextFieldLayout(
+                        textController: state.textController,
+                        event: (customEvent) {
+                          context.read<CustomBloc>().add(customEvent);
+                        },
+                      ),
+                      CustomTabViewGrid(
+                        addAssetList: state.sticker['cream'] ?? [],
+                        onTap: addCustomWidget,
+                      ),
+                      CustomTabViewGrid(
+                        addAssetList: state.sticker['candle'] ?? [],
+                        onTap: addCustomWidget,
+                      ),
+                      CustomTabViewGrid(
+                        addAssetList: state.sticker['fruit'] ?? [],
+                        onTap: addCustomWidget,
+                      ),
+                      CustomTabViewGrid(
+                        addAssetList: state.sticker['sticker'] ?? [],
+                        onTap: addCustomWidget,
+                      ),
+                    ]),
+                  )
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    ));
   }
 }
