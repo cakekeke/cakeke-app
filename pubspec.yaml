@@ -50,7 +50,9 @@ dependencies:
   intl: ^0.18.1
   flutter_dotenv: ^5.1.0
   package_info_plus: ^4.2.0
-  tutorial_coach_mark: ^1.2.11
+  tutorial_coach_mark:
+    git:
+      url: https://github.com/LIMMIHEE/tutorial_coach_mark.git
 
 dev_dependencies:
   flutter_test:

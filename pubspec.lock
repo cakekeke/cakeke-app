@@ -768,11 +768,12 @@ packages:
   tutorial_coach_mark:
     dependency: "direct main"
     description:
-      name: tutorial_coach_mark
-      sha256: "1f1fd234790afb929dec7391a4d90aa54ffe8c8e4d278d9283df8e3f5ac5d63e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.11"
+      path: "."
+      ref: HEAD
+      resolved-ref: ae09db3789c6c66e4402bdd80d818646339b3cb9
+      url: "https://github.com/LIMMIHEE/tutorial_coach_mark.git"
+    source: git
+    version: "1.2.12"
   typed_data:
     dependency: transitive
     description:
