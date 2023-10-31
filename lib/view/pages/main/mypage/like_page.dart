@@ -2,7 +2,7 @@ import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_state.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
-import 'package:cakeke/view/widgets/common/store_card.dart';
+import 'package:cakeke/view/widgets/main/mypage/like_store_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,43 +26,12 @@ class LikePage extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Color(0xffF4F4F4),
             ),
-            child: ListView(
+            child: ListView.builder(
               padding: const EdgeInsets.all(16),
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
-                        offset: const Offset(0, 0),
-                        spreadRadius: 0,
-                        blurRadius: 8,
-                      ),
-                    ],
-                  ),
-                  child: StoreCard(),
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
-                        offset: const Offset(0, 0),
-                        spreadRadius: 0,
-                        blurRadius: 8,
-                      ),
-                    ],
-                  ),
-                  child: StoreCard(),
-                ),
-              ],
+              itemCount: 2,
+              itemBuilder: (BuildContext context, int index) {
+                return const LikeStoreCard();
+              },
             ),
           ),
         );

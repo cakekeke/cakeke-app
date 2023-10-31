@@ -1,3 +1,5 @@
+import 'package:cakeke/blocs/map/map_bloc.dart';
+import 'package:cakeke/blocs/map/map_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
 import 'package:cakeke/blocs/tab/tab_bloc.dart';
@@ -46,6 +48,9 @@ class BottomNavigation extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             onTap: (index) {
               context.read<TabBloc>().add(TabChanged(selectedIndex: index));
+              context
+                  .read<MapBloc>()
+                  .add(const MapPageChanged(selectedPage: 0));
               context
                   .read<MypageBloc>()
                   .add(const MypagePageChanged(selectedPage: 0));

@@ -46,3 +46,16 @@ class SearchTextEvent extends MapEvent {
   @override
   List<Object?> get props => [searchText];
 }
+
+class MapPageChanged extends MapEvent {
+  const MapPageChanged({
+    required this.selectedPage,
+  });
+
+  final int selectedPage;
+
+  @override
+  List<Object> get props => [
+        selectedPage,
+      ];
+}

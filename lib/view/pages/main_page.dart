@@ -5,7 +5,7 @@ import 'package:cakeke/blocs/custom/custom_bloc.dart';
 import 'package:cakeke/blocs/custom/custom_event.dart';
 import 'package:cakeke/blocs/tab/tab_bloc.dart';
 import 'package:cakeke/config/routes/routes.dart';
-import 'package:cakeke/view/pages/main/map_page.dart';
+import 'package:cakeke/view/pages/main/map/index.dart';
 import 'package:cakeke/view/pages/main/reservation_page.dart';
 import 'package:cakeke/view/pages/main/custom_page.dart';
 import 'package:cakeke/view/pages/main/home_page.dart';
