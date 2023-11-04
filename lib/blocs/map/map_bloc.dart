@@ -10,6 +10,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<SetMapControllerEvent>(_handleSetMapControllerEvent);
     on<SetCurrentLocationEvent>(_handleSetCurrentLocationEvent);
     on<SearchTextChangedEvent>(_handleSearchTextChangedEvent);
+    on<SetMakerEvent>(_handleSetMakerEvent);
+    on<OnMapCameraChangedEvent>(_handleOnMapCameraChangedEvent);
     on<SearchTextEvent>(_handleSearchTextEvent);
     on<MapPageChanged>(_handleMapPageChangedEvent);
   }
@@ -18,7 +20,33 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     SetMapControllerEvent event,
     Emitter<MapState> emit,
   ) {
-    emit(state.copyWith(mapController: event.mapController));
+    emit(
+        state.copyWith(mapController: event.mapController, setMakerFlag: true));
+  }
+
+  Future<void> _handleSetMakerEvent(
+    SetMakerEvent event,
+    Emitter<MapState> emit,
+  ) async {
+    if (event.stores != null) {
+      const makerIcon = NOverlayImage.fromAssetImage(
+          'assets/images/icon_map_maker_unselect.png');
+
+      final makerList = <NAddableOverlay>{};
+      for (final store in event.stores!) {
+        final maker = NMarker(
+            id: store.name,
+            position: NLatLng(
+                double.parse(store.latitude), double.parse(store.longitude)),
+            icon: makerIcon)
+          ..setOnTapListener((NMarker marker) => _handleSelectStoreMakerEvent(
+              SelectStoreMakerEvent(maker: marker)));
+        makerList.add(maker);
+      }
+
+      await state.mapController?.addOverlayAll(makerList);
+    }
+    emit(state.copyWith(setMakerFlag: false));
   }
 
   Future<void> _handleSetCurrentLocationEvent(
@@ -36,6 +64,28 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     } catch (e) {
       print('Error getting location: $e');
     }
+  }
+
+  Future<void> _handleOnMapCameraChangedEvent(
+    OnMapCameraChangedEvent event,
+    Emitter<MapState> emit,
+  ) async {
+    final nowPosition =
+        await state.mapController?.getCameraPosition().then((p) => p.target);
+    emit(state.copyWith());
+  }
+
+  void _handleSelectStoreMakerEvent(
+    SelectStoreMakerEvent event,
+  ) {
+    const unSelectMaker = NOverlayImage.fromAssetImage(
+        'assets/images/icon_map_maker_unselect.png');
+    const selectMaker =
+        NOverlayImage.fromAssetImage('assets/images/icon_map_maker_select.png');
+
+    state.selectMaker?.setIcon(unSelectMaker);
+    event.maker.setIcon(selectMaker);
+    emit(state.copyWith(selectMaker: event.maker));
   }
 
   void _handleSearchTextChangedEvent(

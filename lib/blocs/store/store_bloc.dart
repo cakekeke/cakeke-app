@@ -1,3 +1,4 @@
+import 'package:cakeke/data/providers/store_provider.dart';
 import 'package:cakeke/data/repositories/store_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cakeke/data/models/common/store.dart';
@@ -15,9 +16,10 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
     on<StoreEventRemoveLike>(handleRemoveLike);
   }
 
-  final StoreRepository storeRepository = StoreRepository();
+  final StoreRepository storeRepository =
+      StoreRepository(storeProvider: StoreProvider());
 
-  void handleFetchLocal(
+  Future<void> handleFetchLocal(
       StoreEventFetchLocal event, Emitter<StoreState> emit) async {
     final List<Store> storeList = await storeRepository.fetchLocalStoreList(
       event.latitude,
