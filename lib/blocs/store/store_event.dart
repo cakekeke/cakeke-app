@@ -13,8 +13,8 @@ class StoreEventFetchLocal extends StoreEvent {
     required this.longitude,
   });
 
-  final String latitude;
-  final String longitude;
+  final double latitude;
+  final double longitude;
 
   @override
   List<Object> get props => [
@@ -61,4 +61,11 @@ class StoreEventRemoveLike extends StoreEvent {
 
   @override
   List<Object> get props => [storeId];
+}
+
+class StoreFetchComplete extends StoreEvent {
+  const StoreFetchComplete();
+
+  @override
+  List<Object> get props => [];
 }

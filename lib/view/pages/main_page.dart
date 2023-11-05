@@ -29,6 +29,7 @@ class MainPage extends StatelessWidget {
                   context, Routes.landing, (route) => false);
             });
           }
+
           return BlocBuilder<TabBloc, TabState>(builder: (context, state) {
             if (state.tabIndex == 3) {
               context

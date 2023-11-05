@@ -1,3 +1,4 @@
+import 'package:cakeke/data/providers/store_provider.dart';
 import 'package:cakeke/data/repositories/store_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cakeke/data/models/common/store.dart';
@@ -13,24 +14,26 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
     on<StoreEventFetchLike>(handleFetchLike);
     on<StoreEventAddLike>(handleAddLike);
     on<StoreEventRemoveLike>(handleRemoveLike);
+    on<StoreFetchComplete>(_handleStoreFetchComplete);
   }
 
-  final StoreRepository storeRepository = StoreRepository();
+  final StoreRepository storeRepository =
+      StoreRepository(storeProvider: StoreProvider());
 
-  void handleFetchLocal(
+  Future<void> handleFetchLocal(
       StoreEventFetchLocal event, Emitter<StoreState> emit) async {
     final List<Store> storeList = await storeRepository.fetchLocalStoreList(
       event.latitude,
       event.longitude,
     );
-    emit(state.copyWith(storeList: storeList, fetching: false));
+    emit(state.copyWith(storeList: storeList, fetching: true));
   }
 
   void handleFetchSearch(
       StoreEventFetchSearch event, Emitter<StoreState> emit) async {
     final List<Store> storeList =
         await storeRepository.fetchSearchStoreList(event.search);
-    emit(state.copyWith(storeList: storeList, fetching: false));
+    emit(state.copyWith(storeList: storeList, fetching: true));
   }
 
   void handleFetchLike(
@@ -54,5 +57,10 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
       storeList:
           state.storeList!.map((e) => e.id == store.id ? store : e).toList(),
     ));
+  }
+
+  void _handleStoreFetchComplete(
+      StoreFetchComplete event, Emitter<StoreState> emit) {
+    emit(state.copyWith(fetching: false));
   }
 }

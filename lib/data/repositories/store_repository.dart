@@ -1,71 +1,47 @@
 import 'package:cakeke/data/models/common/store.dart';
+import 'package:cakeke/data/providers/store_provider.dart';
 
 class StoreRepository {
+  final StoreProvider storeProvider;
+
+  StoreRepository({required this.storeProvider});
+
   Future<List<Store>> fetchLocalStoreList(
-    String latitude,
-    String longitude,
+    double latitude,
+    double longitude,
   ) async {
-    await Future.delayed(Duration(seconds: 1));
     return [
       Store(
-        id: 1,
-        name: 'Store 1',
-        description: 'Store 1 description',
-      ),
+          id: 1,
+          name: '1번째 가게',
+          latitude: '37.56661029999873',
+          longitude: '126.97420395393493'),
       Store(
-        id: 2,
-        name: 'Store 2',
-        description: 'Store 2 description',
-      ),
-      Store(
-        id: 3,
-        name: 'Store 3',
-        description: 'Store 3 description',
-      ),
-      Store(
-        id: 4,
-        name: 'Store 4',
-        description: 'Store 4 description',
-      ),
-      Store(
-        id: 5,
-        name: 'Store 5',
-        description: 'Store 5 description',
-      ),
+          id: 2,
+          name: '2번째 가게',
+          latitude: '37.56589053195666',
+          longitude: '126.9790085106002'),
     ];
+    // return await storeProvider.getLocalStoreList(latitude,longitude);
   }
 
   Future<List<Store>> fetchSearchStoreList(
     String search,
   ) async {
-    await Future.delayed(Duration(seconds: 1));
     return [
       Store(
-        id: 1,
-        name: 'Store 1',
-        description: 'Store 1 description',
-      ),
-      Store(
-        id: 2,
-        name: 'Store 2',
-        description: 'Store 2 description',
-      ),
-      Store(
-        id: 3,
-        name: 'Store 3',
-        description: 'Store 3 description',
-      ),
-      Store(
-        id: 4,
-        name: 'Store 4',
-        description: 'Store 4 description',
-      ),
-      Store(
-        id: 5,
-        name: 'Store 5',
-        description: 'Store 5 description',
-      ),
+          id: 1,
+          name: '서치 1번째 가게',
+          latitude: '37.56661029999873',
+          longitude: '126.97420395393493'),
     ];
+    //return await storeProvider.getSearchStore(search);
+  }
+
+  Future<Store> getStoreInfoFromId(
+    int storeId,
+  ) async {
+    return await storeProvider.getStoreInfo(storeId);
   }
 
   Future<List<Store>> fetchLikeStoreList() async {

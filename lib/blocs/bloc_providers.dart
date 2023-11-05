@@ -3,6 +3,7 @@ import 'package:cakeke/blocs/map/map_bloc.dart';
 import 'package:cakeke/blocs/custom/custom_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/sign_in/sign_in_bloc.dart';
+import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/blocs/tab/tab_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +16,7 @@ class AppBlocProviders {
   static get mainPageBlocProviders => [
         BlocProvider(create: (context) => TabBloc()),
         BlocProvider(create: (context) => MapBloc()),
+        BlocProvider(create: (context) => StoreBloc()),
         BlocProvider(create: (context) => CustomBloc()),
         BlocProvider(create: (context) => MypageBloc()),
       ];
