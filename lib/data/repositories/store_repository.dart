@@ -28,7 +28,14 @@ class StoreRepository {
   Future<List<Store>> fetchSearchStoreList(
     String search,
   ) async {
-    return await storeProvider.getSearchStore(search);
+    return [
+      Store(
+          id: 1,
+          name: '서치 1번째 가게',
+          latitude: '37.56661029999873',
+          longitude: '126.97420395393493'),
+    ];
+    //return await storeProvider.getSearchStore(search);
   }
 
   Future<Store> getStoreInfoFromId(

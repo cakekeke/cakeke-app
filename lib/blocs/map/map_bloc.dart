@@ -11,8 +11,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<SetCurrentLocationEvent>(_handleSetCurrentLocationEvent);
     on<SearchTextChangedEvent>(_handleSearchTextChangedEvent);
     on<SetMakerEvent>(_handleSetMakerEvent);
+    on<UpdateMapStoreEvent>(_handleUpdateMapStoreEvent);
     on<OnMapCameraChangedEvent>(_handleOnMapCameraChangedEvent);
-    on<SearchTextEvent>(_handleSearchTextEvent);
     on<MapPageChanged>(_handleMapPageChangedEvent);
   }
 
@@ -24,11 +24,19 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         state.copyWith(mapController: event.mapController, setMakerFlag: true));
   }
 
+  void _handleUpdateMapStoreEvent(
+    UpdateMapStoreEvent event,
+    Emitter<MapState> emit,
+  ) {
+    emit(state.copyWith(setMakerFlag: true));
+  }
+
   Future<void> _handleSetMakerEvent(
     SetMakerEvent event,
     Emitter<MapState> emit,
   ) async {
     if (event.stores != null) {
+      await state.mapController?.clearOverlays();
       const makerIcon = NOverlayImage.fromAssetImage(
           'assets/images/icon_map_maker_unselect.png');
 
@@ -70,9 +78,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     OnMapCameraChangedEvent event,
     Emitter<MapState> emit,
   ) async {
-    final nowPosition =
-        await state.mapController?.getCameraPosition().then((p) => p.target);
-    emit(state.copyWith());
+    // 추후 맵 이동 영역에 확인 기준 정한 후 진행 필요
+    // emit(state.copyWith(setMakerFlag: true));
   }
 
   void _handleSelectStoreMakerEvent(
@@ -93,16 +100,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) {
     emit(state.copyWith(searchText: event.searchText));
-  }
-
-  void _handleSearchTextEvent(
-    SearchTextEvent event,
-    Emitter<MapState> emit,
-  ) {
-    final searchText = event.searchText ?? state.searchText;
-
-    // API 진행 후 결과 emit
-    // emit(state.copyWith();
   }
 
   void _handleMapPageChangedEvent(

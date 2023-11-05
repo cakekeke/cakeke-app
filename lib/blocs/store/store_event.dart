@@ -62,3 +62,10 @@ class StoreEventRemoveLike extends StoreEvent {
   @override
   List<Object> get props => [storeId];
 }
+
+class StoreFetchComplete extends StoreEvent {
+  const StoreFetchComplete();
+
+  @override
+  List<Object> get props => [];
+}

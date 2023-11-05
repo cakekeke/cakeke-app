@@ -14,19 +14,8 @@ class MapLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MapBloc, MapState>(builder: (context, state) {
-      if (state.setMakerFlag) {
-        state.mapController
-            ?.getCameraPosition()
-            .then((p) => p.target)
-            .then((nowPosition) {
-          BlocProvider.of<StoreBloc>(context).add(StoreEventFetchLocal(
-              latitude: nowPosition.latitude,
-              longitude: nowPosition.longitude));
-        });
-      }
-
       return BlocListener<StoreBloc, StoreState>(
-        listener: (context, storeState) async {
+        listener: (context, storeState) {
           if (state.setMakerFlag) {
             context.read<MapBloc>().add(
                 SetMakerEvent(context: context, stores: storeState.storeList));
@@ -43,6 +32,17 @@ class MapLayout extends StatelessWidget {
             context
                 .read<MapBloc>()
                 .add(SetMapControllerEvent(mapController: naverMapController));
+
+            Future.delayed(const Duration(milliseconds: 100), () {
+              naverMapController
+                  .getCameraPosition()
+                  .then((p) => p.target)
+                  .then((nowPosition) {
+                BlocProvider.of<StoreBloc>(context).add(StoreEventFetchLocal(
+                    latitude: nowPosition.latitude,
+                    longitude: nowPosition.longitude));
+              });
+            });
           },
           onCameraIdle: () {
             context.read<MapBloc>().add(const OnMapCameraChangedEvent());

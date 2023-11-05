@@ -26,6 +26,13 @@ class CompleteSetMapControllerEvent extends MapEvent {
   List<Object?> get props => [];
 }
 
+class UpdateMapStoreEvent extends MapEvent {
+  const UpdateMapStoreEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class SetCurrentLocationEvent extends MapEvent {
   const SetCurrentLocationEvent();
 
@@ -68,17 +75,6 @@ class SearchTextChangedEvent extends MapEvent {
   });
 
   final String searchText;
-
-  @override
-  List<Object?> get props => [searchText];
-}
-
-class SearchTextEvent extends MapEvent {
-  const SearchTextEvent({
-    this.searchText,
-  });
-
-  final String? searchText;
 
   @override
   List<Object?> get props => [searchText];

@@ -14,6 +14,7 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
     on<StoreEventFetchLike>(handleFetchLike);
     on<StoreEventAddLike>(handleAddLike);
     on<StoreEventRemoveLike>(handleRemoveLike);
+    on<StoreFetchComplete>(_handleStoreFetchComplete);
   }
 
   final StoreRepository storeRepository =
@@ -25,14 +26,14 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
       event.latitude,
       event.longitude,
     );
-    emit(state.copyWith(storeList: storeList, fetching: false));
+    emit(state.copyWith(storeList: storeList, fetching: true));
   }
 
   void handleFetchSearch(
       StoreEventFetchSearch event, Emitter<StoreState> emit) async {
     final List<Store> storeList =
         await storeRepository.fetchSearchStoreList(event.search);
-    emit(state.copyWith(storeList: storeList, fetching: false));
+    emit(state.copyWith(storeList: storeList, fetching: true));
   }
 
   void handleFetchLike(
@@ -56,5 +57,10 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
       storeList:
           state.storeList!.map((e) => e.id == store.id ? store : e).toList(),
     ));
+  }
+
+  void _handleStoreFetchComplete(
+      StoreFetchComplete event, Emitter<StoreState> emit) {
+    emit(state.copyWith(fetching: false));
   }
 }
