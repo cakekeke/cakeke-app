@@ -1,23 +1,21 @@
+import 'package:cakeke/data/models/common/store_info.dart';
 import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/data/source/network/client_dio.dart';
 
 class StoreProvider {
   final client = ApiClient.client;
 
-  Future<List<Store>> getLocalStoreList(
-      double latitude, double longitude) async {
+  Future<StoreInfo> getLocalStoreList(double latitude, double longitude) async {
     try {
       final queryParameters = {
         "latitude": latitude.toString(),
         "longitude": longitude.toString(),
       };
 
-      final response = await client.dio.fetch<List<dynamic>>(
+      final response = await client.dio.fetch<Map<String, dynamic>>(
           client.clientOptions('GET', '/stores/local',
               queryParameters: queryParameters));
-      return response.data!
-          .map<Store>((dynamic i) => Store.fromJson(i as Map<String, dynamic>))
-          .toList();
+      return StoreInfo.fromJson(response.data);
     } catch (e) {
       throw Exception(e);
     }
@@ -33,18 +31,17 @@ class StoreProvider {
     }
   }
 
-  Future<List<Store>> getSearchStore(String searchText) async {
+  Future<StoreInfo> getSearchStore(String searchText) async {
     try {
       final queryParameters = {
         "value": searchText,
       };
 
-      final response = await client.dio.fetch<List<dynamic>>(
+      final response = await client.dio.fetch<Map<String, dynamic>>(
           client.clientOptions('GET', '/stores/search',
               queryParameters: queryParameters));
-      return response.data!
-          .map<Store>((dynamic i) => Store.fromJson(i as Map<String, dynamic>))
-          .toList();
+
+      return StoreInfo.fromJson(response.data);
     } catch (e) {
       throw Exception(e);
     }

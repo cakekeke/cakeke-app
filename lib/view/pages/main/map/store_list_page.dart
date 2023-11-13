@@ -1,6 +1,6 @@
 import 'package:cakeke/blocs/map/map_bloc.dart';
 import 'package:cakeke/blocs/map/map_event.dart';
-import 'package:cakeke/blocs/map/map_state.dart';
+import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/main/map/map_store_card.dart';
@@ -12,7 +12,7 @@ class StoreListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MapBloc, MapState>(
+    return BlocBuilder<StoreBloc, StoreState>(
       builder: (context, state) {
         return ScaffoldLayout(
           appBarText: "현재위치 가게 리스트",
@@ -34,7 +34,7 @@ class StoreListPage extends StatelessWidget {
               ),
             ),
             child: ListView.separated(
-              itemCount: 10,
+              itemCount: (state.storeList ?? []).length,
               itemBuilder: (BuildContext context, int index) {
                 return const MapStoreCard();
               },
