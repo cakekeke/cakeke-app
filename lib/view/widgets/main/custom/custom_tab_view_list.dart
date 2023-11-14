@@ -34,10 +34,11 @@ class CustomTabViewGrid extends StatelessWidget {
               child: Container(
                 margin: const EdgeInsets.all(27),
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(asset),
-                    fit: BoxFit.cover,
-                  ),
+                  image: asset.contains('http')
+                      ? DecorationImage(image: NetworkImage(asset))
+                      : DecorationImage(
+                          image: AssetImage(asset),
+                        ),
                   borderRadius: const BorderRadius.all(Radius.circular(999)),
                   border: Border.all(
                     color: selectItem != null &&
