@@ -4,6 +4,8 @@ import 'dart:ui';
 import 'package:cakeke/blocs/custom/custom_event.dart';
 import 'package:cakeke/blocs/custom/custom_state.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
+import 'package:cakeke/data/providers/custom_provider.dart';
+import 'package:cakeke/data/repositories/custom_repository.dart';
 import 'package:cakeke/utils/permission_util.dart';
 import 'package:cakeke/utils/utils.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_tutorial_target_focus.dart';
@@ -41,22 +43,17 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     on<CaptureAndSaveEvent>(_handleCaptureAndSaveEvent);
   }
 
+  final customRepository = CustomRepository(customProvider: CustomProvider());
+
   Future<void> _handleInitImagesEvent(
     InitImagesEvent event,
     Emitter<CustomState> emit,
   ) async {
     PermissionUtil.requestAll();
-    final manifestContent = await rootBundle.loadString('AssetManifest.json');
-    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-
-    final stickerPaths = manifestMap.keys
-        .where((String key) => key.contains('images/sticker'))
-        .toList();
-
-    final backgroundPaths = manifestMap.keys
-        .where((String key) => key.contains('images/background'))
-        .toList();
-    backgroundPaths.removeWhere((path) => path.contains('DS_Store'));
+    final images = await customRepository.getCustomImages();
+    final List<String> imageUrls = [...images.urlList, ...images.iconUrlList];
+    final stickerPaths =
+        imageUrls.where((String key) => key.contains('sticker/')).toList();
 
     final candleImages =
         stickerPaths.where((element) => element.contains('candle_')).toList();
@@ -68,13 +65,21 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
         stickerPaths.where((element) => element.contains('sticker_')).toList();
     stickerImages.sort((b, a) => a.compareTo(b));
 
-    final newImagesMap = {
+    final manifestContent = await rootBundle.loadString('AssetManifest.json');
+    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+
+    final backgroundPaths = manifestMap.keys
+        .where((String key) => key.contains('images/background'))
+        .toList();
+    backgroundPaths.removeWhere((path) => path.contains('DS_Store'));
+
+    final newImages = {
       "candle": candleImages,
       "cream": creamImages,
       "fruit": fruitImages,
       "sticker": stickerImages,
     };
-    emit(state.copyWith(sticker: newImagesMap, background: backgroundPaths));
+    emit(state.copyWith(sticker: newImages, background: backgroundPaths));
   }
 
   void _handleSetTutorialKeysEvent(
@@ -164,7 +169,9 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
       state.controller.addWidget(event.widget!);
     } else {
       state.controller.addWidget(
-        Image.asset(event.asset),
+        event.asset.contains('http')
+            ? Image.network(event.asset)
+            : Image.asset(event.asset),
       );
     }
 
@@ -227,8 +234,9 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
       final pngBytes = byteData?.buffer.asUint8List();
 
       if (pngBytes != null) {
-        final result =
-            await ImageGallerySaver.saveImage(Uint8List.fromList(pngBytes));
+        final result = await ImageGallerySaver.saveImage(
+            Uint8List.fromList(pngBytes),
+            quality: 100);
         if (result != null && result.isNotEmpty) {
           Utils.showSnackBar(event.globalKey.currentContext!, '이미지가 저장되었습니다');
           return;
