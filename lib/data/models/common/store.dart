@@ -4,12 +4,13 @@ class Store {
   String roadAddress = '';
   String latitude = '';
   String longitude = '';
-  String summary = '';
   String description = '';
-  double rating = 0;
   String startTime = '';
   String endTime = '';
   String phoneNumber = '';
+  String reservationLink = '';
+  int numberOfReviews = 0;
+  List<String> imgUrlList = [];
 
   Store({
     this.id = 0,
@@ -17,12 +18,13 @@ class Store {
     this.roadAddress = '',
     this.latitude = '',
     this.longitude = '',
-    this.summary = '',
     this.description = '',
-    this.rating = 0,
     this.startTime = '',
     this.endTime = '',
     this.phoneNumber = '',
+    this.reservationLink = '',
+    this.numberOfReviews = 0,
+    this.imgUrlList = const [],
   });
 
   Store.fromJson(Map<String, dynamic> json) {
@@ -31,12 +33,18 @@ class Store {
     roadAddress = json['roadAddress'];
     latitude = json['latitude'];
     longitude = json['longitude'];
-    summary = json['summary'];
     description = json['description'];
-    rating = json['rating'];
     startTime = json['startTime'];
     endTime = json['endTime'];
     phoneNumber = json['phoneNumber'];
+    reservationLink = json['reservationLink'];
+    numberOfReviews = json['numberOfReviews'] ?? 0;
+    imgUrlList = [];
+    if (json['imgUrlList'] != null) {
+      json['imgUrlList'].forEach((v) {
+        imgUrlList!.add(v);
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -46,12 +54,13 @@ class Store {
     data['roadAddress'] = roadAddress;
     data['latitude'] = latitude;
     data['longitude'] = longitude;
-    data['summary'] = summary;
     data['description'] = description;
-    data['rating'] = rating;
     data['startTime'] = startTime;
     data['endTime'] = endTime;
     data['phoneNumber'] = phoneNumber;
+    data['reservationLink'] = reservationLink;
+    data['numberOfReviews'] = numberOfReviews;
+    data['imgUrlList'] = imgUrlList;
     return data;
   }
 
@@ -61,12 +70,13 @@ class Store {
     String? roadAddress,
     String? latitude,
     String? longitude,
-    String? summary,
     String? description,
-    double? rating,
     String? startTime,
     String? endTime,
     String? phoneNumber,
+    String? reservationLink,
+    int? numberOfReviews,
+    List<String>? imgUrlList,
   }) {
     return Store(
       id: id ?? this.id,
@@ -74,12 +84,13 @@ class Store {
       roadAddress: roadAddress ?? this.roadAddress,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
-      summary: summary ?? this.summary,
       description: description ?? this.description,
-      rating: rating ?? this.rating,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      reservationLink: reservationLink ?? this.reservationLink,
+      numberOfReviews: numberOfReviews ?? this.numberOfReviews,
+      imgUrlList: imgUrlList ?? this.imgUrlList,
     );
   }
 }

@@ -9,6 +9,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   MapBloc() : super(MapState(location: Location())) {
     on<SetMapControllerEvent>(_handleSetMapControllerEvent);
     on<SetCurrentLocationEvent>(_handleSetCurrentLocationEvent);
+    on<SetLocationEvent>(_handleSetLocationEvent);
     on<SearchTextChangedEvent>(_handleSearchTextChangedEvent);
     on<SetMakerEvent>(_handleSetMakerEvent);
     on<UpdateMapStoreEvent>(_handleUpdateMapStoreEvent);
@@ -68,6 +69,21 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           target: NLatLng(
         userLocation?.latitude ?? 0,
         userLocation?.longitude ?? 0,
+      )));
+    } catch (e) {
+      print('Error getting location: $e');
+    }
+  }
+
+  Future<void> _handleSetLocationEvent(
+    SetLocationEvent event,
+    Emitter<MapState> emit,
+  ) async {
+    try {
+      state.mapController?.updateCamera(NCameraUpdate.withParams(
+          target: NLatLng(
+        event.latitude,
+        event.longitude,
       )));
     } catch (e) {
       print('Error getting location: $e');

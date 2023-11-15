@@ -1,4 +1,3 @@
-import 'package:cakeke/data/models/common/store_info.dart';
 import 'package:cakeke/data/providers/store_provider.dart';
 import 'package:cakeke/data/repositories/store_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +32,7 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
   void handleFetchSearch(
       StoreEventFetchSearch event, Emitter<StoreState> emit) async {
     final storeList = await storeRepository.fetchSearchStoreList(event.search);
+    event.onSearchComplete(storeList.centerLatitude, storeList.centerLongitude);
     emit(state.copyWith(storeList: storeList.storeList, fetching: true));
   }
 

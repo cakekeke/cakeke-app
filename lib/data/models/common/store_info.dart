@@ -1,19 +1,21 @@
 import 'package:cakeke/data/models/common/store.dart';
 
 class StoreInfo {
-  String centerLongitude = '';
-  String centerLatitude = '';
+  double centerLongitude = 0;
+  double centerLatitude = 0;
   List<Store> storeList = [];
 
   StoreInfo({
-    this.centerLongitude = '',
-    this.centerLatitude = '',
+    this.centerLongitude = 0,
+    this.centerLatitude = 0,
     this.storeList = const [],
   });
 
   StoreInfo.fromJson(Map<String, dynamic> json) {
-    centerLongitude = json['centerLongitude'];
-    centerLatitude = json['centerLatitude'];
+    centerLongitude =
+        json['centerLongitude'] == "NaN" ? 0 : json['centerLongitude'];
+    centerLatitude =
+        json['centerLatitude'] == "NaN" ? 0 : json['centerLatitude'];
     if (json['storeList'] != null) {
       storeList = <Store>[];
       json['storeList'].forEach((v) {
@@ -31,8 +33,8 @@ class StoreInfo {
   }
 
   StoreInfo copyWith({
-    String? centerLongitude,
-    String? centerLatitude,
+    double? centerLongitude,
+    double? centerLatitude,
     List<Store>? storeList,
   }) {
     return StoreInfo(

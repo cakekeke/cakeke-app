@@ -37,24 +37,26 @@ class MapSearchField extends StatelessWidget {
                     )
                   ]),
               child: MainTextFieldRow(
-                onSubmitted: (text) {
-                  context
-                      .read<StoreBloc>()
-                      .add(StoreEventFetchSearch(search: text));
-                },
+                onSubmitted: (text) => startSearch(context, text),
                 onChanged: (text) {
                   context
                       .read<MapBloc>()
                       .add(SearchTextChangedEvent(searchText: text));
                 },
-                onSearchTap: () {
-                  context
-                      .read<StoreBloc>()
-                      .add(StoreEventFetchSearch(search: state.searchText));
-                },
+                onSearchTap: () => startSearch(context, state.searchText),
               ),
             ),
           ));
     });
+  }
+
+  void startSearch(BuildContext context, String text) {
+    context.read<StoreBloc>().add(StoreEventFetchSearch(
+        search: text,
+        onSearchComplete: (latitude, longitude) {
+          context
+              .read<MapBloc>()
+              .add(SetLocationEvent(latitude: latitude, longitude: longitude));
+        }));
   }
 }
