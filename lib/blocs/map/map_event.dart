@@ -40,6 +40,16 @@ class SetCurrentLocationEvent extends MapEvent {
   List<Object?> get props => [];
 }
 
+class SetLocationEvent extends MapEvent {
+  const SetLocationEvent({required this.latitude, required this.longitude});
+
+  final double latitude;
+  final double longitude;
+
+  @override
+  List<Object?> get props => [latitude, longitude];
+}
+
 class OnMapCameraChangedEvent extends MapEvent {
   const OnMapCameraChangedEvent();
 

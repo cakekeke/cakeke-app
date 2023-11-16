@@ -10,28 +10,24 @@ class MapLocationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MapBloc, MapState>(
-      builder: (context, state) {
-        return GestureDetector(
-            onTap: () {
-              context.read<MapBloc>().add(const SetCurrentLocationEvent());
-            },
-            child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(999),
-                    color: DesignSystem.colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0x33000000),
-                        blurRadius: 10,
-                      )
-                    ]),
-                child: Icon(
-                  Icons.my_location,
-                  color: DesignSystem.colors.black,
-                )));
-      },
-    );
+    return GestureDetector(
+        onTap: () {
+          context.read<MapBloc>().add(const SetCurrentLocationEvent());
+        },
+        child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(999),
+                color: DesignSystem.colors.white,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x33000000),
+                    blurRadius: 10,
+                  )
+                ]),
+            child: Icon(
+              Icons.my_location,
+              color: DesignSystem.colors.black,
+            )));
   }
 }

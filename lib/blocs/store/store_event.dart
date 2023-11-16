@@ -26,12 +26,14 @@ class StoreEventFetchLocal extends StoreEvent {
 class StoreEventFetchSearch extends StoreEvent {
   const StoreEventFetchSearch({
     required this.search,
+    required this.onSearchComplete,
   });
 
   final String search;
+  final Function(double, double) onSearchComplete;
 
   @override
-  List<Object> get props => [search];
+  List<Object> get props => [search, onSearchComplete];
 }
 
 class StoreEventFetchLike extends StoreEvent {

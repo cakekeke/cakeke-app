@@ -1,3 +1,4 @@
+import 'package:cakeke/data/models/common/store_info.dart';
 import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/data/providers/store_provider.dart';
 
@@ -6,36 +7,17 @@ class StoreRepository {
 
   StoreRepository({required this.storeProvider});
 
-  Future<List<Store>> fetchLocalStoreList(
+  Future<StoreInfo> fetchLocalStoreList(
     double latitude,
     double longitude,
   ) async {
-    return [
-      Store(
-          id: 1,
-          name: '1번째 가게',
-          latitude: '37.56661029999873',
-          longitude: '126.97420395393493'),
-      Store(
-          id: 2,
-          name: '2번째 가게',
-          latitude: '37.56589053195666',
-          longitude: '126.9790085106002'),
-    ];
-    // return await storeProvider.getLocalStoreList(latitude,longitude);
+    return await storeProvider.getLocalStoreList(latitude, longitude);
   }
 
-  Future<List<Store>> fetchSearchStoreList(
+  Future<StoreInfo> fetchSearchStoreList(
     String search,
   ) async {
-    return [
-      Store(
-          id: 1,
-          name: '서치 1번째 가게',
-          latitude: '37.56661029999873',
-          longitude: '126.97420395393493'),
-    ];
-    //return await storeProvider.getSearchStore(search);
+    return await storeProvider.getSearchStore(search);
   }
 
   Future<Store> getStoreInfoFromId(

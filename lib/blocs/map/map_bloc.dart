@@ -9,6 +9,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   MapBloc() : super(MapState(location: Location())) {
     on<SetMapControllerEvent>(_handleSetMapControllerEvent);
     on<SetCurrentLocationEvent>(_handleSetCurrentLocationEvent);
+    on<SetLocationEvent>(_handleSetLocationEvent);
     on<SearchTextChangedEvent>(_handleSearchTextChangedEvent);
     on<SetMakerEvent>(_handleSetMakerEvent);
     on<UpdateMapStoreEvent>(_handleUpdateMapStoreEvent);
@@ -35,26 +36,28 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     SetMakerEvent event,
     Emitter<MapState> emit,
   ) async {
+    final makerList = <NMarker>[];
     if (event.stores != null) {
       await state.mapController?.clearOverlays();
       const makerIcon = NOverlayImage.fromAssetImage(
           'assets/images/icon_map_maker_unselect.png');
 
-      final makerList = <NAddableOverlay>{};
+      final overlayList = <NMarker>{};
       for (final store in event.stores!) {
         final maker = NMarker(
-            id: store.name,
+            id: store.id.toString(),
             position: NLatLng(
                 double.parse(store.latitude), double.parse(store.longitude)),
             icon: makerIcon)
           ..setOnTapListener((NMarker marker) => _handleSelectStoreMakerEvent(
               SelectStoreMakerEvent(maker: marker)));
+        overlayList.add(maker);
         makerList.add(maker);
       }
 
-      await state.mapController?.addOverlayAll(makerList);
+      await state.mapController?.addOverlayAll(overlayList);
     }
-    emit(state.copyWith(setMakerFlag: false));
+    emit(state.copyWith(makerList: makerList, setMakerFlag: false));
   }
 
   Future<void> _handleSetCurrentLocationEvent(
@@ -68,6 +71,21 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           target: NLatLng(
         userLocation?.latitude ?? 0,
         userLocation?.longitude ?? 0,
+      )));
+    } catch (e) {
+      print('Error getting location: $e');
+    }
+  }
+
+  Future<void> _handleSetLocationEvent(
+    SetLocationEvent event,
+    Emitter<MapState> emit,
+  ) async {
+    try {
+      state.mapController?.updateCamera(NCameraUpdate.withParams(
+          target: NLatLng(
+        event.latitude,
+        event.longitude,
       )));
     } catch (e) {
       print('Error getting location: $e');

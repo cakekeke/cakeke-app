@@ -22,18 +22,18 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
 
   Future<void> handleFetchLocal(
       StoreEventFetchLocal event, Emitter<StoreState> emit) async {
-    final List<Store> storeList = await storeRepository.fetchLocalStoreList(
+    final storeInfo = await storeRepository.fetchLocalStoreList(
       event.latitude,
       event.longitude,
     );
-    emit(state.copyWith(storeList: storeList, fetching: true));
+    emit(state.copyWith(storeList: storeInfo.storeList, fetching: true));
   }
 
   void handleFetchSearch(
       StoreEventFetchSearch event, Emitter<StoreState> emit) async {
-    final List<Store> storeList =
-        await storeRepository.fetchSearchStoreList(event.search);
-    emit(state.copyWith(storeList: storeList, fetching: true));
+    final storeList = await storeRepository.fetchSearchStoreList(event.search);
+    event.onSearchComplete(storeList.centerLatitude, storeList.centerLongitude);
+    emit(state.copyWith(storeList: storeList.storeList, fetching: true));
   }
 
   void handleFetchLike(

@@ -12,7 +12,9 @@ class MapSearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MapBloc, MapState>(builder: (context, state) {
+    return BlocBuilder<MapBloc, MapState>(buildWhen: (previous, current) {
+      return previous.searchText != current.searchText;
+    }, builder: (context, state) {
       return BlocListener<StoreBloc, StoreState>(
           listener: (context, storeState) {
             if (storeState.fetching) {
@@ -37,24 +39,26 @@ class MapSearchField extends StatelessWidget {
                     )
                   ]),
               child: MainTextFieldRow(
-                onSubmitted: (text) {
-                  context
-                      .read<StoreBloc>()
-                      .add(StoreEventFetchSearch(search: text));
-                },
+                onSubmitted: (text) => startSearch(context, text),
                 onChanged: (text) {
                   context
                       .read<MapBloc>()
                       .add(SearchTextChangedEvent(searchText: text));
                 },
-                onSearchTap: () {
-                  context
-                      .read<StoreBloc>()
-                      .add(StoreEventFetchSearch(search: state.searchText));
-                },
+                onSearchTap: () => startSearch(context, state.searchText),
               ),
             ),
           ));
     });
+  }
+
+  void startSearch(BuildContext context, String text) {
+    context.read<StoreBloc>().add(StoreEventFetchSearch(
+        search: text,
+        onSearchComplete: (latitude, longitude) {
+          context
+              .read<MapBloc>()
+              .add(SetLocationEvent(latitude: latitude, longitude: longitude));
+        }));
   }
 }
