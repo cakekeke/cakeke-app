@@ -36,26 +36,28 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     SetMakerEvent event,
     Emitter<MapState> emit,
   ) async {
+    final makerList = <NMarker>[];
     if (event.stores != null) {
       await state.mapController?.clearOverlays();
       const makerIcon = NOverlayImage.fromAssetImage(
           'assets/images/icon_map_maker_unselect.png');
 
-      final makerList = <NAddableOverlay>{};
+      final overlayList = <NMarker>{};
       for (final store in event.stores!) {
         final maker = NMarker(
-            id: store.name,
+            id: store.id.toString(),
             position: NLatLng(
                 double.parse(store.latitude), double.parse(store.longitude)),
             icon: makerIcon)
           ..setOnTapListener((NMarker marker) => _handleSelectStoreMakerEvent(
               SelectStoreMakerEvent(maker: marker)));
+        overlayList.add(maker);
         makerList.add(maker);
       }
 
-      await state.mapController?.addOverlayAll(makerList);
+      await state.mapController?.addOverlayAll(overlayList);
     }
-    emit(state.copyWith(setMakerFlag: false));
+    emit(state.copyWith(makerList: makerList, setMakerFlag: false));
   }
 
   Future<void> _handleSetCurrentLocationEvent(

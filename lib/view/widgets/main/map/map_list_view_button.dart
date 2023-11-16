@@ -10,32 +10,28 @@ class MapListViewButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MapBloc, MapState>(
-      builder: (context, state) {
-        return ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            backgroundColor: DesignSystem.colors.appPrimary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            elevation: 2,
-          ),
-          onPressed: () {
-            context.read<MapBloc>().add(const MapPageChanged(
-                  selectedPage: 1,
-                ));
-          },
-          child: Text(
-            "리스트 전체보기",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: DesignSystem.textStyle.bold.fontWeight,
-            ),
-          ),
-        );
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        backgroundColor: DesignSystem.colors.appPrimary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 2,
+      ),
+      onPressed: () {
+        context.read<MapBloc>().add(const MapPageChanged(
+              selectedPage: 1,
+            ));
       },
+      child: Text(
+        "리스트 전체보기",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: DesignSystem.textStyle.bold.fontWeight,
+        ),
+      ),
     );
   }
 }

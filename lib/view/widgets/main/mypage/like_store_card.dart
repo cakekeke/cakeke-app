@@ -1,3 +1,4 @@
+import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,9 @@ class LikeStoreCard extends StatelessWidget {
           ),
         ],
       ),
-      child: const StoreCard(),
+      child: StoreCard(
+        store: Store(),
+      ),
     );
   }
 }

@@ -36,7 +36,10 @@ class StoreListPage extends StatelessWidget {
             child: ListView.separated(
               itemCount: (state.storeList ?? []).length,
               itemBuilder: (BuildContext context, int index) {
-                return const MapStoreCard();
+                final store = state.storeList!.elementAt(index);
+                return MapStoreCard(
+                  store: store,
+                );
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const Divider();

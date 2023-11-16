@@ -13,7 +13,9 @@ class MapLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MapBloc, MapState>(builder: (context, state) {
+    return BlocBuilder<MapBloc, MapState>(buildWhen: (previous, current) {
+      return previous.setMakerFlag != current.setMakerFlag;
+    }, builder: (context, state) {
       return BlocListener<StoreBloc, StoreState>(
         listener: (context, storeState) {
           if (state.setMakerFlag) {

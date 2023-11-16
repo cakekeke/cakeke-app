@@ -1,14 +1,16 @@
 import 'package:cakeke/config/design_system/design_system.dart';
+import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/view/widgets/common/score_widget.dart';
 import 'package:flutter/material.dart';
 
 class StoreCard extends StatelessWidget {
-  const StoreCard({super.key});
+  const StoreCard({super.key, required this.store});
+
+  final Store store;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
       child: Row(
         children: [
           Container(
@@ -16,8 +18,11 @@ class StoreCard extends StatelessWidget {
             height: 100,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              image: const DecorationImage(
-                image: AssetImage("assets/images/splash.png"),
+              image: DecorationImage(
+                image: (store.imgUrlList.isEmpty
+                        ? const AssetImage("assets/images/splash.png")
+                        : NetworkImage(store.imgUrlList.first))
+                    as ImageProvider<Object>,
                 fit: BoxFit.cover,
               ),
             ),
@@ -33,12 +38,9 @@ class StoreCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "케이크",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        height: 1,
-                      ),
+                      store.name,
+                      style: DesignSystem.typography.heading3(
+                          const TextStyle(fontWeight: FontWeight.w700)),
                     ),
                     true
                         ? Icon(
@@ -75,21 +77,13 @@ class StoreCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "10:00 ~ 22:00",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    height: 1,
-                  ),
+                  "${store.startTime} ~ ${store.endTime}",
+                  style: DesignSystem.typography.body2(),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "서울특별시 강남구 역삼동 123-45",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    height: 1,
-                  ),
+                  store.roadAddress,
+                  style: DesignSystem.typography.body2(),
                 ),
               ],
             ),
