@@ -4,7 +4,7 @@ sealed class StoreEvent extends Equatable {
   const StoreEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class StoreEventFetchLocal extends StoreEvent {
@@ -63,6 +63,17 @@ class StoreEventRemoveLike extends StoreEvent {
 
   @override
   List<Object> get props => [storeId];
+}
+
+class StoreEventStoreSelect extends StoreEvent {
+  const StoreEventStoreSelect({
+    this.selectStore,
+  });
+
+  final Store? selectStore;
+
+  @override
+  List<Object?> get props => [selectStore];
 }
 
 class StoreFetchComplete extends StoreEvent {

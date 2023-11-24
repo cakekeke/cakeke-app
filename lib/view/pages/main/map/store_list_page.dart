@@ -13,6 +13,9 @@ class StoreListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StoreBloc, StoreState>(
+      buildWhen: (previous, current) {
+        return previous.storeList != current.storeList;
+      },
       builder: (context, state) {
         return ScaffoldLayout(
           appBarText: "현재위치 가게 리스트",
