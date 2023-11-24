@@ -50,6 +50,7 @@ dependencies:
   intl: ^0.18.1
   flutter_dotenv: ^5.1.0
   package_info_plus: ^4.2.0
+  url_launcher: ^6.2.1
   tutorial_coach_mark:
     git:
       url: https://github.com/LIMMIHEE/tutorial_coach_mark.git
@@ -80,6 +81,7 @@ flutter:
     - assets/images/
     - assets/images/background/
     - assets/images/background/icon/
+    - assets/images/common/
     - assets/config/.env
 
   # An image asset can refer to one or more resolution-specific "variants", see

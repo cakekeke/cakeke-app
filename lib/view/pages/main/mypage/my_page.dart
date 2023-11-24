@@ -7,8 +7,8 @@ import 'package:cakeke/view/pages/main/mypage/setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Mypage extends StatelessWidget {
-  const Mypage({super.key});
+class MyPage extends StatelessWidget {
+  const MyPage({super.key});
 
   @override
   Widget build(BuildContext context) {

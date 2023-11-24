@@ -10,6 +10,7 @@ class ScaffoldLayout extends StatelessWidget {
     this.isSafeArea = false,
     this.isDetailPage = false,
     this.onBackButtonPressed,
+    this.backgroundColor,
     required this.bodyWidget,
   });
 
@@ -18,6 +19,7 @@ class ScaffoldLayout extends StatelessWidget {
   final bool isSafeArea;
   final bool isDetailPage;
   final VoidCallback? onBackButtonPressed;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class ScaffoldLayout extends StatelessWidget {
     }
     return Scaffold(
       appBar: appBar,
+      backgroundColor: backgroundColor,
       body: isSafeArea
           ? SafeArea(
               child: bodyWidget,

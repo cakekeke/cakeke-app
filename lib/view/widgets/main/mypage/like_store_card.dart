@@ -24,6 +24,7 @@ class LikeStoreCard extends StatelessWidget {
       ),
       child: StoreCard(
         store: Store(),
+        onTap: () {},
       ),
     );
   }

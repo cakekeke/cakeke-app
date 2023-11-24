@@ -4,13 +4,15 @@ import 'package:cakeke/view/widgets/common/score_widget.dart';
 import 'package:flutter/material.dart';
 
 class StoreCard extends StatelessWidget {
-  const StoreCard({super.key, required this.store});
+  const StoreCard({super.key, required this.store, this.onTap});
 
   final Store store;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: onTap,
       child: Row(
         children: [
           Container(

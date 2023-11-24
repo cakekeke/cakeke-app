@@ -93,12 +93,12 @@ class SearchTextChangedEvent extends MapEvent {
 class MapPageChanged extends MapEvent {
   const MapPageChanged({
     required this.selectedPage,
+    this.isListChanged = false,
   });
 
   final int selectedPage;
+  final bool isListChanged;
 
   @override
-  List<Object> get props => [
-        selectedPage,
-      ];
+  List<Object> get props => [selectedPage, isListChanged];
 }

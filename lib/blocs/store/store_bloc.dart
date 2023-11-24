@@ -8,13 +8,14 @@ part 'store_event.dart';
 part 'store_state.dart';
 
 class StoreBloc extends Bloc<StoreEvent, StoreState> {
-  StoreBloc() : super(StoreState()) {
+  StoreBloc() : super(const StoreState()) {
     on<StoreEventFetchLocal>(handleFetchLocal);
     on<StoreEventFetchSearch>(handleFetchSearch);
     on<StoreEventFetchLike>(handleFetchLike);
     on<StoreEventAddLike>(handleAddLike);
     on<StoreEventRemoveLike>(handleRemoveLike);
     on<StoreFetchComplete>(_handleStoreFetchComplete);
+    on<StoreEventStoreSelect>(_handleStoreEventStoreSelect);
   }
 
   final StoreRepository storeRepository =
@@ -62,5 +63,10 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
   void _handleStoreFetchComplete(
       StoreFetchComplete event, Emitter<StoreState> emit) {
     emit(state.copyWith(fetching: false));
+  }
+
+  void _handleStoreEventStoreSelect(
+      StoreEventStoreSelect event, Emitter<StoreState> emit) {
+    emit(state.copyWith(selectStore: event.selectStore));
   }
 }

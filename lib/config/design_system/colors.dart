@@ -13,11 +13,15 @@ class Colors {
 
   Color get white => const Color(0xFFFFFFFF);
 
+  Color get gray600 => const Color(0xFF6E6E6E);
+
   Color get gray400 => const Color(0xFFD4D4D4);
 
   Color get gray100 => const Color(0xFFE1E1E1);
 
   Color get allowedGreen => const Color(0xFF4EBE4B);
+
+  Color get lightBlue => const Color(0xFF308FFF);
 
   Color get unacceptableRed => const Color(0xFFFF7F7F);
 
@@ -42,11 +46,14 @@ class Colors {
 
   Color get textCustomNoti => const Color(0xFF999999);
 
+  Color get textEmptyImage => const Color(0xFFB0B0B0);
+
   // background
   Color get backgroundDisabled => const Color(0xFFF3F3F3);
   Color get backgroundProfileList => const Color(0xFFFAFAFA);
   Color get backgroundCustomList => const Color(0xFFF5F5F5);
   Color get backgroundCustomText => const Color(0xFFF7F7F7);
+  Color get backgroundStoreEmptyImage => const Color(0xFFF1F1F1);
 
   //diver
   Color get divider => const Color(0xFFE8E8E8);

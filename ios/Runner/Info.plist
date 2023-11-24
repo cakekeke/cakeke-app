@@ -63,5 +63,10 @@
     	<string>이미지를 가져오기 위해 권한을 허용해주세요.</string>
     	<key>NSPhotoLibraryAddUsageDescription</key>
     	<string>이미지 저장을 위해 권한을 허용해주세요.</string>
+    	<key>LSApplicationQueriesSchemes</key>
+        <array>
+          <string>sms</string>
+          <string>tel</string>
+        </array>
 	</dict>
 </plist>

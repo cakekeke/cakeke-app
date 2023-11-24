@@ -17,6 +17,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<MapPageChanged>(_handleMapPageChangedEvent);
   }
 
+  bool isMapPageListChanged = false;
+
   void _handleSetMapControllerEvent(
     SetMapControllerEvent event,
     Emitter<MapState> emit,
@@ -124,9 +126,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     MapPageChanged event,
     Emitter<MapState> emit,
   ) {
-    final nextPage = event.selectedPage ?? state.selectedPage;
+    final nextPage = event.selectedPage;
     emit(state.copyWith(
-      selectedPage: nextPage,
+      selectedPage: isMapPageListChanged ? 1 : nextPage,
     ));
+
+    isMapPageListChanged = event.isListChanged;
   }
 }
