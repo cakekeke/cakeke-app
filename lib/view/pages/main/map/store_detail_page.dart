@@ -28,7 +28,7 @@ class StoreDetailPage extends StatelessWidget {
         },
         bodyWidget:
             BlocBuilder<StoreBloc, StoreState>(buildWhen: (previous, current) {
-          return previous.selectStore != current.selectStore;
+          return previous.selectStore?.id != current.selectStore?.id;
         }, builder: (context, state) {
           final store = state.selectStore;
           if (store == null) {
