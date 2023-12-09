@@ -36,35 +36,6 @@ class StoreEventFetchSearch extends StoreEvent {
   List<Object> get props => [search, onSearchComplete];
 }
 
-class StoreEventFetchLike extends StoreEvent {
-  const StoreEventFetchLike();
-
-  @override
-  List<Object> get props => [];
-}
-
-class StoreEventAddLike extends StoreEvent {
-  const StoreEventAddLike({
-    required this.storeId,
-  });
-
-  final int storeId;
-
-  @override
-  List<Object> get props => [storeId];
-}
-
-class StoreEventRemoveLike extends StoreEvent {
-  const StoreEventRemoveLike({
-    required this.storeId,
-  });
-
-  final int storeId;
-
-  @override
-  List<Object> get props => [storeId];
-}
-
 class StoreEventStoreSelect extends StoreEvent {
   const StoreEventStoreSelect({
     this.selectStore,

@@ -25,38 +25,4 @@ class StoreRepository {
   ) async {
     return await storeProvider.getStoreInfo(storeId);
   }
-
-  Future<List<Store>> fetchLikeStoreList() async {
-    await Future.delayed(Duration(seconds: 1));
-    return [
-      Store(
-        id: 9,
-        name: 'Store 9',
-        description: 'Store 9 description',
-      ),
-      Store(
-        id: 10,
-        name: 'Store 10',
-        description: 'Store 10 description',
-      ),
-    ];
-  }
-
-  Future<Store> addLike(int storeId) async {
-    await Future.delayed(Duration(seconds: 1));
-    return Store(
-      id: storeId,
-      name: 'Store $storeId',
-      description: 'Store $storeId description',
-    );
-  }
-
-  Future<Store> removeLike(int storeId) async {
-    await Future.delayed(Duration(seconds: 1));
-    return Store(
-      id: storeId,
-      name: 'Store $storeId',
-      description: 'Store $storeId description',
-    );
-  }
 }

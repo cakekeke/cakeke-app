@@ -1,5 +1,6 @@
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/data/models/common/store.dart';
+import 'package:cakeke/view/widgets/common/like_icon_button.dart';
 import 'package:cakeke/view/widgets/common/score_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -44,17 +45,7 @@ class StoreCard extends StatelessWidget {
                       style: DesignSystem.typography.heading3(
                           const TextStyle(fontWeight: FontWeight.w700)),
                     ),
-                    true
-                        ? Icon(
-                            Icons.favorite,
-                            size: 20,
-                            color: DesignSystem.colors.appPrimary,
-                          )
-                        : Icon(
-                            Icons.favorite_border,
-                            size: 20,
-                            color: DesignSystem.colors.appPrimary,
-                          )
+                    LikeIconButton(store: store)
                   ],
                 ),
                 const SizedBox(height: 12),
@@ -64,7 +55,7 @@ class StoreCard extends StatelessWidget {
                     Container(
                       height: 20,
                       padding: const EdgeInsets.only(top: 4),
-                      child: Text(
+                      child: const Text(
                         "4.5",
                         style: TextStyle(
                           fontSize: 14,

@@ -1,4 +1,5 @@
 import 'package:cakeke/blocs/auth/auth_bloc.dart';
+import 'package:cakeke/blocs/like/like_bloc.dart';
 import 'package:cakeke/blocs/map/map_bloc.dart';
 import 'package:cakeke/blocs/custom/custom_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
@@ -17,6 +18,7 @@ class AppBlocProviders {
         BlocProvider(create: (context) => TabBloc()),
         BlocProvider(create: (context) => MapBloc()),
         BlocProvider(create: (context) => StoreBloc()),
+        BlocProvider(create: (context) => LikeBloc()),
         BlocProvider(create: (context) => CustomBloc()),
         BlocProvider(create: (context) => MypageBloc()),
       ];
