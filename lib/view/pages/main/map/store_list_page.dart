@@ -2,6 +2,7 @@ import 'package:cakeke/blocs/map/map_bloc.dart';
 import 'package:cakeke/blocs/map/map_event.dart';
 import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
+import 'package:cakeke/view/widgets/common/empty_list_text.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/main/map/map_store_card.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class StoreListPage extends StatelessWidget {
         return previous.storeList != current.storeList;
       },
       builder: (context, state) {
+        final storeList = state.storeList ?? [];
         return ScaffoldLayout(
           appBarText: "현재위치 가게 리스트",
           isDetailPage: true,
@@ -36,18 +38,20 @@ class StoreListPage extends StatelessWidget {
                 ),
               ),
             ),
-            child: ListView.separated(
-              itemCount: (state.storeList ?? []).length,
-              itemBuilder: (BuildContext context, int index) {
-                final store = state.storeList!.elementAt(index);
-                return MapStoreCard(
-                  store: store,
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const Divider();
-              },
-            ),
+            child: storeList.isEmpty
+                ? const EmptyListText()
+                : ListView.separated(
+                    itemCount: storeList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final store = storeList.elementAt(index);
+                      return MapStoreCard(
+                        store: store,
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const Divider();
+                    },
+                  ),
           ),
         );
       },

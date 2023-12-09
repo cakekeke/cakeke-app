@@ -1,9 +1,15 @@
+import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
+import 'package:cakeke/blocs/mypage/mypage_event.dart';
+import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LikeStoreCard extends StatelessWidget {
-  const LikeStoreCard({super.key});
+  const LikeStoreCard({super.key, required this.store});
+
+  final Store store;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +29,15 @@ class LikeStoreCard extends StatelessWidget {
         ],
       ),
       child: StoreCard(
-        store: Store(),
-        onTap: () {},
+        store: store,
+        onTap: () {
+          context.read<StoreBloc>().add(StoreEventStoreSelect(
+                selectStore: store,
+              ));
+          context.read<MypageBloc>().add(const MypagePageChanged(
+                selectedPage: 3,
+              ));
+        },
       ),
     );
   }

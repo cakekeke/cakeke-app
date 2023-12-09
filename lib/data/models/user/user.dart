@@ -22,7 +22,7 @@ class User {
     id = json['id'];
     name = json['name'];
     userId = json['userId'];
-    sex = json['sex'];
+    sex = json['sex'] ?? '';
     age = json['age'];
     createdOn = json['created_on'];
     updatedOn = json['updated_on'];

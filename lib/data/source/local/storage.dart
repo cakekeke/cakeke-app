@@ -18,5 +18,6 @@ class Storage {
 
   static const String accessToken = "access_token";
   static const String id = "id";
+  static const String uid = "uid";
   static const String password = "password";
 }

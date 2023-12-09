@@ -34,35 +34,38 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     SignUpProgressEvent event,
     Emitter<SignUpState> emit,
   ) async {
-    final user = state.user;
+    try {
+      final user = state.user;
 
-    await repository
-        .signUp(
-            userId: user.userId,
-            age: user.age,
-            sex: user.sex,
-            password: user.password,
-            image: user.image,
-            checkPassword: state.checkPassword.join(),
-            servicePurpose: user.servicePurpose)
-        .then((isComplete) async {
+      final isComplete = await repository.signUp(
+        userId: user.userId,
+        age: user.age,
+        sex: user.sex,
+        password: user.password,
+        image: user.image,
+        checkPassword: state.checkPassword.join(),
+        servicePurpose: user.servicePurpose,
+      );
+
       if (isComplete) {
         await SignInRepository(signinProvider: SignInProvider())
             .signin(id: user.userId, password: state.password.join());
+
         final userInfo =
             await UserRepository(userProvider: UserProvider()).getUser();
 
         Storage.write(Storage.id, user.userId);
         Storage.write(Storage.password, state.password.join());
+        Storage.write(Storage.uid, '${userInfo.id}');
         Prefs.setString(Prefs.profileFileName, user.image);
         Prefs.setString(Prefs.name, userInfo.name);
         emit(state.copyWith(name: userInfo.name, chapter: state.chapter + 1));
       } else {
         Utils.showSnackBar(event.context, '회원가입에 실패하였습니다.');
       }
-    }).catchError((_) {
+    } catch (e) {
       Utils.showSnackBar(event.context, '회원가입 중 오류가 발생하였습니다.');
-    });
+    }
   }
 
   Future<void> _handleDuplicationIdCheckEvent(

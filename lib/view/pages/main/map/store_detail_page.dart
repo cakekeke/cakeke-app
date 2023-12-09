@@ -1,8 +1,11 @@
 import 'package:cakeke/blocs/map/map_bloc.dart';
 import 'package:cakeke/blocs/map/map_event.dart';
+import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
+import 'package:cakeke/blocs/mypage/mypage_event.dart';
 import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/view/widgets/common/gray_elevated_button.dart';
+import 'package:cakeke/view/widgets/common/like_icon_button.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/common/score_widget.dart';
 import 'package:cakeke/view/widgets/main/store/store_detail_empty_image.dart';
@@ -13,7 +16,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StoreDetailPage extends StatelessWidget {
-  const StoreDetailPage({super.key});
+  const StoreDetailPage({super.key, this.isMapPage = true});
+
+  final bool isMapPage;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +27,15 @@ class StoreDetailPage extends StatelessWidget {
         isDetailPage: true,
         backgroundColor: DesignSystem.colors.white,
         onBackButtonPressed: () {
-          context.read<MapBloc>().add(const MapPageChanged(
-                selectedPage: 0,
-              ));
+          if (isMapPage) {
+            context.read<MapBloc>().add(const MapPageChanged(
+                  selectedPage: 0,
+                ));
+          } else {
+            context.read<MypageBloc>().add(const MypagePageChanged(
+                  selectedPage: 2,
+                ));
+          }
         },
         bodyWidget:
             BlocBuilder<StoreBloc, StoreState>(buildWhen: (previous, current) {
@@ -36,6 +47,7 @@ class StoreDetailPage extends StatelessWidget {
               child: Text('업체 정보를 찾을 수 없습니다.'),
             );
           }
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -64,9 +76,10 @@ class StoreDetailPage extends StatelessWidget {
                             style: DesignSystem.typography.display2(),
                           ),
                         ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.favorite_border))
+                        LikeIconButton(
+                          store: store,
+                          iconSize: 24,
+                        )
                       ],
                     ),
                     const SizedBox(
