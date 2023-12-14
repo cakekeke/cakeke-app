@@ -85,9 +85,9 @@ class StoreDetailPage extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    const StoreInfoRow(
+                    StoreInfoRow(
                       title: '별점',
-                      child: ScoreWidget(score: 3.5),
+                      child: ScoreWidget(score: store.starRating),
                     ),
                     StoreInfoRow(
                       title: '영업시간',
@@ -113,6 +113,15 @@ class StoreDetailPage extends StatelessWidget {
                       child: Text(
                         store.description,
                         maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: DesignSystem.typography.body2(),
+                      ),
+                    ),
+                    StoreInfoRow(
+                      title: '해시태그',
+                      child: Text(
+                        store.hashTag,
+                        overflow: TextOverflow.fade,
                         style: DesignSystem.typography.body2(),
                       ),
                     ),

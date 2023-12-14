@@ -71,12 +71,13 @@ class SetMakerEvent extends MapEvent {
 }
 
 class SelectStoreMakerEvent extends MapEvent {
-  const SelectStoreMakerEvent({required this.maker});
+  const SelectStoreMakerEvent({required this.maker, required this.index});
 
   final NMarker maker;
+  final int index;
 
   @override
-  List<Object?> get props => [maker];
+  List<Object?> get props => [maker, index];
 }
 
 class SearchTextChangedEvent extends MapEvent {

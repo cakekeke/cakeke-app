@@ -1,9 +1,6 @@
-import 'package:cakeke/blocs/custom/custom_bloc.dart';
-import 'package:cakeke/blocs/custom/custom_state.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_stroke_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomTextColorGridView extends StatelessWidget {
   const CustomTextColorGridView({
