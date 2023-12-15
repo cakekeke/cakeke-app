@@ -11,6 +11,9 @@ class Store {
   String reservationLink = '';
   int numberOfReviews = 0;
   List<String> imgUrlList = [];
+  String representImgUrl = '';
+  double starRating = 0;
+  String hashTag = '';
 
   Store({
     this.id = 0,
@@ -25,6 +28,9 @@ class Store {
     this.reservationLink = '',
     this.numberOfReviews = 0,
     this.imgUrlList = const [],
+    this.representImgUrl = '',
+    this.starRating = 0,
+    this.hashTag = '',
   });
 
   Store.fromJson(Map<String, dynamic> json) {
@@ -42,9 +48,12 @@ class Store {
     imgUrlList = [];
     if (json['imgUrlList'] != null) {
       json['imgUrlList'].forEach((v) {
-        imgUrlList!.add(v);
+        imgUrlList.add(v);
       });
     }
+    representImgUrl = json['representImgUrl'] ?? '';
+    hashTag = json['hashTag'];
+    starRating = json['starRating'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -61,6 +70,9 @@ class Store {
     data['reservationLink'] = reservationLink;
     data['numberOfReviews'] = numberOfReviews;
     data['imgUrlList'] = imgUrlList;
+    data['representImgUrl'] = representImgUrl;
+    data['hashTag'] = hashTag;
+    data['starRating'] = starRating;
     return data;
   }
 
@@ -77,6 +89,9 @@ class Store {
     String? reservationLink,
     int? numberOfReviews,
     List<String>? imgUrlList,
+    String? representImgUrl,
+    String? hashTag,
+    double? starRating,
   }) {
     return Store(
       id: id ?? this.id,
@@ -91,6 +106,9 @@ class Store {
       reservationLink: reservationLink ?? this.reservationLink,
       numberOfReviews: numberOfReviews ?? this.numberOfReviews,
       imgUrlList: imgUrlList ?? this.imgUrlList,
+      representImgUrl: representImgUrl ?? this.representImgUrl,
+      hashTag: hashTag ?? this.hashTag,
+      starRating: starRating ?? this.starRating,
     );
   }
 }

@@ -8,13 +8,13 @@ class CustomImages {
     if (json['urlList'] != null) {
       urlList = [];
       json['urlList'].forEach((v) {
-        urlList!.add(v);
+        urlList.add(v);
       });
     }
     if (json['iconUrlList'] != null) {
       iconUrlList = [];
       json['iconUrlList'].forEach((v) {
-        iconUrlList!.add(v);
+        iconUrlList.add(v);
       });
     }
   }

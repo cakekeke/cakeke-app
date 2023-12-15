@@ -52,20 +52,15 @@ class StoreCard extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 20,
-                      padding: const EdgeInsets.only(top: 4),
-                      child: const Text(
-                        "4.5",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          height: 1,
-                        ),
+                      child: Text(
+                        '${store.starRating}',
+                        style: DesignSystem.typography.body2(),
                       ),
                     ),
                     const SizedBox(width: 4),
-                    ScoreWidget(score: 3.5),
+                    ScoreWidget(score: store.starRating),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -76,6 +71,7 @@ class StoreCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   store.roadAddress,
+                  overflow: TextOverflow.ellipsis,
                   style: DesignSystem.typography.body2(),
                 ),
               ],
