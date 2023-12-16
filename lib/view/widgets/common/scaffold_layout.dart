@@ -1,4 +1,3 @@
-import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/view/widgets/common/scaffold_detail_appbar.dart';
 import 'package:cakeke/view/widgets/common/scaffold_main_appbar.dart';
 import 'package:flutter/material.dart';

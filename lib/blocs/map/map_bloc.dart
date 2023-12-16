@@ -1,12 +1,19 @@
 import 'package:cakeke/blocs/map/map_event.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:location/location.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 import 'map_state.dart';
 
 class MapBloc extends Bloc<MapEvent, MapState> {
-  MapBloc() : super(MapState(location: Location())) {
+  MapBloc()
+      : super(MapState(
+            location: Location(),
+            itemScrollController: AutoScrollController(
+              axis: Axis.horizontal,
+            ))) {
     on<SetMapControllerEvent>(_handleSetMapControllerEvent);
     on<SetCurrentLocationEvent>(_handleSetCurrentLocationEvent);
     on<SetLocationEvent>(_handleSetLocationEvent);
@@ -15,6 +22,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<UpdateMapStoreEvent>(_handleUpdateMapStoreEvent);
     on<OnMapCameraChangedEvent>(_handleOnMapCameraChangedEvent);
     on<MapPageChanged>(_handleMapPageChangedEvent);
+    on<SelectStoreMakerEvent>(_handleSelectStoreMakerEvent);
   }
 
   bool isMapPageListChanged = false;
@@ -45,16 +53,19 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           'assets/images/icon_map_maker_unselect.png');
 
       final overlayList = <NMarker>{};
-      for (final store in event.stores!) {
-        final maker = NMarker(
-            id: store.id.toString(),
-            position: NLatLng(
-                double.parse(store.latitude), double.parse(store.longitude)),
-            icon: makerIcon)
-          ..setOnTapListener((NMarker marker) => _handleSelectStoreMakerEvent(
-              SelectStoreMakerEvent(maker: marker)));
-        overlayList.add(maker);
-        makerList.add(maker);
+      if (event.stores != null) {
+        for (int index = 0; index < event.stores!.length; index++) {
+          final store = event.stores!.elementAt(index);
+          final maker = NMarker(
+              id: store.id.toString(),
+              position: NLatLng(
+                  double.parse(store.latitude), double.parse(store.longitude)),
+              icon: makerIcon)
+            ..setOnTapListener((NMarker marker) => _handleSelectStoreMakerEvent(
+                SelectStoreMakerEvent(maker: marker, index: index), null));
+          overlayList.add(maker);
+          makerList.add(maker);
+        }
       }
 
       await state.mapController?.addOverlayAll(overlayList);
@@ -104,6 +115,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   void _handleSelectStoreMakerEvent(
     SelectStoreMakerEvent event,
+    Emitter<MapState>? emit,
   ) {
     const unSelectMaker = NOverlayImage.fromAssetImage(
         'assets/images/icon_map_maker_unselect.png');
@@ -112,7 +124,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     state.selectMaker?.setIcon(unSelectMaker);
     event.maker.setIcon(selectMaker);
-    emit(state.copyWith(selectMaker: event.maker));
+    Future.delayed(const Duration(milliseconds: 300), () {
+      state.itemScrollController.scrollToIndex(event.index,
+          preferPosition: AutoScrollPosition.middle);
+    });
+
+    this.emit(state.copyWith(
+        selectMaker: event.maker, selectStoreIndex: event.index));
   }
 
   void _handleSearchTextChangedEvent(

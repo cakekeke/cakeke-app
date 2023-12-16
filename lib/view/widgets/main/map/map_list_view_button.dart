@@ -1,6 +1,5 @@
 import 'package:cakeke/blocs/map/map_bloc.dart';
 import 'package:cakeke/blocs/map/map_event.dart';
-import 'package:cakeke/blocs/map/map_state.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

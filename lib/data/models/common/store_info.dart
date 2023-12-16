@@ -19,7 +19,7 @@ class StoreInfo {
     if (json['storeList'] != null) {
       storeList = <Store>[];
       json['storeList'].forEach((v) {
-        storeList!.add(Store.fromJson(v));
+        storeList.add(Store.fromJson(v));
       });
     }
   }

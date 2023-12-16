@@ -11,9 +11,6 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
   StoreBloc() : super(const StoreState()) {
     on<StoreEventFetchLocal>(handleFetchLocal);
     on<StoreEventFetchSearch>(handleFetchSearch);
-    on<StoreEventFetchLike>(handleFetchLike);
-    on<StoreEventAddLike>(handleAddLike);
-    on<StoreEventRemoveLike>(handleRemoveLike);
     on<StoreFetchComplete>(_handleStoreFetchComplete);
     on<StoreEventStoreSelect>(_handleStoreEventStoreSelect);
   }
@@ -35,29 +32,6 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
     final storeList = await storeRepository.fetchSearchStoreList(event.search);
     event.onSearchComplete(storeList.centerLatitude, storeList.centerLongitude);
     emit(state.copyWith(storeList: storeList.storeList, fetching: true));
-  }
-
-  void handleFetchLike(
-      StoreEventFetchLike event, Emitter<StoreState> emit) async {
-    final List<Store> storeList = await storeRepository.fetchLikeStoreList();
-    emit(state.copyWith(storeList: storeList, fetching: false));
-  }
-
-  void handleAddLike(StoreEventAddLike event, Emitter<StoreState> emit) async {
-    final Store store = await storeRepository.addLike(event.storeId);
-    emit(state.copyWith(
-      storeList:
-          state.storeList!.map((e) => e.id == store.id ? store : e).toList(),
-    ));
-  }
-
-  void handleRemoveLike(
-      StoreEventRemoveLike event, Emitter<StoreState> emit) async {
-    final Store store = await storeRepository.removeLike(event.storeId);
-    emit(state.copyWith(
-      storeList:
-          state.storeList!.map((e) => e.id == store.id ? store : e).toList(),
-    ));
   }
 
   void _handleStoreFetchComplete(

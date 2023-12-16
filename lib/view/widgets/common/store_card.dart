@@ -1,5 +1,6 @@
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/data/models/common/store.dart';
+import 'package:cakeke/view/widgets/common/like_icon_button.dart';
 import 'package:cakeke/view/widgets/common/score_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -44,37 +45,22 @@ class StoreCard extends StatelessWidget {
                       style: DesignSystem.typography.heading3(
                           const TextStyle(fontWeight: FontWeight.w700)),
                     ),
-                    true
-                        ? Icon(
-                            Icons.favorite,
-                            size: 20,
-                            color: DesignSystem.colors.appPrimary,
-                          )
-                        : Icon(
-                            Icons.favorite_border,
-                            size: 20,
-                            color: DesignSystem.colors.appPrimary,
-                          )
+                    LikeIconButton(store: store)
                   ],
                 ),
                 const SizedBox(height: 12),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 20,
-                      padding: const EdgeInsets.only(top: 4),
                       child: Text(
-                        "4.5",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          height: 1,
-                        ),
+                        '${store.starRating}',
+                        style: DesignSystem.typography.body2(),
                       ),
                     ),
                     const SizedBox(width: 4),
-                    ScoreWidget(score: 3.5),
+                    ScoreWidget(score: store.starRating),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -85,6 +71,7 @@ class StoreCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   store.roadAddress,
+                  overflow: TextOverflow.ellipsis,
                   style: DesignSystem.typography.body2(),
                 ),
               ],

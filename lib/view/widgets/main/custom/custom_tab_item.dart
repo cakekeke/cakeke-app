@@ -1,4 +1,3 @@
-import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabItem extends StatelessWidget {

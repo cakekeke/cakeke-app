@@ -6,6 +6,7 @@ import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 
 class MapStoreListItem extends StatelessWidget {
   const MapStoreListItem({
@@ -27,9 +28,13 @@ class MapStoreListItem extends StatelessWidget {
               ));
         },
         child: Container(
+            height: 170,
+            width: 90.w,
             margin: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
             padding: const EdgeInsets.all(12),
-            constraints: const BoxConstraints(minHeight: 120),
+            constraints: const BoxConstraints(
+              minHeight: 120,
+            ),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: DesignSystem.colors.white,
