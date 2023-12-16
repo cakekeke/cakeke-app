@@ -1,3 +1,6 @@
+import 'package:cakeke/blocs/home_bloc/home_bloc.dart';
+import 'package:cakeke/blocs/home_bloc/home_event.dart';
+import 'package:cakeke/blocs/home_bloc/home_state.dart';
 import 'package:cakeke/blocs/map/map_bloc.dart';
 import 'package:cakeke/blocs/map/map_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
@@ -48,6 +51,9 @@ class BottomNavigation extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             onTap: (index) {
               context.read<TabBloc>().add(TabChanged(selectedIndex: index));
+              context
+                  .read<HomeBloc>()
+                  .add(HomePageChanged(selectedPage: HomeTab.main.index));
               context
                   .read<MapBloc>()
                   .add(const MapPageChanged(selectedPage: 0));

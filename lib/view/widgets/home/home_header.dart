@@ -1,14 +1,36 @@
+import 'package:cakeke/blocs/tab/tab_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: SvgPicture.asset(
-      'assets/images/icon_custom_tutorial_tab.svg',
-    ));
+    return BlocBuilder<TabBloc, TabState>(
+      builder: (context, state) {
+        return Container(
+          height: 51,
+          padding: const EdgeInsets.fromLTRB(20, 9, 12, 9),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Image(
+                  image: AssetImage('assets/images/common/cakeke_logo.svg')),
+              GestureDetector(
+                onTap: () {
+                  context.read<TabBloc>().add(TabChanged(selectedIndex: 4));
+                },
+                child: const Icon(
+                  Icons.person_outline_rounded,
+                  color: Colors.black,
+                  size: 24,
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }

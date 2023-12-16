@@ -10,8 +10,8 @@ class HomeProvider {
       return [
         Store(
           id: 0,
-          name: 'mock',
-          roadAddress: 'mock',
+          name: '오늘은 윤날',
+          roadAddress: '서울시 성동구',
           latitude: 'mock',
           longitude: 'mock',
           description: 'mock',
@@ -21,7 +21,35 @@ class HomeProvider {
           reservationLink: 'mock',
           numberOfReviews: 0,
           imgUrlList: [],
-        )
+        ),
+        Store(
+          id: 1,
+          name: '오늘은 윤날',
+          roadAddress: '서울시 성동구',
+          latitude: 'mock',
+          longitude: 'mock',
+          description: 'mock',
+          startTime: 'mock',
+          endTime: 'mock',
+          phoneNumber: 'mock',
+          reservationLink: 'mock',
+          numberOfReviews: 0,
+          imgUrlList: [],
+        ),
+        Store(
+          id: 3,
+          name: '오늘은 윤날',
+          roadAddress: '서울시 성동구',
+          latitude: 'mock',
+          longitude: 'mock',
+          description: 'mock',
+          startTime: 'mock',
+          endTime: 'mock',
+          phoneNumber: 'mock',
+          reservationLink: 'mock',
+          numberOfReviews: 0,
+          imgUrlList: [],
+        ),
       ];
     } catch (e) {
       throw Exception(e);
@@ -34,8 +62,8 @@ class HomeProvider {
       return [
         Store(
           id: 0,
-          name: 'mock',
-          roadAddress: 'mock',
+          name: '오늘은 윤날',
+          roadAddress: '서울시 성동구',
           latitude: 'mock',
           longitude: 'mock',
           description: 'mock',
@@ -45,7 +73,35 @@ class HomeProvider {
           reservationLink: 'mock',
           numberOfReviews: 0,
           imgUrlList: [],
-        )
+        ),
+        Store(
+          id: 1,
+          name: '오늘은 윤날',
+          roadAddress: '서울시 성동구',
+          latitude: 'mock',
+          longitude: 'mock',
+          description: 'mock',
+          startTime: 'mock',
+          endTime: 'mock',
+          phoneNumber: 'mock',
+          reservationLink: 'mock',
+          numberOfReviews: 0,
+          imgUrlList: [],
+        ),
+        Store(
+          id: 2,
+          name: '오늘은 윤날',
+          roadAddress: '서울시 성동구',
+          latitude: 'mock',
+          longitude: 'mock',
+          description: 'mock',
+          startTime: 'mock',
+          endTime: 'mock',
+          phoneNumber: 'mock',
+          reservationLink: 'mock',
+          numberOfReviews: 0,
+          imgUrlList: [],
+        ),
       ];
     } catch (e) {
       throw Exception(e);

@@ -1,7 +1,3 @@
-import 'package:cakeke/blocs/map/map_bloc.dart';
-import 'package:cakeke/blocs/map/map_event.dart';
-import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
-import 'package:cakeke/blocs/mypage/mypage_event.dart';
 import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/view/widgets/common/gray_elevated_button.dart';
@@ -16,9 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StoreDetailPage extends StatelessWidget {
-  const StoreDetailPage({super.key, this.isMapPage = true});
+  const StoreDetailPage({super.key, required this.onBackButtonPressed});
 
-  final bool isMapPage;
+  final VoidCallback onBackButtonPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +22,7 @@ class StoreDetailPage extends StatelessWidget {
         appBarText: "가게정보",
         isDetailPage: true,
         backgroundColor: DesignSystem.colors.white,
-        onBackButtonPressed: () {
-          if (isMapPage) {
-            context.read<MapBloc>().add(const MapPageChanged(
-                  selectedPage: 0,
-                ));
-          } else {
-            context.read<MypageBloc>().add(const MypagePageChanged(
-                  selectedPage: 2,
-                ));
-          }
-        },
+        onBackButtonPressed: onBackButtonPressed,
         bodyWidget:
             BlocBuilder<StoreBloc, StoreState>(buildWhen: (previous, current) {
           return previous.selectStore?.id != current.selectStore?.id;
