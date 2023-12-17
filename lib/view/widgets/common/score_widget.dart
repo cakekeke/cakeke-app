@@ -4,9 +4,11 @@ class ScoreWidget extends StatelessWidget {
   const ScoreWidget({
     super.key,
     required this.score,
+    this.size = 20,
   });
 
   final double score;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +16,21 @@ class ScoreWidget extends StatelessWidget {
       children: [
         for (int index = 0; index < 5; index++)
           if (score >= index + 1)
-            const Icon(
+            Icon(
               Icons.star_rounded,
-              size: 20,
+              size: size,
               color: Colors.amber,
             )
           else if (score >= index + 0.5)
-            const Icon(
+            Icon(
               Icons.star_half_rounded,
-              size: 20,
+              size: size,
               color: Colors.amber,
             )
           else
-            const Icon(
+            Icon(
               Icons.star_outline_rounded,
-              size: 20,
+              size: size,
               color: Colors.amber,
             ),
       ],

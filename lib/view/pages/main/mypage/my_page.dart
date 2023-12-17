@@ -20,11 +20,17 @@ class MyPage extends StatelessWidget {
         }
         return IndexedStack(
           index: state.selectedPage,
-          children: const [
-            MypageMainPage(),
-            SettingPage(),
-            LikePage(),
-            StoreDetailPage(isMapPage: false),
+          children: [
+            const MypageMainPage(),
+            const SettingPage(),
+            const LikePage(),
+            StoreDetailPage(
+              onBackButtonPressed: () {
+                context
+                    .read<MypageBloc>()
+                    .add(const MypagePageChanged(selectedPage: 2));
+              },
+            ),
           ],
         );
       },
