@@ -24,27 +24,14 @@ class MapLayout extends StatelessWidget {
           }
         },
         child: NaverMap(
-          options: const NaverMapViewOptions(
-            initialCameraPosition: NCameraPosition(
-              target: NLatLng(37.5665, 126.9780),
-              zoom: 14,
-            ),
-          ),
           onMapReady: (naverMapController) {
-            context
-                .read<MapBloc>()
-                .add(SetMapControllerEvent(mapController: naverMapController));
-
-            Future.delayed(const Duration(milliseconds: 100), () {
-              naverMapController
-                  .getCameraPosition()
-                  .then((p) => p.target)
-                  .then((nowPosition) {
-                BlocProvider.of<StoreBloc>(context).add(StoreEventFetchLocal(
-                    latitude: nowPosition.latitude,
-                    longitude: nowPosition.longitude));
-              });
-            });
+            context.read<MapBloc>().add(SetMapControllerEvent(
+                mapController: naverMapController,
+                afterSetting: (nowPosition) {
+                  BlocProvider.of<StoreBloc>(context).add(StoreEventFetchLocal(
+                      latitude: nowPosition.latitude,
+                      longitude: nowPosition.longitude));
+                }));
           },
           onCameraIdle: () {
             context.read<MapBloc>().add(const OnMapCameraChangedEvent());

@@ -11,12 +11,14 @@ abstract class MapEvent extends Equatable {
 class SetMapControllerEvent extends MapEvent {
   const SetMapControllerEvent({
     required this.mapController,
+    required this.afterSetting,
   });
 
   final NaverMapController mapController;
+  final Function(NLatLng) afterSetting;
 
   @override
-  List<Object?> get props => [mapController];
+  List<Object?> get props => [mapController, afterSetting];
 }
 
 class CompleteSetMapControllerEvent extends MapEvent {
