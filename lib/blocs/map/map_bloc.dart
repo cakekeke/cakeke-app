@@ -27,10 +27,18 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   bool isMapPageListChanged = false;
 
-  void _handleSetMapControllerEvent(
+  Future<void> _handleSetMapControllerEvent(
     SetMapControllerEvent event,
     Emitter<MapState> emit,
-  ) {
+  ) async {
+    final userLocation = await Location().getLocation();
+    final nowLocation = NLatLng(
+      userLocation.latitude ?? 0,
+      userLocation.longitude ?? 0,
+    );
+    await event.mapController
+        .updateCamera(NCameraUpdate.withParams(target: nowLocation));
+    event.afterSetting(nowLocation);
     emit(
         state.copyWith(mapController: event.mapController, setMakerFlag: true));
   }
