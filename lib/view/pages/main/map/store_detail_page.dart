@@ -34,98 +34,104 @@ class StoreDetailPage extends StatelessWidget {
             );
           }
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.only(left: 16, bottom: 12, top: 6),
-                  child: store.imgUrlList.isNotEmpty
-                      ? SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              for (final image in store.imgUrlList)
-                                StoreDetailImage(image: image)
-                            ],
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                    padding:
+                        const EdgeInsets.only(left: 16, bottom: 12, top: 6),
+                    child: store.imgUrlList.isNotEmpty
+                        ? SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                for (final image in store.imgUrlList)
+                                  StoreDetailImage(image: image)
+                              ],
+                            ),
+                          )
+                        : const StoreDetailEmptyImage()),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              store.name,
+                              style: DesignSystem.typography.display2(),
+                            ),
                           ),
-                        )
-                      : const StoreDetailEmptyImage()),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            store.name,
-                            style: DesignSystem.typography.display2(),
-                          ),
+                          LikeIconButton(
+                            store: store,
+                            iconSize: 24,
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      StoreInfoRow(
+                        title: '별점',
+                        child: ScoreWidget(score: store.starRating),
+                      ),
+                      StoreInfoRow(
+                        title: '영업시간',
+                        child: Text(
+                          "${store.startTime} ~ ${store.endTime}",
+                          style: DesignSystem.typography.body2(),
                         ),
-                        LikeIconButton(
-                          store: store,
-                          iconSize: 24,
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    StoreInfoRow(
-                      title: '별점',
-                      child: ScoreWidget(score: store.starRating),
-                    ),
-                    StoreInfoRow(
-                      title: '영업시간',
-                      child: Text(
-                        "${store.startTime} ~ ${store.endTime}",
-                        style: DesignSystem.typography.body2(),
                       ),
-                    ),
-                    StoreInfoRow(
-                      title: '전화번호',
-                      child: GestureDetector(
-                          onTap: () => launchUrl(
-                              Uri(scheme: 'tel', path: store.phoneNumber)),
-                          child: Text(
-                            store.phoneNumber,
-                            style: DesignSystem.typography.body(TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: DesignSystem.colors.lightBlue)),
-                          )),
-                    ),
-                    StoreInfoRow(
-                      title: '가게소개',
-                      child: Text(
-                        store.description,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: DesignSystem.typography.body2(),
+                      StoreInfoRow(
+                        title: '전화번호',
+                        child: GestureDetector(
+                            onTap: () => launchUrl(
+                                Uri(scheme: 'tel', path: store.phoneNumber)),
+                            child: Text(
+                              store.phoneNumber,
+                              style: DesignSystem.typography.body(TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: DesignSystem.colors.lightBlue)),
+                            )),
                       ),
-                    ),
-                    StoreInfoRow(
-                      title: '해시태그',
-                      child: Text(
-                        store.hashTag,
-                        overflow: TextOverflow.fade,
-                        style: DesignSystem.typography.body2(),
+                      StoreInfoRow(
+                        title: '가게소개',
+                        child: Text(
+                          store.description,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: DesignSystem.typography.body2(),
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: GrayElevatedButton(
-                        title: '예약',
-                        onTap: () =>
-                            launchUrl(Uri.parse(store.reservationLink)),
+                      StoreInfoRow(
+                        title: '해시태그',
+                        child: Text(
+                          store.hashTag,
+                          overflow: TextOverflow.fade,
+                          style: DesignSystem.typography.body2(),
+                        ),
                       ),
-                    )
-                  ],
-                ),
-              )
-            ],
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: GrayElevatedButton(
+                          title: '예약',
+                          onTap: () =>
+                              launchUrl(Uri.parse(store.reservationLink)),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           );
         }));
   }
