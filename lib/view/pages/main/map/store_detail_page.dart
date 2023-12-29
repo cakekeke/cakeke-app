@@ -1,3 +1,4 @@
+import 'package:cakeke/blocs/review/review_bloc.dart';
 import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/view/widgets/common/gray_elevated_button.dart';
@@ -25,6 +26,16 @@ class StoreDetailPage extends StatelessWidget {
         onBackButtonPressed: onBackButtonPressed,
         bodyWidget:
             BlocBuilder<StoreBloc, StoreState>(buildWhen: (previous, current) {
+          context.read<ReviewBloc>().add(const NewStoreSetting());
+          if (current.selectStore != null) {
+            context
+                .read<ReviewBloc>()
+                .add(StoreReviewFetch(storeId: current.selectStore!.id));
+            context
+                .read<ReviewBloc>()
+                .add(StoreReviewCountFetch(storeId: current.selectStore!.id));
+          }
+
           return previous.selectStore?.id != current.selectStore?.id;
         }, builder: (context, state) {
           final store = state.selectStore;
