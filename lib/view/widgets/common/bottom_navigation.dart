@@ -29,7 +29,7 @@ class BottomNavigation extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.edit_document),
-                label: '예약',
+                label: '큐레이션',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.light_mode),
