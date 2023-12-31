@@ -1,3 +1,5 @@
+import 'package:cakeke/blocs/map/map_bloc.dart';
+import 'package:cakeke/blocs/map/map_event.dart';
 import 'package:cakeke/blocs/review/review_bloc.dart';
 import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
@@ -86,7 +88,29 @@ class StoreDetailPage extends StatelessWidget {
                       ),
                       StoreInfoRow(
                         title: '별점',
-                        child: ScoreWidget(score: store.starRating),
+                        child: Row(
+                          children: [
+                            Text(
+                              '${store.starRating}',
+                              style: DesignSystem.typography.body2(),
+                            ),
+                            const SizedBox(width: 4),
+                            ScoreWidget(score: store.starRating),
+                            const SizedBox(width: 4),
+                            GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<MapBloc>()
+                                    .add(const MapPageChanged(selectedPage: 3));
+                              },
+                              child: const Icon(
+                                (Icons.arrow_forward_ios),
+                                color: Colors.black,
+                                size: 14,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                       StoreInfoRow(
                         title: '영업시간',
