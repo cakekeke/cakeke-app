@@ -20,7 +20,7 @@ class CurationPage extends StatelessWidget {
         },
       ),
     )
-    ..loadRequest(Uri.parse('http://localhost:3000'));
+    ..loadRequest(Uri.parse('https://shiny-twilight-e36a8f.netlify.app/'));
 
   @override
   Widget build(BuildContext context) {
