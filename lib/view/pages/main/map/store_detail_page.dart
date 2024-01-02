@@ -1,3 +1,6 @@
+import 'package:cakeke/blocs/map/map_bloc.dart';
+import 'package:cakeke/blocs/map/map_event.dart';
+import 'package:cakeke/blocs/review/review_bloc.dart';
 import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/view/widgets/common/gray_elevated_button.dart';
@@ -25,6 +28,16 @@ class StoreDetailPage extends StatelessWidget {
         onBackButtonPressed: onBackButtonPressed,
         bodyWidget:
             BlocBuilder<StoreBloc, StoreState>(buildWhen: (previous, current) {
+          context.read<ReviewBloc>().add(const NewStoreSetting());
+          if (current.selectStore != null) {
+            context
+                .read<ReviewBloc>()
+                .add(StoreReviewFetch(storeId: current.selectStore!.id));
+            context
+                .read<ReviewBloc>()
+                .add(StoreReviewCountFetch(storeId: current.selectStore!.id));
+          }
+
           return previous.selectStore?.id != current.selectStore?.id;
         }, builder: (context, state) {
           final store = state.selectStore;
@@ -75,7 +88,29 @@ class StoreDetailPage extends StatelessWidget {
                       ),
                       StoreInfoRow(
                         title: '별점',
-                        child: ScoreWidget(score: store.starRating),
+                        child: Row(
+                          children: [
+                            Text(
+                              '${store.starRating}',
+                              style: DesignSystem.typography.body2(),
+                            ),
+                            const SizedBox(width: 4),
+                            ScoreWidget(score: store.starRating),
+                            const SizedBox(width: 4),
+                            GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<MapBloc>()
+                                    .add(const MapPageChanged(selectedPage: 3));
+                              },
+                              child: const Icon(
+                                (Icons.arrow_forward_ios),
+                                color: Colors.black,
+                                size: 14,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                       StoreInfoRow(
                         title: '영업시간',
