@@ -14,9 +14,13 @@ class HomeHeader extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 9, 12, 9),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Image(
-                  image: AssetImage('assets/images/common/cakeke_logo.svg')),
+                image: AssetImage('assets/images/common/cakeke_logo.png'),
+                width: 90,
+                height: 16,
+              ),
               GestureDetector(
                 onTap: () {
                   context.read<TabBloc>().add(TabChanged(selectedIndex: 4));
