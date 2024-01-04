@@ -1,4 +1,6 @@
+import 'package:cakeke/data/source/local/prefs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Profile extends StatelessWidget {
   const Profile({
@@ -12,10 +14,13 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Center(
-          child: CircleAvatar(
-            radius: 65,
-            backgroundColor: Colors.black,
+        Center(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(65),
+            child: SvgPicture.asset(
+              Prefs.getString(Prefs.profileFileName),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         const SizedBox(height: 15),

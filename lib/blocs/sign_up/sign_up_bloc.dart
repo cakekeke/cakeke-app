@@ -53,9 +53,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
         final userInfo =
             await UserRepository(userProvider: UserProvider()).getUser();
-
-        Storage.write(Storage.id, user.userId);
-        Storage.write(Storage.password, state.password.join());
         Storage.write(Storage.uid, '${userInfo.id}');
         Prefs.setString(Prefs.profileFileName, user.image);
         Prefs.setString(Prefs.name, userInfo.name);
