@@ -21,7 +21,10 @@ class MypageMainPage extends StatelessWidget {
           isSafeArea: true,
           bodyWidget: Column(
             children: [
-              MypageSubTitle(name: state.user?.name ?? ""),
+              MypageSubTitle(
+                  name: state.userName ?? "",
+                  profileFile:
+                      state.profileImage ?? 'assets/images/profile_icon_1.svg'),
               Container(
                 height: 10,
                 color: const Color(0xffF6F6F6),

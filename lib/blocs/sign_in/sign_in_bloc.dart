@@ -1,9 +1,14 @@
 import 'package:cakeke/blocs/sign_in/sign_in_event.dart';
 import 'package:cakeke/blocs/sign_in/sign_in_state.dart';
 import 'package:cakeke/data/providers/sign_in_provider.dart';
+import 'package:cakeke/data/providers/user_provider.dart';
 import 'package:cakeke/data/repositories/sign_in_repository.dart';
+import 'package:cakeke/data/repositories/user_repository.dart';
+import 'package:cakeke/data/source/local/prefs.dart';
 import 'package:cakeke/utils/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../data/source/local/storage.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   SignInBloc() : super(const SignInState()) {
@@ -45,6 +50,14 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   ) async {
     try {
       await signInRepository.signin(id: event.id, password: event.password);
+
+      final userInfo =
+          await UserRepository(userProvider: UserProvider()).getUser();
+      Storage.write(Storage.uid, '${userInfo.id}');
+      Prefs.setString(
+          Prefs.profileFileName, 'assets/images/profile_icon_1.svg');
+      Prefs.setString(Prefs.name, userInfo.name);
+
       emit(state.copyWith(
           loginSuccess: true, loginFailure: false, isButtonActive: false));
     } catch (e) {
