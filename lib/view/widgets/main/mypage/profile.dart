@@ -1,4 +1,3 @@
-import 'package:cakeke/data/source/local/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -6,9 +5,11 @@ class Profile extends StatelessWidget {
   const Profile({
     super.key,
     required this.name,
+    required this.profileFile,
   });
 
   final String name;
+  final String profileFile;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class Profile extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(65),
             child: SvgPicture.asset(
-              Prefs.getString(Prefs.profileFileName),
+              profileFile,
               fit: BoxFit.cover,
             ),
           ),
