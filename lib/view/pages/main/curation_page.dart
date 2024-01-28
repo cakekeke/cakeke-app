@@ -1,3 +1,4 @@
+import 'package:cakeke/utils/webview.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -20,7 +21,7 @@ class CurationPage extends StatelessWidget {
         },
       ),
     )
-    ..loadRequest(Uri.parse('https://shiny-twilight-e36a8f.netlify.app/'));
+    ..loadRequest(Uri.parse(webviewUrl));
 
   @override
   Widget build(BuildContext context) {

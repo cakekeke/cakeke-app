@@ -1,6 +1,6 @@
-import 'package:cakeke/blocs/home_bloc/home_bloc.dart';
-import 'package:cakeke/blocs/home_bloc/home_event.dart';
-import 'package:cakeke/blocs/home_bloc/home_state.dart';
+import 'package:cakeke/blocs/home/home_bloc.dart';
+import 'package:cakeke/blocs/home/home_event.dart';
+import 'package:cakeke/blocs/home/home_state.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/view/widgets/home/home_header.dart';
 import 'package:cakeke/view/widgets/home/home_store_list.dart';
@@ -14,7 +14,7 @@ class HomeMainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if (state.newStore.isEmpty) {
+        if (state.newStore.isEmpty && state.popularStore.isEmpty) {
           context.read<HomeBloc>().add(const HomeInitialEvent());
           return Center(
             child: CircularProgressIndicator(
@@ -39,19 +39,19 @@ class HomeMainPage extends StatelessWidget {
                         ));
                   },
                 ),
-                HomeStoreList(
-                  title: "지금 인기있는 케이크 집",
-                  storeList: state.popularStore,
-                  moveListPage: () {
-                    context.read<HomeBloc>().add(HomePageChanged(
-                          selectedPage: HomeTab.list.index,
-                        ));
-                    context.read<HomeBloc>().add(const HomeStoreListFetch(
-                          storeList: [],
-                          type: HomeStoreListType.popularStore,
-                        ));
-                  },
-                ),
+                // HomeStoreList(
+                //   title: "지금 인기있는 케이크 집",
+                //   storeList: state.popularStore,
+                //   moveListPage: () {
+                //     context.read<HomeBloc>().add(HomePageChanged(
+                //           selectedPage: HomeTab.list.index,
+                //         ));
+                //     context.read<HomeBloc>().add(const HomeStoreListFetch(
+                //           storeList: [],
+                //           type: HomeStoreListType.popularStore,
+                //         ));
+                //   },
+                // ),
               ],
             ),
           );

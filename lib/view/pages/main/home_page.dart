@@ -1,10 +1,9 @@
-import 'package:cakeke/blocs/home_bloc/home_bloc.dart';
-import 'package:cakeke/blocs/home_bloc/home_event.dart';
-import 'package:cakeke/blocs/home_bloc/home_state.dart';
+import 'package:cakeke/blocs/home/home_bloc.dart';
+import 'package:cakeke/blocs/home/home_event.dart';
+import 'package:cakeke/blocs/home/home_state.dart';
 import 'package:cakeke/view/pages/main/home/home_main_page.dart';
 import 'package:cakeke/view/pages/main/home/home_store_list_page.dart';
 import 'package:cakeke/view/pages/main/map/store_detail_page.dart';
-import 'package:cakeke/view/pages/main/map/store_list_page.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,24 +14,29 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldLayout(
-        isSafeArea: true,
-        bodyWidget: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            return IndexedStack(
-              index: state.selectedPage,
-              children: [
-                const HomeMainPage(),
-                const HomeStoreListPage(),
-                StoreDetailPage(
-                  onBackButtonPressed: () {
-                    context
-                        .read<HomeBloc>()
-                        .add(const HomePageChanged(selectedPage: 0));
-                  },
-                )
-              ],
-            );
-          },
-        ));
+      isSafeArea: true,
+      bodyWidget: BlocBuilder<HomeBloc, HomeState>(
+        buildWhen: (previous, current) {
+          return previous.selectedPage != current.selectedPage ||
+              previous.prevPage != current.prevPage;
+        },
+        builder: (context, state) {
+          return IndexedStack(
+            index: state.selectedPage,
+            children: [
+              const HomeMainPage(),
+              const HomeStoreListPage(),
+              StoreDetailPage(
+                onBackButtonPressed: () {
+                  context
+                      .read<HomeBloc>()
+                      .add(HomePageChanged(selectedPage: state.prevPage));
+                },
+              )
+            ],
+          );
+        },
+      ),
+    );
   }
 }

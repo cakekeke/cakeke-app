@@ -2,13 +2,13 @@ part of 'store_bloc.dart';
 
 class StoreState extends Equatable {
   const StoreState({
-    this.storeList,
+    this.storeList = const [],
     this.clickedStoreId,
     this.selectStore,
     this.fetching = true,
   });
 
-  final List<Store>? storeList;
+  final List<Store> storeList;
   final Store? selectStore;
   final int? clickedStoreId;
   final bool fetching;

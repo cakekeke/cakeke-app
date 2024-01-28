@@ -6,103 +6,34 @@ class HomeProvider {
 
   Future<List<Store>> getNewStoreList() async {
     try {
-      //TODO: api 추가
-      return [
-        Store(
-          id: 0,
-          name: '오늘은 윤날',
-          roadAddress: '서울시 성동구',
-          latitude: 'mock',
-          longitude: 'mock',
-          description: 'mock',
-          startTime: 'mock',
-          endTime: 'mock',
-          phoneNumber: 'mock',
-          reservationLink: 'mock',
-          numberOfReviews: 0,
-          imgUrlList: [],
-        ),
-        Store(
-          id: 1,
-          name: '오늘은 윤날',
-          roadAddress: '서울시 성동구',
-          latitude: 'mock',
-          longitude: 'mock',
-          description: 'mock',
-          startTime: 'mock',
-          endTime: 'mock',
-          phoneNumber: 'mock',
-          reservationLink: 'mock',
-          numberOfReviews: 0,
-          imgUrlList: [],
-        ),
-        Store(
-          id: 3,
-          name: '오늘은 윤날',
-          roadAddress: '서울시 성동구',
-          latitude: 'mock',
-          longitude: 'mock',
-          description: 'mock',
-          startTime: 'mock',
-          endTime: 'mock',
-          phoneNumber: 'mock',
-          reservationLink: 'mock',
-          numberOfReviews: 0,
-          imgUrlList: [],
-        ),
-      ];
+      final response = await client.dio.fetch(client.clientOptions(
+        'GET',
+        '/stores/new/all',
+      ));
+      return response.data!
+          .map<Store>((dynamic i) => Store.fromJson(i as Map<String, dynamic>))
+          .toList();
     } catch (e) {
       throw Exception(e);
     }
   }
 
   Future<List<Store>> getPopularStore() async {
+    final queryParameters = {
+      "latitude": "37.5665",
+      "longitude": "126.9780",
+    };
     try {
-      //TODO: api 추가
-      return [
-        Store(
-          id: 0,
-          name: '오늘은 윤날',
-          roadAddress: '서울시 성동구',
-          latitude: 'mock',
-          longitude: 'mock',
-          description: 'mock',
-          startTime: 'mock',
-          endTime: 'mock',
-          phoneNumber: 'mock',
-          reservationLink: 'mock',
-          numberOfReviews: 0,
-          imgUrlList: [],
-        ),
-        Store(
-          id: 1,
-          name: '오늘은 윤날',
-          roadAddress: '서울시 성동구',
-          latitude: 'mock',
-          longitude: 'mock',
-          description: 'mock',
-          startTime: 'mock',
-          endTime: 'mock',
-          phoneNumber: 'mock',
-          reservationLink: 'mock',
-          numberOfReviews: 0,
-          imgUrlList: [],
-        ),
-        Store(
-          id: 2,
-          name: '오늘은 윤날',
-          roadAddress: '서울시 성동구',
-          latitude: 'mock',
-          longitude: 'mock',
-          description: 'mock',
-          startTime: 'mock',
-          endTime: 'mock',
-          phoneNumber: 'mock',
-          reservationLink: 'mock',
-          numberOfReviews: 0,
-          imgUrlList: [],
-        ),
-      ];
+      // final response = await client.dio.fetch(client.clientOptions(
+      //     'GET', '/stores/rankings',
+      //     queryParameters: queryParameters));
+      final response = await client.dio.fetch(client.clientOptions(
+        'GET',
+        '/stores/new/all',
+      ));
+      return response.data!
+          .map<Store>((dynamic i) => Store.fromJson(i as Map<String, dynamic>))
+          .toList();
     } catch (e) {
       throw Exception(e);
     }

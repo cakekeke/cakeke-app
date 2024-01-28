@@ -1,6 +1,8 @@
 import 'package:cakeke/data/models/user/user.dart';
 import 'package:equatable/equatable.dart';
 
+enum mypageTab { main, setting, like, detail, terms, privacy }
+
 class MypageState extends Equatable {
   const MypageState({
     this.user,
