@@ -5,22 +5,26 @@ enum mypageTab { main, setting, like, detail, terms, privacy }
 
 class MypageState extends Equatable {
   const MypageState({
-    this.user,
+    this.userName,
+    this.profileImage,
     this.version,
     this.selectedPage = 0,
   });
 
-  final User? user;
+  final String? userName;
+  final String? profileImage;
   final String? version;
   final int selectedPage;
 
   MypageState copyWith({
-    User? user,
+    String? userName,
+    String? profileImage,
     String? version,
     int? selectedPage,
   }) {
     return MypageState(
-      user: user ?? this.user,
+      userName: userName ?? this.userName,
+      profileImage: profileImage ?? this.profileImage,
       version: version ?? this.version,
       selectedPage: selectedPage ?? this.selectedPage,
     );
@@ -28,7 +32,8 @@ class MypageState extends Equatable {
 
   @override
   List<Object?> get props => [
-        user,
+        userName,
+        profileImage,
         version,
         selectedPage,
       ];

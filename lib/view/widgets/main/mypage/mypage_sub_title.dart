@@ -2,9 +2,14 @@ import 'package:cakeke/view/widgets/main/mypage/profile.dart';
 import 'package:flutter/material.dart';
 
 class MypageSubTitle extends StatelessWidget {
-  const MypageSubTitle({super.key, required this.name});
+  const MypageSubTitle({
+    super.key,
+    required this.name,
+    required this.profileFile,
+  });
 
   final String name;
+  final String profileFile;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class MypageSubTitle extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 15),
-          Profile(name: name)
+          Profile(name: name, profileFile: profileFile)
         ],
       ),
     );

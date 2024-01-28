@@ -17,7 +17,7 @@ class MyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MypageBloc, MypageState>(
       builder: (context, state) {
-        if (state.user == null) {
+        if (state.userName == null) {
           context.read<MypageBloc>().add(const MypageInitialEvent());
         }
         return IndexedStack(
