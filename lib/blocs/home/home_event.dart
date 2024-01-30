@@ -1,4 +1,4 @@
-import 'package:cakeke/blocs/home_bloc/home_state.dart';
+import 'package:cakeke/blocs/home/home_state.dart';
 import 'package:cakeke/data/models/common/store.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +18,12 @@ class HomeInitialEvent extends HomeEvent {
 class HomePageChanged extends HomeEvent {
   const HomePageChanged({
     required this.selectedPage,
-    this.prevPage = 0,
   });
 
   final int selectedPage;
-  final int prevPage;
 
   @override
-  List<Object> get props => [selectedPage, prevPage];
+  List<Object> get props => [selectedPage];
 }
 
 class HomeStoreListFetch extends HomeEvent {

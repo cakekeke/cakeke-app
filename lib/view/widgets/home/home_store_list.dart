@@ -1,6 +1,6 @@
-import 'package:cakeke/blocs/home_bloc/home_bloc.dart';
-import 'package:cakeke/blocs/home_bloc/home_event.dart';
-import 'package:cakeke/blocs/home_bloc/home_state.dart';
+import 'package:cakeke/blocs/home/home_bloc.dart';
+import 'package:cakeke/blocs/home/home_event.dart';
+import 'package:cakeke/blocs/home/home_state.dart';
 import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/view/widgets/home/home_store_card.dart';

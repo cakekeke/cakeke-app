@@ -20,8 +20,8 @@ class SettingPage extends StatelessWidget {
             appBarText: "설정",
             isDetailPage: true,
             onBackButtonPressed: () {
-              context.read<MypageBloc>().add(const MypagePageChanged(
-                    selectedPage: 0,
+              context.read<MypageBloc>().add(MypagePageChanged(
+                    selectedPage: mypageTab.main.index,
                   ));
             },
             isSafeArea: true,
@@ -32,12 +32,24 @@ class SettingPage extends StatelessWidget {
                   MypageActionButton(
                     iconData: Icons.feed_outlined,
                     text: "이용약관",
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<MypageBloc>().add(
+                            MypagePageChanged(
+                              selectedPage: mypageTab.terms.index,
+                            ),
+                          );
+                    },
                   ),
                   MypageActionButton(
                     iconData: Icons.policy_outlined,
                     text: "개인정보 처리방침",
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<MypageBloc>().add(
+                            MypagePageChanged(
+                              selectedPage: mypageTab.privacy.index,
+                            ),
+                          );
+                    },
                   ),
                   MypageActionButton(
                     iconData: Icons.logout,

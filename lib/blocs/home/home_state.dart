@@ -20,6 +20,8 @@ class HomeState extends Equatable {
     this.prevPage = 0,
     this.storeList = const [],
     this.storeListType = HomeStoreListType.newStore,
+    this.city = "",
+    this.district = "",
   });
 
   final List<Store> newStore;
@@ -28,6 +30,8 @@ class HomeState extends Equatable {
   final int prevPage;
   final List<Store> storeList;
   final HomeStoreListType storeListType;
+  final String city;
+  final String district;
 
   HomeState copyWith({
     List<Store>? newStore,
@@ -41,7 +45,7 @@ class HomeState extends Equatable {
       newStore: newStore ?? this.newStore,
       popularStore: popularStore ?? this.popularStore,
       selectedPage: selectedPage ?? this.selectedPage,
-      prevPage: selectedPage ?? this.prevPage,
+      prevPage: prevPage ?? this.prevPage,
       storeList: storeList ?? this.storeList,
       storeListType: storeListType ?? this.storeListType,
     );
