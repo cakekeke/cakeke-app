@@ -43,13 +43,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         sex: user.sex,
         password: user.password,
         image: user.image,
-        checkPassword: state.checkPassword.join(),
+        checkPassword: state.checkPassword,
         servicePurpose: user.servicePurpose,
       );
 
       if (isComplete) {
         await SignInRepository(signinProvider: SignInProvider())
-            .signin(id: user.userId, password: state.password.join());
+            .signin(id: user.userId, password: state.password);
 
         final userInfo =
             await UserRepository(userProvider: UserProvider()).getUser();
@@ -106,21 +106,19 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     PasswordChangedEvent event,
     Emitter<SignUpState> emit,
   ) {
-    final password = List.of(state.password);
-    password[event.index] = event.password;
+    final password = state.password;
     emit(state.copyWith(
-        user: state.user.copyWith(password: password.join()),
+        user: state.user.copyWith(password: password),
         password: password,
-        isButtonActive: password.join().length > 5));
+        isButtonActive: password.length > 5));
   }
 
   void _handlePasswordCheckEvent(
     CheckPasswordChangedEvent event,
     Emitter<SignUpState> emit,
   ) {
-    final password = List.of(state.checkPassword);
-    password[event.index] = event.checkPassword;
-    final isMatch = password.join() == state.password.join();
+    final password = state.checkPassword;
+    final isMatch = password == state.password;
     emit(state.copyWith(
         checkPassword: password,
         passwordCheck: isMatch,

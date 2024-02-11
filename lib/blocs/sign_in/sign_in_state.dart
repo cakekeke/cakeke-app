@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class SignInState extends Equatable {
   const SignInState({
-    this.password = const ['', '', '', '', '', ''],
+    this.password = '',
     this.id = '',
     this.isValidId = false,
     this.isButtonActive = false,
@@ -10,7 +10,7 @@ class SignInState extends Equatable {
     this.loginFailure = false,
   });
 
-  final List<String> password;
+  final String password;
   final String id;
   final bool isValidId;
   final bool isButtonActive;
@@ -18,7 +18,7 @@ class SignInState extends Equatable {
   final bool loginFailure;
 
   SignInState copyWith({
-    List<String>? password,
+    String? password,
     String? id,
     bool? isValidId,
     bool? isButtonActive,

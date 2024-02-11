@@ -150,21 +150,21 @@ class SiginUpPage extends StatelessWidget {
                                   ),
                                 ),
                                 VisibleFieldLayout(
-                                  nowChapter: nowChapter,
-                                  thisChapter: 2,
-                                  fieldTitle: '비밀번호를 만들어 주세요',
-                                  child: PasswordTextField(
-                                    controllerList: passwordController,
-                                    onChanged: (text, index) {
-                                      context.read<SignUpBloc>().add(
-                                            PasswordChangedEvent(
-                                              index: index,
+                                    nowChapter: nowChapter,
+                                    thisChapter: 2,
+                                    fieldTitle: '비밀번호를 만들어 주세요',
+                                    child: SignTextField(
+                                      hintText: "",
+                                      isPassword: true,
+                                      onChanged: (text) {
+                                        context
+                                            .read<SignUpBloc>()
+                                            .add(PasswordChangedEvent(
                                               password: text,
-                                            ),
-                                          );
-                                    },
-                                  ),
-                                ),
+                                            ));
+                                      },
+                                      autoFocus: true,
+                                    )),
                                 VisibleFieldLayout(
                                   nowChapter: nowChapter,
                                   thisChapter: 1,
