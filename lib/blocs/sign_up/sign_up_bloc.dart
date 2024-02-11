@@ -106,7 +106,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     PasswordChangedEvent event,
     Emitter<SignUpState> emit,
   ) {
-    final password = state.password;
+    final password = event.password;
     emit(state.copyWith(
         user: state.user.copyWith(password: password),
         password: password,
@@ -117,7 +117,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     CheckPasswordChangedEvent event,
     Emitter<SignUpState> emit,
   ) {
-    final password = state.checkPassword;
+    final password = event.checkPassword;
     final isMatch = password == state.password;
     emit(state.copyWith(
         checkPassword: password,

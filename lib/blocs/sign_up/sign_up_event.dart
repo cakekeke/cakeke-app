@@ -69,14 +69,12 @@ class PasswordChangedEvent extends SignUpEvent {
 class CheckPasswordChangedEvent extends SignUpEvent {
   const CheckPasswordChangedEvent({
     required this.checkPassword,
-    required this.index,
   });
 
   final String checkPassword;
-  final int index;
 
   @override
-  List<Object> get props => [checkPassword, index];
+  List<Object> get props => [checkPassword];
 }
 
 class BirthChangedEvent extends SignUpEvent {
