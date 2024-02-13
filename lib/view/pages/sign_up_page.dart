@@ -4,7 +4,6 @@ import 'package:cakeke/blocs/sign_up/sign_up_state.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/config/routes/routes.dart';
 import 'package:cakeke/view/widgets/common/bottom_button.dart';
-import 'package:cakeke/view/widgets/common/password_text_field.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/common/sign_text_field.dart';
 import 'package:cakeke/view/widgets/sign_up/complete_view.dart';
@@ -20,13 +19,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SiginUpPage extends StatelessWidget {
   SiginUpPage({super.key});
-
-  final passwordController = [
-    for (int index = 0; index < 6; index++) TextEditingController(),
-  ];
-  final checkPasswordController = [
-    for (int index = 0; index < 6; index++) TextEditingController(),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -136,35 +128,36 @@ class SiginUpPage extends StatelessWidget {
                                     nowChapter: nowChapter,
                                     thisChapter: 3,
                                     fieldTitle: '한 번 더 입력해 주세요',
-                                    child: PasswordTextField(
-                                      onChanged: (text, index) {
+                                    child: SignTextField(
+                                      hintText: "",
+                                      isPassword: true,
+                                      onChanged: (text) {
                                         context
                                             .read<SignUpBloc>()
                                             .add(CheckPasswordChangedEvent(
-                                              index: index,
                                               checkPassword: text,
                                             ));
                                       },
-                                      controllerList: checkPasswordController,
+                                      autoFocus: true,
                                     ),
                                   ),
                                 ),
                                 VisibleFieldLayout(
-                                  nowChapter: nowChapter,
-                                  thisChapter: 2,
-                                  fieldTitle: '비밀번호를 만들어 주세요',
-                                  child: PasswordTextField(
-                                    controllerList: passwordController,
-                                    onChanged: (text, index) {
-                                      context.read<SignUpBloc>().add(
-                                            PasswordChangedEvent(
-                                              index: index,
+                                    nowChapter: nowChapter,
+                                    thisChapter: 2,
+                                    fieldTitle: '비밀번호를 만들어 주세요',
+                                    child: SignTextField(
+                                      hintText: "",
+                                      isPassword: true,
+                                      onChanged: (text) {
+                                        context
+                                            .read<SignUpBloc>()
+                                            .add(PasswordChangedEvent(
                                               password: text,
-                                            ),
-                                          );
-                                    },
-                                  ),
-                                ),
+                                            ));
+                                      },
+                                      autoFocus: true,
+                                    )),
                                 VisibleFieldLayout(
                                   nowChapter: nowChapter,
                                   thisChapter: 1,

@@ -20,14 +20,12 @@ class IdChangedEvent extends SignInEvent {
 class PasswordChangedEvent extends SignInEvent {
   const PasswordChangedEvent({
     required this.password,
-    required this.index,
   });
 
   final String password;
-  final int index;
 
   @override
-  List<Object> get props => [password, index];
+  List<Object> get props => [password];
 }
 
 class LoginEvent extends SignInEvent {

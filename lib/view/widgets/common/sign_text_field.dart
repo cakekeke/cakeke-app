@@ -34,7 +34,8 @@ class SignTextField extends StatelessWidget {
         obscureText: isPassword,
         maxLength: maxLength,
         keyboardType: inputType,
-        textAlign: isPassword ? TextAlign.center : TextAlign.start,
+        // textAlign: isPassword ? TextAlign.center : TextAlign.start,
+        textAlign: TextAlign.start,
         style: DesignSystem.typography.heading3(),
         obscuringCharacter: '●',
         decoration: InputDecoration(

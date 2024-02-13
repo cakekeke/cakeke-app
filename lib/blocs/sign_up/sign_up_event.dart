@@ -58,27 +58,23 @@ class IdDuplicationCheck extends SignUpEvent {
 class PasswordChangedEvent extends SignUpEvent {
   const PasswordChangedEvent({
     required this.password,
-    required this.index,
   });
 
   final String password;
-  final int index;
 
   @override
-  List<Object> get props => [password, index];
+  List<Object> get props => [password];
 }
 
 class CheckPasswordChangedEvent extends SignUpEvent {
   const CheckPasswordChangedEvent({
     required this.checkPassword,
-    required this.index,
   });
 
   final String checkPassword;
-  final int index;
 
   @override
-  List<Object> get props => [checkPassword, index];
+  List<Object> get props => [checkPassword];
 }
 
 class BirthChangedEvent extends SignUpEvent {

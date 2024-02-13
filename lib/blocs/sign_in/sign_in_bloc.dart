@@ -30,18 +30,17 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     emit(state.copyWith(
         id: event.id,
         isValidId: isValidId,
-        isButtonActive: isValidId && state.password.join().length > 5));
+        isButtonActive: isValidId && state.password.length > 5));
   }
 
   void _handlePasswordChangedEvent(
     PasswordChangedEvent event,
     Emitter<SignInState> emit,
   ) {
-    final password = List.of(state.password);
-    password[event.index] = event.password;
+    final password = event.password;
 
     emit(state.copyWith(
-        password: password, isButtonActive: password.join().length > 5));
+        password: password, isButtonActive: password.length > 5));
   }
 
   void _handleLoginEvent(

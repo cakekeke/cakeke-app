@@ -10,8 +10,8 @@ class SignUpState extends Equatable {
     this.isButtonActive = false,
     this.passwordCheck,
     this.purpose = const [],
-    this.password = const ['', '', '', '', '', ''],
-    this.checkPassword = const ['', '', '', '', '', ''],
+    this.password = '',
+    this.checkPassword = '',
     this.chapter = 1,
     this.name = '',
   });
@@ -22,8 +22,8 @@ class SignUpState extends Equatable {
   final bool? passwordCheck;
 
   final List<ServicePurpose> purpose;
-  final List<String> password;
-  final List<String> checkPassword;
+  final String password;
+  final String checkPassword;
   final String name;
   final int chapter;
   final SignUser user;
@@ -34,8 +34,8 @@ class SignUpState extends Equatable {
     bool? isButtonActive,
     bool? passwordCheck,
     List<ServicePurpose>? purpose,
-    List<String>? password,
-    List<String>? checkPassword,
+    String? password,
+    String? checkPassword,
     String? name,
     int? chapter,
     SignUser? user,
