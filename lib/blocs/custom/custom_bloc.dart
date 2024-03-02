@@ -38,6 +38,7 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     on<SelectTextColorEvent>(_handleSelectTextColorEvent);
     on<AddCustomEvent>(_handleAddCustomEvent);
     on<DeleteCustomEvent>(_handleDeleteCustomEvent);
+    on<DeleteAllCustomEvent>(_handleDeleteAllCustomEvent);
     on<AddPhotoEvent>(_handleAddPhotoEvent);
     on<DeletePhotoEvent>(_handleDeletePhotoEvent);
     on<CaptureAndSaveEvent>(_handleCaptureAndSaveEvent);
@@ -193,6 +194,17 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
 
     emit(state.copyWith(
         controller: state.controller, customList: newCustomList));
+  }
+
+  void _handleDeleteAllCustomEvent(
+    DeleteAllCustomEvent event,
+    Emitter<CustomState> emit,
+  ) {
+    state.controller.widgets.clear();
+    state.controller.notifyListeners();
+
+    emit(state.copyWith(
+        controller: state.controller, customList: []));
   }
 
   Future<void> _handleAddPhotoEvent(
