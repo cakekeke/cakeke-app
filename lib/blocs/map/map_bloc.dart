@@ -1,4 +1,5 @@
 import 'package:cakeke/blocs/map/map_event.dart';
+import 'package:cakeke/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
@@ -68,7 +69,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               id: store.id.toString(),
               position: NLatLng(
                   double.parse(store.latitude), double.parse(store.longitude)),
-              icon: makerIcon)
+              icon: makerIcon,
+              size: const Size(24, 32))
             ..setOnTapListener((NMarker marker) => _handleSelectStoreMakerEvent(
                 SelectStoreMakerEvent(maker: marker, index: index), null));
           overlayList.add(maker);
@@ -121,17 +123,19 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     // emit(state.copyWith(setMakerFlag: true));
   }
 
-  void _handleSelectStoreMakerEvent(
+  Future<void> _handleSelectStoreMakerEvent(
     SelectStoreMakerEvent event,
     Emitter<MapState>? emit,
-  ) {
+  ) async {
     const unSelectMaker = NOverlayImage.fromAssetImage(
         'assets/images/icon_map_maker_unselect.png');
     const selectMaker =
         NOverlayImage.fromAssetImage('assets/images/icon_map_maker_select.png');
 
     state.selectMaker?.setIcon(unSelectMaker);
+    state.selectMaker?.setSize(const Size(24, 32));
     event.maker.setIcon(selectMaker);
+    event.maker.setSize(const Size(40, 54));
     Future.delayed(const Duration(milliseconds: 300), () {
       state.itemScrollController.scrollToIndex(event.index,
           preferPosition: AutoScrollPosition.middle);
