@@ -225,26 +225,30 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     CaptureAndSaveEvent event,
     Emitter<CustomState> emit,
   ) async {
-    if (event.globalKey.currentContext != null) {
-      final RenderRepaintBoundary boundary = event.globalKey.currentContext!
-          .findRenderObject() as RenderRepaintBoundary;
+    state.controller.doneAllBorders();
 
-      final image = await boundary.toImage();
-      final byteData = await image.toByteData(format: ImageByteFormat.png);
-      final pngBytes = byteData?.buffer.asUint8List();
+    Future.delayed(const Duration(milliseconds: 200)).then((_) async {
+      if (event.globalKey.currentContext != null) {
+        final RenderRepaintBoundary boundary = event.globalKey.currentContext!
+            .findRenderObject() as RenderRepaintBoundary;
 
-      if (pngBytes != null) {
-        final result = await ImageGallerySaver.saveImage(
-            Uint8List.fromList(pngBytes),
-            quality: 100);
-        if (result != null && result.isNotEmpty) {
-          Utils.showSnackBar(event.globalKey.currentContext!, '이미지가 저장되었습니다');
-          return;
+        final image = await boundary.toImage();
+        final byteData = await image.toByteData(format: ImageByteFormat.png);
+        final pngBytes = byteData?.buffer.asUint8List();
+
+        if (pngBytes != null) {
+          final result = await ImageGallerySaver.saveImage(
+              Uint8List.fromList(pngBytes),
+              quality: 100);
+          if (result != null && result.isNotEmpty) {
+            Utils.showSnackBar(event.globalKey.currentContext!, '이미지가 저장되었습니다');
+            return;
+          }
         }
+        Utils.showSnackBar(event.globalKey.currentContext!, '이미지을 실패하였습니다');
       }
-      Utils.showSnackBar(event.globalKey.currentContext!, '이미지을 실패하였습니다');
-    }
 
-    emit(state.copyWith());
+      emit(state.copyWith());
+    });
   }
 }
