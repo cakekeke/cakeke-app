@@ -7,8 +7,10 @@ class MainTextFieldRow extends StatelessWidget {
     required this.onSubmitted,
     required this.onChanged,
     required this.onSearchTap,
+    required this.searchFocus,
   });
 
+  final FocusNode searchFocus;
   final Function(String) onSubmitted;
   final Function(String) onChanged;
   final Function() onSearchTap;
@@ -21,6 +23,7 @@ class MainTextFieldRow extends StatelessWidget {
           children: [
             Expanded(
               child: TextField(
+                focusNode: searchFocus,
                 decoration: InputDecoration(
                   isDense: true,
                   border: InputBorder.none,

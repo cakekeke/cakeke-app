@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MapSearchField extends StatelessWidget {
-  const MapSearchField({super.key});
+  const MapSearchField({super.key, required this.searchFocus});
+
+  final FocusNode searchFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class MapSearchField extends StatelessWidget {
                     )
                   ]),
               child: MainTextFieldRow(
+                searchFocus: searchFocus,
                 onSubmitted: (text) => startSearch(context, text),
                 onChanged: (text) {
                   context

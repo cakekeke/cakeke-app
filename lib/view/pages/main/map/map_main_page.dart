@@ -6,21 +6,36 @@ import 'package:cakeke/view/widgets/main/map/map_search_field.dart';
 import 'package:cakeke/view/widgets/main/map/map_store_list.dart';
 import 'package:flutter/material.dart';
 
-class MapMainPage extends StatelessWidget {
+class MapMainPage extends StatefulWidget {
   const MapMainPage({super.key});
 
   @override
+  State<MapMainPage> createState() => _MapMainPageState();
+}
+
+class _MapMainPageState extends State<MapMainPage> {
+  final FocusNode searchFocus = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    searchFocus.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const ScaffoldLayout(
+    return ScaffoldLayout(
       bodyWidget: Stack(
         children: [
-          MapLayout(),
-          MapSearchField(),
+          const MapLayout(),
+          MapSearchField(searchFocus: searchFocus),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(bottom: 16),
                 child: Stack(
                   alignment: AlignmentDirectional.centerEnd,
@@ -30,7 +45,8 @@ class MapMainPage extends StatelessWidget {
                   ],
                 ),
               ),
-              MapStoreList()
+              Visibility(visible: !searchFocus.hasFocus,
+                child: const MapStoreList(),)
             ],
           ),
         ],
