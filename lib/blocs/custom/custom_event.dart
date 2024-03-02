@@ -53,6 +53,13 @@ class DeleteCustomEvent extends CustomEvent {
   List<Object?> get props => [asset];
 }
 
+class DeleteAllCustomEvent extends CustomEvent {
+  const DeleteAllCustomEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class AddTextEvent extends CustomEvent {
   const AddTextEvent({required this.asset});
 
