@@ -9,7 +9,6 @@ class SignUpProvider {
     try {
       final response = await client.dio.fetch<SignUser>(
           client.clientOptions('POST', '/auth/signup', data: body));
-
       return response.statusCode ~/ 100 == 2;
     } catch (e) {
       throw Exception(e);

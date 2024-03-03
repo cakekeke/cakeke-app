@@ -1,5 +1,6 @@
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SignTextField extends StatelessWidget {
   const SignTextField({
@@ -28,13 +29,18 @@ class SignTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+        inputFormatters: this.isPassword
+            ? <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(6)
+              ]
+            : null,
         enabled: enabled,
         controller: controller,
         autofocus: autoFocus,
         obscureText: isPassword,
         maxLength: maxLength,
         keyboardType: inputType,
-        // textAlign: isPassword ? TextAlign.center : TextAlign.start,
         textAlign: TextAlign.start,
         style: DesignSystem.typography.heading3(),
         obscuringCharacter: '●',
