@@ -1,3 +1,4 @@
+import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/view/widgets/common/scaffold_detail_appbar.dart';
 import 'package:cakeke/view/widgets/common/scaffold_main_appbar.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class ScaffoldLayout extends StatelessWidget {
     }
     return Scaffold(
       appBar: appBar,
-      backgroundColor: backgroundColor,
+      backgroundColor: backgroundColor ?? DesignSystem.colors.white,
       body: isSafeArea
           ? SafeArea(
               child: bodyWidget,
