@@ -19,8 +19,11 @@ class Profile extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(65),
             child: SvgPicture.asset(
-              profileFile,
-              fit: BoxFit.cover,
+              profileFile.contains('assets/images')
+                  ? profileFile
+                  : 'assets/images/$profileFile',
+              width: 130,
+              height: 130,
             ),
           ),
         ),
@@ -34,13 +37,13 @@ class Profile extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(34),
-                  color: Color(0xffF3F3F3)),
+                  color: const Color(0xffF3F3F3)),
               child: Text(
                 name,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xff373737),
+                  color: Color(0xff373737),
                 ),
               ),
             ),
