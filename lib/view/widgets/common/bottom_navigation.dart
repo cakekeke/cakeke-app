@@ -49,6 +49,7 @@ class BottomNavigation extends StatelessWidget {
             unselectedItemColor: const Color(0xff767676),
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
+            backgroundColor: DesignSystem.colors.white,
             onTap: (index) {
               context.read<TabBloc>().add(TabChanged(selectedIndex: index));
               context
