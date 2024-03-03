@@ -76,6 +76,7 @@ class SiginInPage extends StatelessWidget {
                           const SizedBox(height: 12),
                           SignTextField(
                             hintText: "",
+                            inputType: TextInputType.number,
                             isPassword: true,
                             onChanged: (text) {
                               context

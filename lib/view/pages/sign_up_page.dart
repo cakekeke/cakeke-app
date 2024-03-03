@@ -129,17 +129,19 @@ class SiginUpPage extends StatelessWidget {
                                     thisChapter: 3,
                                     fieldTitle: '한 번 더 입력해 주세요',
                                     child: SignTextField(
-                                      hintText: "",
-                                      isPassword: true,
-                                      onChanged: (text) {
-                                        context
-                                            .read<SignUpBloc>()
-                                            .add(CheckPasswordChangedEvent(
-                                              checkPassword: text,
-                                            ));
-                                      },
-                                      autoFocus: true,
-                                    ),
+                                        hintText: "",
+                                        isPassword: true,
+                                        inputType: TextInputType.number,
+                                        onChanged: (text) {
+                                          context
+                                              .read<SignUpBloc>()
+                                              .add(CheckPasswordChangedEvent(
+                                                checkPassword: text,
+                                              ));
+                                        },
+                                        autoFocus: true,
+                                        enabled:
+                                            state.checkPassword.length < 6),
                                   ),
                                 ),
                                 VisibleFieldLayout(
@@ -149,14 +151,18 @@ class SiginUpPage extends StatelessWidget {
                                     child: SignTextField(
                                       hintText: "",
                                       isPassword: true,
+                                      inputType: TextInputType.number,
                                       onChanged: (text) {
-                                        context
-                                            .read<SignUpBloc>()
-                                            .add(PasswordChangedEvent(
-                                              password: text,
-                                            ));
+                                        if (text.length <= 6) {
+                                          context
+                                              .read<SignUpBloc>()
+                                              .add(PasswordChangedEvent(
+                                                password: text,
+                                              ));
+                                        }
                                       },
                                       autoFocus: true,
+                                      enabled: state.password.length < 6,
                                     )),
                                 VisibleFieldLayout(
                                   nowChapter: nowChapter,

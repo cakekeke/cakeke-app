@@ -75,9 +75,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       Utils.showSnackBar(event.context, '중복되는 아이디 입니다.');
     }
 
+    bool isValidId = Utils.validateId(state.user.userId);
+
+    if (isValidId == false && event.context.mounted) {
+      Utils.showSnackBar(event.context, '영문, 숫자 포함 8자리 이상 입력해주세요.');
+    }
+
     emit(state.copyWith(
-        isDuplicationId: isDuplication,
-        isButtonActive: isDuplication == false));
+        isDuplicationId: !isValidId ? null : isDuplication,
+        isButtonActive: isValidId && isDuplication == false));
   }
 
   Future<void> _handleButtonTapEvent(
@@ -99,7 +105,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     bool isValidId = Utils.validateId(event.id);
 
     emit(state.copyWith(
-        user: state.user.copyWith(userId: event.id), isValidId: isValidId));
+        user: state.user.copyWith(userId: event.id),
+        isValidId: isValidId,
+        isButtonActive: false));
   }
 
   void _handlePasswordChangedEvent(
