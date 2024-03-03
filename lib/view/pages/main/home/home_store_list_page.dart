@@ -5,7 +5,6 @@ import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/view/widgets/common/empty_list_text.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/home/home_store_card.dart';
-import 'package:cakeke/view/widgets/home/store_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +15,8 @@ class HomeStoreListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        final storeList = state.storeList.sublist(0, 4);
+        final storeList = state.storeList;
+
         return ScaffoldLayout(
           appBarText: state.storeListType == HomeStoreListType.newStore
               ? "신상 케이크 집"
@@ -42,7 +42,7 @@ class HomeStoreListPage extends StatelessWidget {
                       // ),
                       Expanded(
                           child: ListView.builder(
-                        padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                         itemCount: storeList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return HomeStoreCard(

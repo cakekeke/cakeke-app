@@ -30,12 +30,11 @@ class HomeMainPage extends StatelessWidget {
                   title: "신상 케이크 집",
                   storeList: state.newStore,
                   moveListPage: () {
+                    context.read<HomeBloc>().add(const HomeStoreListFetch(
+                          type: HomeStoreListType.newStore,
+                        ));
                     context.read<HomeBloc>().add(HomePageChanged(
                           selectedPage: HomeTab.list.index,
-                        ));
-                    context.read<HomeBloc>().add(const HomeStoreListFetch(
-                          storeList: [],
-                          type: HomeStoreListType.newStore,
                         ));
                   },
                 ),
