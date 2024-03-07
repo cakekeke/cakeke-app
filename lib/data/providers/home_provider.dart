@@ -19,17 +19,10 @@ class HomeProvider {
   }
 
   Future<List<Store>> getPopularStore() async {
-    final queryParameters = {
-      "latitude": "37.5665",
-      "longitude": "126.9780",
-    };
     try {
-      // final response = await client.dio.fetch(client.clientOptions(
-      //     'GET', '/stores/rankings',
-      //     queryParameters: queryParameters));
       final response = await client.dio.fetch(client.clientOptions(
         'GET',
-        '/stores/new/all',
+        '/stores/rankings',
       ));
       return response.data!
           .map<Store>((dynamic i) => Store.fromJson(i as Map<String, dynamic>))

@@ -38,19 +38,18 @@ class HomeMainPage extends StatelessWidget {
                         ));
                   },
                 ),
-                // HomeStoreList(
-                //   title: "지금 인기있는 케이크 집",
-                //   storeList: state.popularStore,
-                //   moveListPage: () {
-                //     context.read<HomeBloc>().add(HomePageChanged(
-                //           selectedPage: HomeTab.list.index,
-                //         ));
-                //     context.read<HomeBloc>().add(const HomeStoreListFetch(
-                //           storeList: [],
-                //           type: HomeStoreListType.popularStore,
-                //         ));
-                //   },
-                // ),
+                HomeStoreList(
+                  title: "지금 인기있는 케이크 집",
+                  storeList: state.popularStore,
+                  moveListPage: () {
+                    context.read<HomeBloc>().add(HomePageChanged(
+                          selectedPage: HomeTab.list.index,
+                        ));
+                    context.read<HomeBloc>().add(const HomeStoreListFetch(
+                          type: HomeStoreListType.popularStore,
+                        ));
+                  },
+                ),
               ],
             ),
           );

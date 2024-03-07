@@ -37,6 +37,5 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(
           storeList: state.popularStore, storeListType: event.type));
     }
-    // emit(state.copyWith(storeList: event.storeList, storeListType: event.type));
   }
 }
