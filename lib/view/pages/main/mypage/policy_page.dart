@@ -52,7 +52,7 @@ class _PolicyPageState extends State<PolicyPage> {
           isDetailPage: true,
           onBackButtonPressed: () {
             context.read<MypageBloc>().add(MypagePageChanged(
-                  selectedPage: mypageTab.setting.index,
+                  selectedPage: MypageTab.setting.index,
                 ));
           },
           backgroundColor: Colors.white,

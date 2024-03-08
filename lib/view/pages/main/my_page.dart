@@ -7,6 +7,7 @@ import 'package:cakeke/view/pages/main/mypage/mypage_main_page.dart';
 import 'package:cakeke/view/pages/main/mypage/policy_page.dart';
 import 'package:cakeke/view/pages/main/mypage/setting_page.dart';
 import 'package:cakeke/view/pages/main/mypage/terms_page.dart';
+import 'package:cakeke/view/pages/main/mypage/voc_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,6 +36,7 @@ class MyPage extends StatelessWidget {
             ),
             TermsPage(),
             PolicyPage(),
+            const VocPage()
           ],
         );
       },
