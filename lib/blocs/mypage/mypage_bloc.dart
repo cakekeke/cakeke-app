@@ -1,7 +1,5 @@
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_state.dart';
-import 'package:cakeke/data/providers/user_provider.dart';
-import 'package:cakeke/data/repositories/user_repository.dart';
 import 'package:cakeke/data/source/local/prefs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';

@@ -21,7 +21,7 @@ class SettingPage extends StatelessWidget {
             isDetailPage: true,
             onBackButtonPressed: () {
               context.read<MypageBloc>().add(MypagePageChanged(
-                    selectedPage: mypageTab.main.index,
+                    selectedPage: MypageTab.main.index,
                   ));
             },
             isSafeArea: true,
@@ -35,7 +35,7 @@ class SettingPage extends StatelessWidget {
                     onPressed: () {
                       context.read<MypageBloc>().add(
                             MypagePageChanged(
-                              selectedPage: mypageTab.terms.index,
+                              selectedPage: MypageTab.terms.index,
                             ),
                           );
                     },
@@ -46,7 +46,7 @@ class SettingPage extends StatelessWidget {
                     onPressed: () {
                       context.read<MypageBloc>().add(
                             MypagePageChanged(
-                              selectedPage: mypageTab.privacy.index,
+                              selectedPage: MypageTab.privacy.index,
                             ),
                           );
                     },
