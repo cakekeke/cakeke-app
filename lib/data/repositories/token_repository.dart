@@ -11,11 +11,27 @@ class TokenRepository {
     }
   }
 
+  Future<void> saveRefreshToken(String refreshToken) async {
+    try {
+      Storage.write(Storage.refreshToken, refreshToken);
+    } catch (e) {
+      throw Exception('리프레시 토큰을 저장하는 동안 오류가 발생했습니다: $e');
+    }
+  }
+
   Future<String?> getAccessToken() async {
     try {
       return Storage.read(Storage.accessToken);
     } catch (e) {
       throw Exception('액세스 토큰을 가져오는 동안 오류가 발생했습니다: $e');
+    }
+  }
+
+  Future<String?> getRefreshToken() async {
+    try {
+      return Storage.read(Storage.refreshToken);
+    } catch (e) {
+      throw Exception('리프레시 토큰을 가져오는 동안 오류가 발생했습니다: $e');
     }
   }
 
