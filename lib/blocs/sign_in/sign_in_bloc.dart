@@ -56,7 +56,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       Prefs.setString(
           Prefs.profileFileName, 'assets/images/profile_icon_1.svg');
       Prefs.setString(Prefs.name, userInfo.name);
-
       emit(state.copyWith(
           loginSuccess: true, loginFailure: false, isButtonActive: false));
     } catch (e) {

@@ -17,6 +17,7 @@ class Storage {
   static void deleteAll() async => await _storage.deleteAll();
 
   static const String accessToken = "access_token";
+  static const String refreshToken = "refresh_token";
   static const String id = "id";
   static const String uid = "uid";
   static const String password = "password";
