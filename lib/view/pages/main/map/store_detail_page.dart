@@ -3,7 +3,7 @@ import 'package:cakeke/blocs/map/map_event.dart';
 import 'package:cakeke/blocs/review/review_bloc.dart';
 import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
-import 'package:cakeke/view/widgets/common/gray_elevated_button.dart';
+import 'package:cakeke/view/widgets/common/custom_elevated_button.dart';
 import 'package:cakeke/view/widgets/common/like_icon_button.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/common/score_widget.dart';
@@ -153,10 +153,12 @@ class StoreDetailPage extends StatelessWidget {
                       ),
                       SizedBox(
                         width: double.infinity,
-                        child: GrayElevatedButton(
+                        child: CustomElevatedButton(
                           title: '예약',
                           onTap: () =>
                               launchUrl(Uri.parse(store.reservationLink)),
+                          color: DesignSystem.colors.appPrimary,
+                          textColor: DesignSystem.colors.white,
                         ),
                       ),
                       const SizedBox(
