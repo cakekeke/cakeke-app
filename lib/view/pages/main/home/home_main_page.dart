@@ -27,7 +27,7 @@ class HomeMainPage extends StatelessWidget {
               children: [
                 const HomeHeader(),
                 HomeStoreList(
-                  title: "신상 케이크 집",
+                  title: "신상 케이크 가게",
                   storeList: state.newStore,
                   moveListPage: () {
                     context.read<HomeBloc>().add(const HomeStoreListFetch(
@@ -39,7 +39,7 @@ class HomeMainPage extends StatelessWidget {
                   },
                 ),
                 HomeStoreList(
-                  title: "지금 인기있는 케이크 집",
+                  title: "지금 인기있는 케이크 가게",
                   storeList: state.popularStore,
                   moveListPage: () {
                     context.read<HomeBloc>().add(HomePageChanged(

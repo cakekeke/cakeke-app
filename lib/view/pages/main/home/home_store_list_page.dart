@@ -19,8 +19,8 @@ class HomeStoreListPage extends StatelessWidget {
 
         return ScaffoldLayout(
           appBarText: state.storeListType == HomeStoreListType.newStore
-              ? "신상 케이크 집"
-              : "지금 인기있는 케이크 집",
+              ? "신상 케이크 가게"
+              : "지금 인기있는 케이크 가게",
           isDetailPage: true,
           onBackButtonPressed: () {
             context.read<HomeBloc>().add(HomePageChanged(
