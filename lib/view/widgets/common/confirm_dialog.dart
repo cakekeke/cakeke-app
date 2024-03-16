@@ -46,7 +46,7 @@ class ConfirmDialog extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Text(
                     confirmText,
                     textAlign: TextAlign.center,
