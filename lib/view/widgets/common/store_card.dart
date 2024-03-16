@@ -25,7 +25,7 @@ class StoreCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                   image: (store.imgUrlList.isEmpty
-                          ? const AssetImage("assets/images/splash.png")
+                          ? const AssetImage("assets/images/logo.png")
                           : NetworkImage(store.imgUrlList.first))
                       as ImageProvider<Object>,
                   fit: BoxFit.cover,

@@ -5,9 +5,9 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: Image(image: AssetImage('assets/images/splash.png'), width: 200),
+        child: Image(image: AssetImage('assets/images/logo.png'), width: 240),
       ),
     );
   }
