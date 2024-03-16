@@ -3,6 +3,8 @@ import 'package:cakeke/blocs/map/map_event.dart';
 import 'package:cakeke/blocs/review/review_bloc.dart';
 import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
+import 'package:cakeke/config/routes/routes.dart';
+import 'package:cakeke/view/pages/review_page.dart';
 import 'package:cakeke/view/widgets/common/custom_elevated_button.dart';
 import 'package:cakeke/view/widgets/common/like_icon_button.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
@@ -25,7 +27,9 @@ class StoreDetailPage extends StatelessWidget {
         appBarText: "가게정보",
         isDetailPage: true,
         backgroundColor: DesignSystem.colors.white,
-        onBackButtonPressed: onBackButtonPressed,
+        onBackButtonPressed: () {
+          onBackButtonPressed();
+        },
         bodyWidget:
             BlocBuilder<StoreBloc, StoreState>(buildWhen: (previous, current) {
           context.read<ReviewBloc>().add(const NewStoreSetting());
@@ -99,9 +103,8 @@ class StoreDetailPage extends StatelessWidget {
                             const SizedBox(width: 4),
                             GestureDetector(
                               onTap: () {
-                                context
-                                    .read<MapBloc>()
-                                    .add(const MapPageChanged(selectedPage: 3));
+                                Navigator.pushNamed(
+                                    context, Routes.review);
                               },
                               child: const Icon(
                                 (Icons.arrow_forward_ios),

@@ -18,6 +18,7 @@ class ReviewPage extends StatelessWidget {
         backgroundColor: DesignSystem.colors.white,
         onBackButtonPressed: () {
           context.read<MapBloc>().add(const MapPageChanged(selectedPage: 2));
+          Navigator.pop(context);
         },
         bodyWidget: BlocBuilder<ReviewBloc, ReviewState>(
             buildWhen: (previous, current) {

@@ -3,6 +3,7 @@ class Routes {
   static const String signIn = '/signIn';
   static const String signUp = '/signUp';
   static const String main = "/main";
+  static const String review = "/review";
 }
 
 class Tab {
