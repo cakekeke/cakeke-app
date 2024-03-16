@@ -14,14 +14,14 @@ class AppBlocProviders {
   static get landingPageBlocProviders => [
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => SignInBloc()),
-        BlocProvider(create: (context) => MapBloc()),
-        BlocProvider(create: (context) => ReviewBloc()),
       ];
 
   static get mainPageBlocProviders => [
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => TabBloc()),
+        BlocProvider(create: (context) => MapBloc()),
         BlocProvider(create: (context) => StoreBloc()),
+        BlocProvider(create: (context) => ReviewBloc()),
         BlocProvider(create: (context) => LikeBloc()),
         BlocProvider(create: (context) => CustomBloc()),
         BlocProvider(create: (context) => MypageBloc()),
