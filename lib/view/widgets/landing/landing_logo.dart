@@ -6,9 +6,9 @@ class LandingLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      "assets/images/landing-logo.png",
-      width: 251,
-      height: 190,
+      "assets/images/logo.png",
+      width: 240,
+      height: 88,
     );
   }
 }

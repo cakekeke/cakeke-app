@@ -4,7 +4,7 @@ import 'package:cakeke/blocs/home/home_state.dart';
 import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/view/widgets/common/empty_list_text.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
-import 'package:cakeke/view/widgets/home/home_store_card.dart';
+import 'package:cakeke/view/widgets/common/store_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,8 +19,8 @@ class HomeStoreListPage extends StatelessWidget {
 
         return ScaffoldLayout(
           appBarText: state.storeListType == HomeStoreListType.newStore
-              ? "신상 케이크 집"
-              : "지금 인기있는 케이크 집",
+              ? "신상 케이크 가게"
+              : "지금 인기있는 케이크 가게",
           isDetailPage: true,
           onBackButtonPressed: () {
             context.read<HomeBloc>().add(HomePageChanged(
@@ -41,24 +41,27 @@ class HomeStoreListPage extends StatelessWidget {
                       //   child: const StoreFilter(),
                       // ),
                       Expanded(
-                          child: ListView.builder(
-                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                          child: ListView.separated(
                         itemCount: storeList.length,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const Divider();
+                        },
                         itemBuilder: (BuildContext context, int index) {
-                          return HomeStoreCard(
-                            store: storeList[index],
-                            index: index,
-                            onTap: () {
-                              context.read<HomeBloc>().add(HomePageChanged(
-                                    selectedPage: HomeTab.detail.index,
-                                  ));
-                              context
-                                  .read<StoreBloc>()
-                                  .add(StoreEventStoreSelect(
-                                    selectStore: storeList[index],
-                                  ));
-                            },
-                            isLast: index == storeList.length - 1,
+                          return Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: StoreCard(
+                              store: storeList[index],
+                              onTap: () {
+                                context.read<HomeBloc>().add(HomePageChanged(
+                                      selectedPage: HomeTab.detail.index,
+                                    ));
+                                context
+                                    .read<StoreBloc>()
+                                    .add(StoreEventStoreSelect(
+                                      selectStore: storeList[index],
+                                    ));
+                              },
+                            ),
                           );
                         },
                       ))
