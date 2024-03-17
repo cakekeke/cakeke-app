@@ -19,6 +19,7 @@ class MapListViewButton extends StatelessWidget {
         elevation: 2,
       ),
       onPressed: () {
+        FocusScope.of(context).unfocus();
         context.read<MapBloc>().add(const MapPageChanged(
               selectedPage: 1,
             ));

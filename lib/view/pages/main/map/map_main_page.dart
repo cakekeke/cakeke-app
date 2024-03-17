@@ -27,29 +27,36 @@ class _MapMainPageState extends State<MapMainPage> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldLayout(
-      bodyWidget: Stack(
-        children: [
-          const MapLayout(),
-          MapSearchField(searchFocus: searchFocus),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 16),
-                child: Stack(
-                  alignment: AlignmentDirectional.centerEnd,
-                  children: [
-                    Center(child: MapListViewButton()),
-                    Positioned(right: 16, child: MapLocationButton()),
-                  ],
+      bodyWidget: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Stack(
+          children: [
+            const MapLayout(),
+            MapSearchField(searchFocus: searchFocus),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 16),
+                  child: Stack(
+                    alignment: AlignmentDirectional.centerEnd,
+                    children: [
+                      Center(child: MapListViewButton()),
+                      Positioned(right: 16, child: MapLocationButton()),
+                    ],
+                  ),
                 ),
-              ),
-              Visibility(visible: !searchFocus.hasFocus,
-                child: const MapStoreList(),)
-            ],
-          ),
-        ],
+                Visibility(
+                  visible: !searchFocus.hasFocus,
+                  child: const MapStoreList(),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

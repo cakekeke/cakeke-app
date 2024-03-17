@@ -11,6 +11,7 @@ class MapLocationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
+          FocusScope.of(context).unfocus();
           context.read<MapBloc>().add(const SetCurrentLocationEvent());
         },
         child: Container(
