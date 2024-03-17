@@ -9,6 +9,7 @@ import 'package:cakeke/view/widgets/main/custom/custom_sticker_list.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_tab_bar_layout.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_tab_view_list.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_text_field_layout.dart';
+import 'package:cakeke/view/widgets/main/custom/custrom_banner_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lindi_sticker_widget/lindi_sticker_widget.dart';
@@ -107,6 +108,11 @@ class _CustomPageState extends State<CustomPage> {
                                 SelectBackgroundEvent(selectBackground: asset));
                           }),
                       const CustomPhotoLayout(),
+                      CustomBannerGrid(
+                        event: (customEvent) {
+                          context.read<CustomBloc>().add(customEvent);
+                        },
+                      ),
                       CustomTextFieldLayout(
                         textController: state.textController,
                         event: (customEvent) {
