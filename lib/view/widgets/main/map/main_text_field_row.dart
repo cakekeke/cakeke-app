@@ -28,7 +28,7 @@ class MainTextFieldRow extends StatelessWidget {
                   isDense: true,
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.only(top: 4, bottom: 4),
-                  hintText: '딸기 케이크 맛집을 검색해보세요',
+                  hintText: '역 이름 혹은 가게 이름을 검색해보세요.',
                   hintStyle: DesignSystem.typography.body(TextStyle(
                     color: DesignSystem.colors.textHint,
                     fontWeight: FontWeight.w400,
