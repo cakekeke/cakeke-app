@@ -29,11 +29,11 @@ class ReviewPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final review = state.storeReviewList!.elementAt(index);
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                        ),
+                            horizontal: 16, vertical: 32),
                         child: ReadMoreText(
                           (review.contents ?? '').replaceAll(RegExp("\n"), ""),
                           trimLines: 3,
@@ -41,6 +41,7 @@ class ReviewPage extends StatelessWidget {
                           trimCollapsedText: '더보기',
                           trimExpandedText: '접기',
                           style: DesignSystem.typography.body(),
+                          textAlign: TextAlign.start,
                           moreStyle:
                               DesignSystem.typography.body(const TextStyle(
                             color: Color(0xFF6F6F6F),
@@ -48,13 +49,11 @@ class ReviewPage extends StatelessWidget {
                             decoration: TextDecoration.underline,
                           )),
                         )),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 32),
-                      child: Divider(
+                    if (state.storeReviewList!.length - 1 != index)
+                      Divider(
                         thickness: 6,
                         color: DesignSystem.colors.dividerCard,
-                      ),
-                    )
+                      )
                   ],
                 );
               });

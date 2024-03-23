@@ -9,6 +9,7 @@ import 'package:cakeke/blocs/tab/tab_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});
@@ -18,13 +19,16 @@ class BottomNavigation extends StatelessWidget {
     return BlocBuilder<TabBloc, TabState>(
       builder: (context, state) {
         return BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: '홈',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.map),
+                icon: SvgPicture.asset(
+                  'assets/images/icon_navigation_map_${state.tabIndex != 1 ? 'unselected' : 'selected'}.svg',
+                  width: 19,
+                ),
                 label: '지도',
               ),
               BottomNavigationBarItem(
@@ -32,7 +36,10 @@ class BottomNavigation extends StatelessWidget {
                 label: '큐레이션',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.light_mode),
+                icon: SvgPicture.asset(
+                  'assets/images/icon_navigation_custom_${state.tabIndex != 3 ? 'unselected' : 'selected'}.svg',
+                  width: 22,
+                ),
                 label: '커스텀',
               ),
               BottomNavigationBarItem(

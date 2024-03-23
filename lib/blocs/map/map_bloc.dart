@@ -137,8 +137,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     event.maker.setIcon(selectMaker);
     event.maker.setSize(const Size(40, 54));
     Future.delayed(const Duration(milliseconds: 300), () {
-      state.itemScrollController.scrollToIndex(event.index,
-          preferPosition: AutoScrollPosition.middle);
+      state.itemScrollController
+          .scrollToIndex(event.index, preferPosition: AutoScrollPosition.begin);
     });
 
     this.emit(state.copyWith(
