@@ -17,6 +17,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
             ))) {
     on<SetMapControllerEvent>(_handleSetMapControllerEvent);
     on<SetCurrentLocationEvent>(_handleSetCurrentLocationEvent);
+    on<SetCameraRotationEvent>(_handleSetCameraRotationEvent);
     on<SetLocationEvent>(_handleSetLocationEvent);
     on<SearchTextChangedEvent>(_handleSearchTextChangedEvent);
     on<SetMakerEvent>(_handleSetMakerEvent);
@@ -97,6 +98,18 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       )));
     } catch (e) {
       print('Error getting location: $e');
+    }
+  }
+
+  Future<void> _handleSetCameraRotationEvent(
+    SetCameraRotationEvent event,
+    Emitter<MapState> emit,
+  ) async {
+    try {
+      state.mapController
+          ?.updateCamera(NCameraUpdate.withParams(bearing: 0, tilt: 0));
+    } catch (e) {
+      print('Error Set Camera Rotation: $e');
     }
   }
 
