@@ -4,6 +4,7 @@ import 'package:cakeke/blocs/custom/custom_state.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomPhotoLayout extends StatelessWidget {
   const CustomPhotoLayout({
@@ -21,22 +22,25 @@ class CustomPhotoLayout extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              state.photoPath.isEmpty
-                  ? '사진을 업로드 해주세요 *o*'
-                  : '사진이 업로드 되었습니다 *o*',
-              style: DesignSystem.typography.body(TextStyle(
-                  color: DesignSystem.colors.textCustomNoti,
-                  fontWeight: FontWeight.w400)),
-            ),
             Visibility(
               visible: state.photoPath.isEmpty,
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 36, bottom: 12),
-                    child: Image.asset('assets/images/icon_custom_camera.png'),
+                      padding: const EdgeInsets.only(top: 36, bottom: 12),
+                      child: SvgPicture.asset(
+                        'assets/images/icon_custom_camera.svg',
+                        fit: BoxFit.cover,
+                      )),
+                  Text(
+                    state.photoPath.isEmpty
+                        ? '사진을 업로드 해주세요 *o*'
+                        : '사진이 업로드 되었습니다 *o*',
+                    style: DesignSystem.typography.body(TextStyle(
+                        color: DesignSystem.colors.textCustomNoti,
+                        fontWeight: FontWeight.w400)),
                   ),
+                  SizedBox(height: 16),
                   GestureDetector(
                     onTap: () async {
                       context.read<CustomBloc>().add(const AddPhotoEvent());

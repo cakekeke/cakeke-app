@@ -132,7 +132,7 @@ class Typographies {
 
     return textStyle.copyWith(
       fontSize: fontSize,
-      height: height,
+      height: textStyle.height ?? height,
     );
   }
 }

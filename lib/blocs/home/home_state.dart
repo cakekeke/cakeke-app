@@ -1,34 +1,63 @@
+import 'package:cakeke/data/models/common/store.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
-import 'package:location/location.dart';
+
+enum HomeTab {
+  main,
+  list,
+  detail,
+}
+
+enum HomeStoreListType {
+  newStore,
+  popularStore,
+}
 
 class HomeState extends Equatable {
   const HomeState({
-    this.location,
-    this.mapController,
-    this.searchText = '',
+    this.newStore = const [],
+    this.popularStore = const [],
+    this.selectedPage = 0,
+    this.prevPage = 0,
+    this.storeList = const [],
+    this.storeListType = HomeStoreListType.newStore,
+    this.city = "",
+    this.district = "",
   });
 
-  final Location? location;
-  final NaverMapController? mapController;
-  final String searchText;
+  final List<Store> newStore;
+  final List<Store> popularStore;
+  final int selectedPage;
+  final int prevPage;
+  final List<Store> storeList;
+  final HomeStoreListType storeListType;
+  final String city;
+  final String district;
 
   HomeState copyWith({
-    Location? location,
-    NaverMapController? mapController,
-    String? searchText,
+    List<Store>? newStore,
+    List<Store>? popularStore,
+    int? selectedPage,
+    int? prevPage,
+    List<Store>? storeList,
+    HomeStoreListType? storeListType,
   }) {
     return HomeState(
-      location: location ?? this.location,
-      mapController: mapController ?? this.mapController,
-      searchText: searchText ?? this.searchText,
+      newStore: newStore ?? this.newStore,
+      popularStore: popularStore ?? this.popularStore,
+      selectedPage: selectedPage ?? this.selectedPage,
+      prevPage: prevPage ?? this.prevPage,
+      storeList: storeList ?? this.storeList,
+      storeListType: storeListType ?? this.storeListType,
     );
   }
 
   @override
   List<Object?> get props => [
-        location,
-        mapController,
-        searchText,
+        newStore,
+        popularStore,
+        selectedPage,
+        prevPage,
+        storeList,
+        storeListType,
       ];
 }

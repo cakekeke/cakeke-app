@@ -9,6 +9,7 @@ import 'package:cakeke/view/widgets/main/custom/custom_sticker_list.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_tab_bar_layout.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_tab_view_list.dart';
 import 'package:cakeke/view/widgets/main/custom/custom_text_field_layout.dart';
+import 'package:cakeke/view/widgets/main/custom/custrom_banner_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lindi_sticker_widget/lindi_sticker_widget.dart';
@@ -21,11 +22,16 @@ class CustomPage extends StatefulWidget {
 }
 
 class _CustomPageState extends State<CustomPage> {
-  final GlobalKey globalKey = GlobalKey();
+  final GlobalKey tabBarKey = GlobalKey(debugLabel: 'customTabBar');
+  final GlobalKey saveButtonKey = GlobalKey(debugLabel: 'customSaveButtonKey');
+  final GlobalKey customScreen = GlobalKey(debugLabel: 'customScreenKey');
 
   @override
   void initState() {
     context.read<CustomBloc>().add(const InitImagesEvent());
+    context.read<CustomBloc>().add(SetTutorialKeysEvent(
+          widgetKeys: [tabBarKey, saveButtonKey, customScreen],
+        ));
     super.initState();
   }
 
@@ -47,7 +53,7 @@ class _CustomPageState extends State<CustomPage> {
               child: Stack(
                 children: [
                   RepaintBoundary(
-                    key: globalKey,
+                    key: customScreen,
                     child: LindiStickerWidget(
                       controller: state.controller,
                       child: SizedBox.expand(
@@ -61,10 +67,11 @@ class _CustomPageState extends State<CustomPage> {
                     right: 16,
                     top: 60,
                     child: CustomSaveButton(
+                      key: saveButtonKey,
                       onTap: () {
                         context
                             .read<CustomBloc>()
-                            .add(CaptureAndSaveEvent(globalKey: globalKey));
+                            .add(CaptureAndSaveEvent(globalKey: customScreen));
                       },
                     ),
                   )
@@ -72,10 +79,12 @@ class _CustomPageState extends State<CustomPage> {
               ),
             ),
             DefaultTabController(
-              length: 8,
+              length: 7,
               child: Column(
                 children: [
-                  const CustomTabBarLayout(),
+                  CustomTabBarLayout(
+                    key: tabBarKey,
+                  ),
                   Visibility(
                     visible: state.customList.isNotEmpty,
                     child: Container(
@@ -92,13 +101,18 @@ class _CustomPageState extends State<CustomPage> {
                     height: state.customList.isNotEmpty ? 245 : 327,
                     child: TabBarView(children: [
                       CustomTabViewGrid(
+                          selectItem: state.selectBackground,
                           addAssetList: state.background,
                           onTap: (asset) {
                             context.read<CustomBloc>().add(
                                 SelectBackgroundEvent(selectBackground: asset));
                           }),
                       const CustomPhotoLayout(),
-                      Container(),
+                      CustomBannerGrid(
+                        event: (customEvent) {
+                          context.read<CustomBloc>().add(customEvent);
+                        },
+                      ),
                       CustomTextFieldLayout(
                         textController: state.textController,
                         event: (customEvent) {

@@ -1,48 +1,37 @@
+import 'package:cakeke/blocs/home/home_state.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 @immutable
 abstract class HomeEvent extends Equatable {
   const HomeEvent();
 }
 
-class SetMapControllerEvent extends HomeEvent {
-  const SetMapControllerEvent({
-    required this.mapController,
-  });
-
-  final NaverMapController mapController;
+class HomeInitialEvent extends HomeEvent {
+  const HomeInitialEvent();
 
   @override
-  List<Object?> get props => [mapController];
+  List<Object> get props => [];
 }
 
-class SetCurrentLocationEvent extends HomeEvent {
-  const SetCurrentLocationEvent();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class SearchTextChangedEvent extends HomeEvent {
-  const SearchTextChangedEvent({
-    required this.searchText,
+class HomePageChanged extends HomeEvent {
+  const HomePageChanged({
+    required this.selectedPage,
   });
 
-  final String searchText;
+  final int selectedPage;
 
   @override
-  List<Object?> get props => [searchText];
+  List<Object> get props => [selectedPage];
 }
 
-class SearchTextEvent extends HomeEvent {
-  const SearchTextEvent({
-    this.searchText,
+class HomeStoreListFetch extends HomeEvent {
+  const HomeStoreListFetch({
+    required this.type,
   });
 
-  final String? searchText;
+  final HomeStoreListType type;
 
   @override
-  List<Object?> get props => [searchText];
+  List<Object> get props => [type];
 }

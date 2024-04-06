@@ -1,56 +1,41 @@
 import 'package:cakeke/blocs/home/home_event.dart';
+import 'package:cakeke/blocs/home/home_state.dart';
+import 'package:cakeke/data/providers/home_provider.dart';
+import 'package:cakeke/data/repositories/home_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_naver_map/flutter_naver_map.dart';
-import 'package:location/location.dart';
-
-import 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(HomeState(location: Location())) {
-    on<SetMapControllerEvent>(_handleSetMapControllerEvent);
-    on<SetCurrentLocationEvent>(_handleSetCurrentLocationEvent);
-    on<SearchTextChangedEvent>(_handleSearchTextChangedEvent);
-    on<SearchTextEvent>(_handleSearchTextEvent);
+  HomeBloc() : super(const HomeState()) {
+    on<HomeInitialEvent>(_onHomeStarted);
+    on<HomePageChanged>(_onHomePageChanged);
+    on<HomeStoreListFetch>(_onHomeStoreListFetch);
   }
 
-  void _handleSetMapControllerEvent(
-    SetMapControllerEvent event,
-    Emitter<HomeState> emit,
-  ) {
-    emit(state.copyWith(mapController: event.mapController));
+  final HomeRepository homeRepository =
+      HomeRepository(homeProvider: HomeProvider());
+
+  void _onHomeStarted(HomeInitialEvent event, Emitter<HomeState> emit) async {
+    final newStore = await homeRepository.getNewStoreList();
+    final popularStore = await homeRepository.getPopularStore();
+    emit(state.copyWith(
+      newStore: newStore,
+      popularStore: popularStore,
+    ));
   }
 
-  Future<void> _handleSetCurrentLocationEvent(
-    SetCurrentLocationEvent event,
-    Emitter<HomeState> emit,
-  ) async {
-    try {
-      final userLocation = await state.location?.getLocation();
+  void _onHomePageChanged(HomePageChanged event, Emitter<HomeState> emit) {
+    emit(state.copyWith(
+        selectedPage: event.selectedPage, prevPage: state.selectedPage));
+  }
 
-      state.mapController?.updateCamera(NCameraUpdate.withParams(
-          target: NLatLng(
-        userLocation?.latitude ?? 0,
-        userLocation?.longitude ?? 0,
-      )));
-    } catch (e) {
-      print('Error getting location: $e');
+  void _onHomeStoreListFetch(
+      HomeStoreListFetch event, Emitter<HomeState> emit) {
+    if (event.type == HomeStoreListType.newStore) {
+      emit(
+          state.copyWith(storeList: state.newStore, storeListType: event.type));
+    } else {
+      emit(state.copyWith(
+          storeList: state.popularStore, storeListType: event.type));
     }
-  }
-
-  void _handleSearchTextChangedEvent(
-    SearchTextChangedEvent event,
-    Emitter<HomeState> emit,
-  ) {
-    emit(state.copyWith(searchText: event.searchText));
-  }
-
-  void _handleSearchTextEvent(
-    SearchTextEvent event,
-    Emitter<HomeState> emit,
-  ) {
-    final searchText = event.searchText ?? state.searchText;
-
-    // API 진행 후 결과 emit
-    // emit(state.copyWith();
   }
 }

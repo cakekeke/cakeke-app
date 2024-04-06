@@ -1,15 +1,17 @@
 import 'package:cakeke/config/design_system/design_system.dart';
+import 'package:cakeke/data/models/sign_up/service_purpose.dart';
 import 'package:flutter/material.dart';
 
 class ServicePurposeRadioLayout extends StatelessWidget {
   const ServicePurposeRadioLayout({
     super.key,
     required this.selectPurpose,
+    required this.purposeList,
     required this.onTap,
   });
 
   final String selectPurpose;
-  final List<String> purposeList = const ["케이크 예약", "케이크 디자인 정보 탐색", "재미"];
+  final List<ServicePurpose> purposeList;
   final Function(String) onTap;
 
   @override
@@ -23,7 +25,7 @@ class ServicePurposeRadioLayout extends StatelessWidget {
           children: [
             for (int index = 0; index < purposeList.length; index++)
               GestureDetector(
-                onTap: () => onTap(purposeList[index]),
+                onTap: () => onTap(purposeList[index].description),
                 child: Padding(
                   padding: EdgeInsets.only(top: index != 0 ? 18 : 0),
                   child: Row(
@@ -32,15 +34,16 @@ class ServicePurposeRadioLayout extends StatelessWidget {
                         margin: const EdgeInsets.only(right: 8),
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                            color: selectPurpose == purposeList[index]
-                                ? DesignSystem.colors.appPrimary
-                                : DesignSystem.colors.gray100,
+                            color:
+                                selectPurpose == purposeList[index].description
+                                    ? DesignSystem.colors.appPrimary
+                                    : DesignSystem.colors.gray100,
                             borderRadius: BorderRadius.circular(999),
                             border: Border.all(
                                 color: DesignSystem.colors.white, width: 3)),
                       ),
                       Text(
-                        purposeList[index],
+                        purposeList[index].description,
                         style: DesignSystem.typography.body2(),
                       )
                     ],

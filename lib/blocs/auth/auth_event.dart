@@ -33,23 +33,9 @@ final class AuthEventSignout extends AuthEvent {
   List<Object> get props => [];
 }
 
-final class AuthEventSignup extends AuthEvent {
-  const AuthEventSignup({
-    required this.id,
-    required this.password,
-    required this.birth,
-    required this.gener,
-    required this.purpose,
-    required this.profileId,
-  });
-
-  final String id;
-  final String password;
-  final String birth;
-  final String gener;
-  final String purpose;
-  final int profileId;
+final class AuthEventWithdrawal extends AuthEvent {
+  const AuthEventWithdrawal();
 
   @override
-  List<Object> get props => [id, password, birth, gener, purpose, profileId];
+  List<Object> get props => [];
 }

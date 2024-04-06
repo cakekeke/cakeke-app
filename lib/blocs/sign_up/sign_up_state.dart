@@ -1,18 +1,19 @@
+import 'package:cakeke/data/models/sign_up/service_purpose.dart';
+import 'package:cakeke/data/models/common/sign_user.dart';
 import 'package:equatable/equatable.dart';
 
 class SignUpState extends Equatable {
   const SignUpState({
+    required this.user,
     this.isDuplicationId,
     this.isValidId,
     this.isButtonActive = false,
     this.passwordCheck,
-    this.profileId = 0,
-    this.purpose = '',
-    this.gender = '',
-    this.birth = '',
-    this.password = const ['', '', '', '', '', ''],
-    this.rePassword = const ['', '', '', '', '', ''],
-    this.id = '',
+    this.purpose = const [],
+    this.password = '',
+    this.checkPassword = '',
+    this.chapter = 1,
+    this.name = '',
   });
 
   final bool? isDuplicationId;
@@ -20,39 +21,36 @@ class SignUpState extends Equatable {
   final bool isButtonActive;
   final bool? passwordCheck;
 
-  final int profileId;
-  final String purpose;
-  final String gender;
-  final String birth;
-  final List<String> password;
-  final List<String> rePassword;
-  final String id;
+  final List<ServicePurpose> purpose;
+  final String password;
+  final String checkPassword;
+  final String name;
+  final int chapter;
+  final SignUser user;
 
   SignUpState copyWith({
     bool? isDuplicationId,
     bool? isValidId,
     bool? isButtonActive,
     bool? passwordCheck,
-    int? profileId,
-    String? purpose,
-    String? gender,
-    String? birth,
-    List<String>? password,
-    List<String>? rePassword,
-    String? id,
+    List<ServicePurpose>? purpose,
+    String? password,
+    String? checkPassword,
+    String? name,
+    int? chapter,
+    SignUser? user,
   }) {
     return SignUpState(
       isDuplicationId: isDuplicationId ?? this.isDuplicationId,
       isValidId: isValidId ?? this.isValidId,
       isButtonActive: isButtonActive ?? this.isButtonActive,
       passwordCheck: passwordCheck ?? this.passwordCheck,
-      profileId: profileId ?? this.profileId,
       purpose: purpose ?? this.purpose,
-      gender: gender ?? this.gender,
-      birth: birth ?? this.birth,
-      rePassword: rePassword ?? this.rePassword,
+      checkPassword: checkPassword ?? this.checkPassword,
       password: password ?? this.password,
-      id: id ?? this.id,
+      name: name ?? this.name,
+      chapter: chapter ?? this.chapter,
+      user: user ?? this.user,
     );
   }
 
@@ -62,12 +60,11 @@ class SignUpState extends Equatable {
         isValidId,
         isButtonActive,
         passwordCheck,
-        profileId,
         purpose,
-        gender,
-        birth,
-        rePassword,
+        checkPassword,
         password,
-        id,
+        name,
+        chapter,
+        user,
       ];
 }

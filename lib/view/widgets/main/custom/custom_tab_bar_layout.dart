@@ -23,7 +23,7 @@ class CustomTabBarLayout extends StatelessWidget {
         tabs: const [
           CustomTabItem(title: '배경'),
           CustomTabItem(title: '사진'),
-          CustomTabItem(title: '케이크'),
+          CustomTabItem(title: '배너'),
           CustomTabItem(title: '문구'),
           CustomTabItem(title: '크림'),
           CustomTabItem(title: '촛불'),

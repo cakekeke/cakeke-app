@@ -6,6 +6,15 @@ abstract class SignUpEvent extends Equatable {
   const SignUpEvent();
 }
 
+class SignUpProgressEvent extends SignUpEvent {
+  const SignUpProgressEvent({required this.context});
+
+  final BuildContext context;
+
+  @override
+  List<Object?> get props => [context];
+}
+
 class ButtonPressedEvent extends SignUpEvent {
   const ButtonPressedEvent();
 
@@ -15,13 +24,15 @@ class ButtonPressedEvent extends SignUpEvent {
 
 class ButtonTapEvent extends SignUpEvent {
   const ButtonTapEvent({
-    required this.isLastSignLevel,
+    required this.context,
+    required this.isNextPurposeLevel,
   });
 
-  final bool isLastSignLevel;
+  final BuildContext context;
+  final bool isNextPurposeLevel;
 
   @override
-  List<Object?> get props => [isLastSignLevel];
+  List<Object?> get props => [context, isNextPurposeLevel];
 }
 
 class IdChangedEvent extends SignUpEvent {
@@ -36,36 +47,34 @@ class IdChangedEvent extends SignUpEvent {
 }
 
 class IdDuplicationCheck extends SignUpEvent {
-  const IdDuplicationCheck();
+  const IdDuplicationCheck({required this.context});
+
+  final BuildContext context;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [context];
 }
 
 class PasswordChangedEvent extends SignUpEvent {
   const PasswordChangedEvent({
     required this.password,
-    required this.index,
   });
 
   final String password;
-  final int index;
 
   @override
-  List<Object> get props => [password, index];
+  List<Object> get props => [password];
 }
 
-class RePasswordChangedEvent extends SignUpEvent {
-  const RePasswordChangedEvent({
-    required this.rePassword,
-    required this.index,
+class CheckPasswordChangedEvent extends SignUpEvent {
+  const CheckPasswordChangedEvent({
+    required this.checkPassword,
   });
 
-  final String rePassword;
-  final int index;
+  final String checkPassword;
 
   @override
-  List<Object> get props => [rePassword, index];
+  List<Object> get props => [checkPassword];
 }
 
 class BirthChangedEvent extends SignUpEvent {
@@ -77,22 +86,22 @@ class BirthChangedEvent extends SignUpEvent {
   List<Object> get props => [birth];
 }
 
-class GenderChangedEvent extends SignUpEvent {
-  const GenderChangedEvent({required this.gender});
+class SexChangedEvent extends SignUpEvent {
+  const SexChangedEvent({required this.sex});
 
-  final String gender;
+  final String sex;
 
   @override
-  List<Object> get props => [gender];
+  List<Object> get props => [sex];
 }
 
 class PurposeChangedEvent extends SignUpEvent {
-  const PurposeChangedEvent({required this.purpose});
+  const PurposeChangedEvent({required this.selectPurpose});
 
-  final String purpose;
+  final String selectPurpose;
 
   @override
-  List<Object> get props => [purpose];
+  List<Object> get props => [selectPurpose];
 }
 
 class ProfileIdChangedEvent extends SignUpEvent {

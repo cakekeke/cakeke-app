@@ -4,15 +4,21 @@ import 'dart:ui';
 import 'package:cakeke/blocs/custom/custom_event.dart';
 import 'package:cakeke/blocs/custom/custom_state.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
+import 'package:cakeke/data/providers/custom_provider.dart';
+import 'package:cakeke/data/repositories/custom_repository.dart';
 import 'package:cakeke/utils/permission_util.dart';
 import 'package:cakeke/utils/utils.dart';
+import 'package:cakeke/view/widgets/main/custom/custom_tutorial_target_focus.dart';
+import 'package:cakeke/view/widgets/main/custom/custom_tutorial_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lindi_sticker_widget/lindi_controller.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class CustomBloc extends Bloc<CustomEvent, CustomState> {
   CustomBloc()
@@ -26,30 +32,29 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
             ),
             textController: TextEditingController())) {
     on<InitImagesEvent>(_handleInitImagesEvent);
+    on<SetTutorialKeysEvent>(_handleSetTutorialKeysEvent);
+    on<ShowTutorialEvent>(_handleShowTutorialEvent);
     on<SelectBackgroundEvent>(_handleSelectBackgroundEvent);
     on<SelectTextColorEvent>(_handleSelectTextColorEvent);
     on<AddCustomEvent>(_handleAddCustomEvent);
     on<DeleteCustomEvent>(_handleDeleteCustomEvent);
+    on<DeleteAllCustomEvent>(_handleDeleteAllCustomEvent);
     on<AddPhotoEvent>(_handleAddPhotoEvent);
     on<DeletePhotoEvent>(_handleDeletePhotoEvent);
     on<CaptureAndSaveEvent>(_handleCaptureAndSaveEvent);
   }
+
+  final customRepository = CustomRepository(customProvider: CustomProvider());
 
   Future<void> _handleInitImagesEvent(
     InitImagesEvent event,
     Emitter<CustomState> emit,
   ) async {
     PermissionUtil.requestAll();
-    final manifestContent = await rootBundle.loadString('AssetManifest.json');
-    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-
-    final stickerPaths = manifestMap.keys
-        .where((String key) => key.contains('images/sticker'))
-        .toList();
-
-    final backgroundPaths = manifestMap.keys
-        .where((String key) => key.contains('images/background'))
-        .toList();
+    final images = await customRepository.getCustomImages();
+    final List<String> imageUrls = [...images.urlList, ...images.iconUrlList];
+    final stickerPaths =
+        imageUrls.where((String key) => key.contains('sticker/')).toList();
 
     final candleImages =
         stickerPaths.where((element) => element.contains('candle_')).toList();
@@ -61,13 +66,86 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
         stickerPaths.where((element) => element.contains('sticker_')).toList();
     stickerImages.sort((b, a) => a.compareTo(b));
 
-    final newImagesMap = {
+    final manifestContent = await rootBundle.loadString('AssetManifest.json');
+    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+
+    final backgroundPaths = manifestMap.keys
+        .where((String key) => key.contains('images/background'))
+        .toList();
+    backgroundPaths.removeWhere((path) => path.contains('DS_Store'));
+
+    final newImages = {
       "candle": candleImages,
       "cream": creamImages,
       "fruit": fruitImages,
       "sticker": stickerImages,
     };
-    emit(state.copyWith(sticker: newImagesMap, background: backgroundPaths));
+    emit(state.copyWith(sticker: newImages, background: backgroundPaths));
+  }
+
+  void _handleSetTutorialKeysEvent(
+    SetTutorialKeysEvent event,
+    Emitter<CustomState> emit,
+  ) {
+    emit(state.copyWith(tutorialKeys: event.widgetKeys));
+  }
+
+  void _handleShowTutorialEvent(
+    ShowTutorialEvent event,
+    Emitter<CustomState> emit,
+  ) {
+    if (state.isTutorialProgress) {
+      TutorialCoachMark tutorial = TutorialCoachMark(
+        targets: [
+          customTutorialTargetFocus(
+            state.tutorialKeys.first,
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const CustomTutorialText(text: "카테고리 별로 원하는 꾸미기 요소를 골라보세요"),
+                Padding(
+                  padding: const EdgeInsets.only(top: 60),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/images/icon_custom_tutorial_tab.svg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            shape: ShapeLightFocus.RRect,
+          ),
+          customTutorialTargetFocus(
+              state.tutorialKeys.elementAtOrNull(1),
+              const Align(
+                  alignment: Alignment.bottomRight,
+                  child: CustomTutorialText(
+                    text: "이미지를 저장하고\n친구들에게 공유해보세요",
+                    align: TextAlign.end,
+                  )),
+              shape: ShapeLightFocus.Circle),
+          customTutorialTargetFocus(
+            state.tutorialKeys.last,
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Center(
+                child: CustomTutorialText(
+                  text: "나만의 커스텀이미지를 꾸며보세요",
+                  style: DesignSystem.typography.heading3(TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: DesignSystem.colors.white)),
+                ),
+              ),
+            ),
+          ),
+        ], // List<TargetFocus>
+      );
+      tutorial.show(context: event.context);
+
+      emit(state.copyWith(isTutorialProgress: false));
+    }
   }
 
   void _handleSelectBackgroundEvent(
@@ -92,7 +170,9 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
       state.controller.addWidget(event.widget!);
     } else {
       state.controller.addWidget(
-        Image.asset(event.asset),
+        event.asset.contains('http')
+            ? Image.network(event.asset)
+            : Image.asset(event.asset),
       );
     }
 
@@ -114,6 +194,17 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
 
     emit(state.copyWith(
         controller: state.controller, customList: newCustomList));
+  }
+
+  void _handleDeleteAllCustomEvent(
+    DeleteAllCustomEvent event,
+    Emitter<CustomState> emit,
+  ) {
+    state.controller.widgets.clear();
+    state.controller.notifyListeners();
+
+    emit(state.copyWith(
+        controller: state.controller, customList: []));
   }
 
   Future<void> _handleAddPhotoEvent(
@@ -146,25 +237,30 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     CaptureAndSaveEvent event,
     Emitter<CustomState> emit,
   ) async {
-    if (event.globalKey.currentContext != null) {
-      final RenderRepaintBoundary boundary = event.globalKey.currentContext!
-          .findRenderObject() as RenderRepaintBoundary;
+    state.controller.doneAllBorders();
 
-      final image = await boundary.toImage();
-      final byteData = await image.toByteData(format: ImageByteFormat.png);
-      final pngBytes = byteData?.buffer.asUint8List();
+    Future.delayed(const Duration(milliseconds: 200)).then((_) async {
+      if (event.globalKey.currentContext != null) {
+        final RenderRepaintBoundary boundary = event.globalKey.currentContext!
+            .findRenderObject() as RenderRepaintBoundary;
 
-      if (pngBytes != null) {
-        final result =
-            await ImageGallerySaver.saveImage(Uint8List.fromList(pngBytes));
-        if (result != null && result.isNotEmpty) {
-          Utils.showSnackBar(event.globalKey.currentContext!, '이미지가 저장되었습니다');
-          return;
+        final image = await boundary.toImage();
+        final byteData = await image.toByteData(format: ImageByteFormat.png);
+        final pngBytes = byteData?.buffer.asUint8List();
+
+        if (pngBytes != null) {
+          final result = await ImageGallerySaver.saveImage(
+              Uint8List.fromList(pngBytes),
+              quality: 100);
+          if (result != null && result.isNotEmpty) {
+            Utils.showSnackBar(event.globalKey.currentContext!, '이미지가 저장되었습니다');
+            return;
+          }
         }
+        Utils.showSnackBar(event.globalKey.currentContext!, '이미지을 실패하였습니다');
       }
-      Utils.showSnackBar(event.globalKey.currentContext!, '이미지을 실패하였습니다');
-    }
 
-    emit(state.copyWith());
+      emit(state.copyWith());
+    });
   }
 }

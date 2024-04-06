@@ -1,10 +1,12 @@
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SignTextField extends StatelessWidget {
   const SignTextField({
     super.key,
     required this.onChanged,
+    this.controller,
     this.hintText,
     this.inputType,
     this.maxLength,
@@ -15,6 +17,7 @@ class SignTextField extends StatelessWidget {
   });
 
   final Function(String) onChanged;
+  final TextEditingController? controller;
   final TextInputType? inputType;
   final String? hintText;
   final int? maxLength;
@@ -26,12 +29,19 @@ class SignTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+        inputFormatters: this.isPassword
+            ? <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(6)
+              ]
+            : null,
         enabled: enabled,
+        controller: controller,
         autofocus: autoFocus,
         obscureText: isPassword,
         maxLength: maxLength,
         keyboardType: inputType,
-        textAlign: isPassword ? TextAlign.center : TextAlign.start,
+        textAlign: TextAlign.start,
         style: DesignSystem.typography.heading3(),
         obscuringCharacter: '●',
         decoration: InputDecoration(
@@ -53,14 +63,6 @@ class SignTextField extends StatelessWidget {
         ),
         onChanged: (text) {
           onChanged(text);
-          if (isPassword) {
-            if (text.length == 1 && !isLast) {
-              FocusScope.of(context).nextFocus();
-            }
-            if (text.isEmpty && autoFocus) {
-              FocusScope.of(context).previousFocus();
-            }
-          }
         });
   }
 }
