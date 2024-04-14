@@ -36,17 +36,6 @@ class StoreEventFetchSearch extends StoreEvent {
   List<Object> get props => [search, onSearchComplete];
 }
 
-class StoreEventStoreSelect extends StoreEvent {
-  const StoreEventStoreSelect({
-    this.selectStore,
-  });
-
-  final Store? selectStore;
-
-  @override
-  List<Object?> get props => [selectStore];
-}
-
 class StoreFetchComplete extends StoreEvent {
   const StoreFetchComplete();
 

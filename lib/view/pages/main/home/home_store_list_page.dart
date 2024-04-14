@@ -1,7 +1,6 @@
 import 'package:cakeke/blocs/home/home_bloc.dart';
 import 'package:cakeke/blocs/home/home_event.dart';
 import 'package:cakeke/blocs/home/home_state.dart';
-import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/view/widgets/common/empty_list_text.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
@@ -52,14 +51,8 @@ class HomeStoreListPage extends StatelessWidget {
                             child: StoreCard(
                               store: storeList[index],
                               onTap: () {
-                                context.read<HomeBloc>().add(HomePageChanged(
-                                      selectedPage: HomeTab.detail.index,
-                                    ));
-                                context
-                                    .read<StoreBloc>()
-                                    .add(StoreEventStoreSelect(
-                                      selectStore: storeList[index],
-                                    ));
+                                Navigator.pushNamed(context, '/store_detail',
+                                    arguments: storeList[index]);
                               },
                             ),
                           );

@@ -19,7 +19,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
 
   void handleNewStoreSetting(
       NewStoreSetting event, Emitter<ReviewState> emit) async {
-    emit(state.copyWith(storeReviewList: [], reviewCount: 0, page: 0));
+    emit(state.copyWith(storeReviewList: null, reviewCount: 0, page: 0));
   }
 
   void handleStoreReviewFetch(
