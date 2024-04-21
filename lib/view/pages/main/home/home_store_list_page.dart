@@ -1,3 +1,5 @@
+import 'package:cakeke/blocs/filter/filter_bloc.dart';
+import 'package:cakeke/blocs/filter/filter_state.dart';
 import 'package:cakeke/blocs/home/home_bloc.dart';
 import 'package:cakeke/blocs/home/home_event.dart';
 import 'package:cakeke/blocs/home/home_state.dart';
@@ -20,60 +22,76 @@ class _HomeStoreListPageState extends State<HomeStoreListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        final storeList = state.storeList;
+    return BlocBuilder<FilterBloc, FilterState>(
+      builder: (context, filterState) {
+        return BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, homeState) {
+            if (filterState.selectedCity != homeState.city ||
+                filterState.selectedDistrict != homeState.district) {
+              context.read<HomeBloc>().add(HomeRegionStoreRankingFetch(
+                    city: filterState.selectedCity,
+                    district: filterState.selectedDistrict,
+                  ));
+            }
 
-        return ScaffoldLayout(
-          appBarText: state.storeListType == HomeStoreListType.newStore
-              ? "신상 케이크 가게"
-              : "지금 인기있는 케이크 가게",
-          isDetailPage: true,
-          onBackButtonPressed: () {
-            context.read<HomeBloc>().add(HomePageChanged(
-                  selectedPage: HomeTab.main.index,
-                ));
-            scrollController.jumpTo(0);
-          },
-          isSafeArea: true,
-          bodyWidget: storeList.isEmpty
-              ? const EmptyListText()
-              : Container(
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                  ),
-                  child: Column(
-                    children: [
-                      state.storeListType == HomeStoreListType.popularStore &&
-                              storeList.isNotEmpty
-                          ? Container(
-                              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                              child: const StoreFilter(),
-                            )
-                          : Container(),
-                      Expanded(
-                          child: ListView.separated(
-                        controller: scrollController,
-                        itemCount: storeList.length,
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const Divider();
-                        },
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: StoreCard(
-                              store: storeList[index],
-                              onTap: () {
-                                Navigator.pushNamed(context, '/store_detail',
-                                    arguments: storeList[index]);
-                              },
-                            ),
-                          );
-                        },
-                      ))
-                    ],
-                  ),
+            final storeList =
+                homeState.storeListType == HomeStoreListType.newStore
+                    ? homeState.newStore
+                    : homeState.regionStoreRanking;
+
+            return ScaffoldLayout(
+              appBarText: homeState.storeListType == HomeStoreListType.newStore
+                  ? "신상 케이크 가게"
+                  : "지금 인기있는 케이크 가게",
+              isDetailPage: true,
+              onBackButtonPressed: () {
+                context.read<HomeBloc>().add(HomePageChanged(
+                      selectedPage: HomeTab.main.index,
+                    ));
+                scrollController.jumpTo(0);
+              },
+              isSafeArea: true,
+              bodyWidget: Container(
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 255, 255, 255),
                 ),
+                child: Column(
+                  children: [
+                    homeState.storeListType == HomeStoreListType.popularStore
+                        ? Container(
+                            padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                            child: const StoreFilter(),
+                          )
+                        : Container(),
+                    storeList.isEmpty
+                        ? const Expanded(child: EmptyListText())
+                        : Expanded(
+                            child: ListView.separated(
+                            controller: scrollController,
+                            itemCount: storeList.length,
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return const Divider();
+                            },
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: StoreCard(
+                                  store: storeList[index],
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, '/store_detail',
+                                        arguments: storeList[index]);
+                                  },
+                                ),
+                              );
+                            },
+                          ))
+                  ],
+                ),
+              ),
+            );
+          },
         );
       },
     );

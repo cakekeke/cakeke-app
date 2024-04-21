@@ -17,7 +17,7 @@ class HomeState extends Equatable {
     this.popularStore = const [],
     this.selectedPage = 0,
     this.prevPage = 0,
-    this.storeList = const [],
+    this.regionStoreRanking = const [],
     this.storeListType = HomeStoreListType.newStore,
     this.city = "",
     this.district = "",
@@ -25,9 +25,9 @@ class HomeState extends Equatable {
 
   final List<Store> newStore;
   final List<Store> popularStore;
+  final List<Store> regionStoreRanking;
   final int selectedPage;
   final int prevPage;
-  final List<Store> storeList;
   final HomeStoreListType storeListType;
   final String city;
   final String district;
@@ -37,16 +37,20 @@ class HomeState extends Equatable {
     List<Store>? popularStore,
     int? selectedPage,
     int? prevPage,
-    List<Store>? storeList,
+    List<Store>? regionStoreRanking,
     HomeStoreListType? storeListType,
+    String? city,
+    String? district,
   }) {
     return HomeState(
       newStore: newStore ?? this.newStore,
       popularStore: popularStore ?? this.popularStore,
       selectedPage: selectedPage ?? this.selectedPage,
       prevPage: prevPage ?? this.prevPage,
-      storeList: storeList ?? this.storeList,
+      regionStoreRanking: regionStoreRanking ?? this.regionStoreRanking,
       storeListType: storeListType ?? this.storeListType,
+      city: city ?? this.city,
+      district: district ?? this.district,
     );
   }
 
@@ -56,7 +60,9 @@ class HomeState extends Equatable {
         popularStore,
         selectedPage,
         prevPage,
-        storeList,
         storeListType,
+        regionStoreRanking,
+        city,
+        district,
       ];
 }

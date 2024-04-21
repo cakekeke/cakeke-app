@@ -1,38 +1,30 @@
-List<Map<String, String>> districts = [
-  {"city": "서울시", "district": "강남구"},
-  {"city": "서울시", "district": "서초구"},
-  {"city": "서울시", "district": "강북구"},
-  {"city": "서울시", "district": "관악구"},
-  {"city": "서울시", "district": "구로구"},
-  {"city": "서울시", "district": "노원구"},
-  {"city": "서울시", "district": "동대문구"},
-  {"city": "서울시", "district": "마포구"},
-  {"city": "서울시", "district": "서대문구"},
-  {"city": "서울시", "district": "강동구"},
-  {"city": "서울시", "district": "성동구"},
-  {"city": "서울시", "district": "성북구"},
-  {"city": "서울시", "district": "송파구"},
-  {"city": "서울시", "district": "양천구"},
-  {"city": "서울시", "district": "영등포구"},
-  {"city": "서울시", "district": "용산구"},
-  {"city": "서울시", "district": "은평구"},
-  {"city": "서울시", "district": "강서구"},
-  {"city": "서울시", "district": "광진구"},
-  {"city": "서울시", "district": "금천구"},
-  {"city": "서울시", "district": "도봉구"},
-  {"city": "서울시", "district": "중구"},
-  {"city": "서울시", "district": "종로구"},
-  {"city": "성남시", "district": "중원구"},
-  {"city": "성남시", "district": "수정구"},
-  {"city": "성남시", "district": "분당구"},
-];
+const List<String> cities = ["서울", "성남시"];
 
-List<String?> seoulDistricts = districts
-    .where((district) => district['city'] == '서울시')
-    .map((district) => district['district'])
-    .toList();
-
-List<String?> seongnamDistricts = districts
-    .where((district) => district['city'] == '성남시')
-    .map((district) => district['district'])
-    .toList();
+const Map<String, List<String>> cityDistricts = {
+  "서울": [
+    "강남구",
+    "서초구",
+    "강북구",
+    "관악구",
+    "구로구",
+    "노원구",
+    "동대문구",
+    "마포구",
+    "서대문구",
+    "강동구",
+    "성동구",
+    "성북구",
+    "송파구",
+    "양천구",
+    "영등포구",
+    "용산구",
+    "은평구",
+    "강서구",
+    "광진구",
+    "금천구",
+    "도봉구",
+    "중구",
+    "종로구"
+  ],
+  "성남": ["중원구", "수정구", "분당구"]
+};

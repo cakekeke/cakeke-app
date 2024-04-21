@@ -2,6 +2,7 @@ import 'package:cakeke/blocs/home/home_event.dart';
 import 'package:cakeke/blocs/home/home_state.dart';
 import 'package:cakeke/data/providers/home_provider.dart';
 import 'package:cakeke/data/repositories/home_repository.dart';
+import 'package:cakeke/utils/city.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
@@ -9,6 +10,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeInitialEvent>(_onHomeStarted);
     on<HomePageChanged>(_onHomePageChanged);
     on<HomeStoreListFetch>(_onHomeStoreListFetch);
+    on<HomeRegionStoreRankingFetch>(_onHomeRegionStoreRankingFetch);
   }
 
   final HomeRepository homeRepository =
@@ -17,9 +19,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void _onHomeStarted(HomeInitialEvent event, Emitter<HomeState> emit) async {
     final newStore = await homeRepository.getNewStoreList();
     final popularStore = await homeRepository.getPopularStore();
+    final storeList = await homeRepository.getStoreRanking(
+        city: cities.first, district: cityDistricts[cities.first]!.first);
     emit(state.copyWith(
       newStore: newStore,
       popularStore: popularStore,
+      regionStoreRanking: storeList,
     ));
   }
 
@@ -30,12 +35,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   void _onHomeStoreListFetch(
       HomeStoreListFetch event, Emitter<HomeState> emit) {
-    if (event.type == HomeStoreListType.newStore) {
-      emit(
-          state.copyWith(storeList: state.newStore, storeListType: event.type));
-    } else {
-      emit(state.copyWith(
-          storeList: state.popularStore, storeListType: event.type));
-    }
+    emit(state.copyWith(storeListType: event.type));
+  }
+
+  void _onHomeRegionStoreRankingFetch(
+      HomeRegionStoreRankingFetch event, Emitter<HomeState> emit) async {
+    final storeList = await homeRepository.getStoreRanking(
+        city: event.city, district: event.district);
+    print(storeList);
+    emit(state.copyWith(
+      regionStoreRanking: storeList,
+      city: event.city,
+      district: event.district,
+    ));
   }
 }
