@@ -21,8 +21,8 @@ class HomePage extends StatelessWidget {
         builder: (context, state) {
           return IndexedStack(
             index: state.selectedPage,
-            children: const [
-              HomeMainPage(),
+            children: [
+              const HomeMainPage(),
               HomeStoreListPage(),
             ],
           );

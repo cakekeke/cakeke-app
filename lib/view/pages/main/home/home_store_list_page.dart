@@ -4,11 +4,19 @@ import 'package:cakeke/blocs/home/home_state.dart';
 import 'package:cakeke/view/widgets/common/empty_list_text.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
+import 'package:cakeke/view/widgets/home/store_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeStoreListPage extends StatelessWidget {
+class HomeStoreListPage extends StatefulWidget {
   const HomeStoreListPage({super.key});
+
+  @override
+  State<HomeStoreListPage> createState() => _HomeStoreListPageState();
+}
+
+class _HomeStoreListPageState extends State<HomeStoreListPage> {
+  ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +33,7 @@ class HomeStoreListPage extends StatelessWidget {
             context.read<HomeBloc>().add(HomePageChanged(
                   selectedPage: HomeTab.main.index,
                 ));
+            scrollController.jumpTo(0);
           },
           isSafeArea: true,
           bodyWidget: storeList.isEmpty
@@ -35,12 +44,16 @@ class HomeStoreListPage extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      // Container(
-                      //   padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-                      //   child: const StoreFilter(),
-                      // ),
+                      state.storeListType == HomeStoreListType.popularStore &&
+                              storeList.isNotEmpty
+                          ? Container(
+                              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                              child: const StoreFilter(),
+                            )
+                          : Container(),
                       Expanded(
                           child: ListView.separated(
+                        controller: scrollController,
                         itemCount: storeList.length,
                         separatorBuilder: (BuildContext context, int index) {
                           return const Divider();
