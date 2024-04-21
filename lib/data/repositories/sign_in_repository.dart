@@ -16,6 +16,7 @@ class SignInRepository {
     final res = await signinProvider.signin(id: id, password: password);
     await tokenRepository
         .saveAccessToken('${res.grantType} ${res.accessToken}');
+    await tokenRepository.saveRefreshToken(res.refreshToken);
 
     Storage.write(Storage.id, id);
     Storage.write(Storage.password, password);
