@@ -42,7 +42,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       HomeRegionStoreRankingFetch event, Emitter<HomeState> emit) async {
     final storeList = await homeRepository.getStoreRanking(
         city: event.city, district: event.district);
-    print(storeList);
     emit(state.copyWith(
       regionStoreRanking: storeList,
       city: event.city,
