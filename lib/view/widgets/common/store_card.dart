@@ -21,11 +21,14 @@ class StoreCard extends StatelessWidget {
             Container(
               width: 100,
               height: 100,
-              decoration: !store.imgUrlList.isEmpty
+              decoration: store.imgUrlList.isNotEmpty ||
+                      store.representImgUrl.isNotEmpty
                   ? BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                        image: NetworkImage(store.imgUrlList.first),
+                        image: NetworkImage(store.representImgUrl.isNotEmpty
+                            ? store.representImgUrl
+                            : store.imgUrlList.first),
                         fit: BoxFit.cover,
                       ),
                     )
