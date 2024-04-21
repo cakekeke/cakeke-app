@@ -1,6 +1,7 @@
 import 'package:cakeke/blocs/like/like_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
+import 'package:cakeke/blocs/mypage/mypage_state.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,8 @@ class LikePage extends StatelessWidget {
           appBarText: "찜 목록",
           isDetailPage: true,
           onBackButtonPressed: () {
-            context.read<MypageBloc>().add(const MypagePageChanged(
-                  selectedPage: 0,
+            context.read<MypageBloc>().add(MypagePageChanged(
+                  selectedPage: MypageTab.main.index,
                 ));
           },
           isSafeArea: true,

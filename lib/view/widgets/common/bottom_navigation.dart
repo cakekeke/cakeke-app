@@ -5,6 +5,7 @@ import 'package:cakeke/blocs/map/map_bloc.dart';
 import 'package:cakeke/blocs/map/map_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
+import 'package:cakeke/blocs/mypage/mypage_state.dart';
 import 'package:cakeke/blocs/tab/tab_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class BottomNavigation extends StatelessWidget {
                   .add(const MapPageChanged(selectedPage: 0));
               context
                   .read<MypageBloc>()
-                  .add(const MypagePageChanged(selectedPage: 0));
+                  .add(MypagePageChanged(selectedPage: MypageTab.main.index));
             });
       },
     );

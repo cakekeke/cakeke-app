@@ -39,8 +39,8 @@ class MypageMainPage extends StatelessWidget {
                       iconData: Icons.settings_outlined,
                       text: "설정",
                       onPressed: () {
-                        context.read<MypageBloc>().add(const MypagePageChanged(
-                              selectedPage: 1,
+                        context.read<MypageBloc>().add(MypagePageChanged(
+                              selectedPage: MypageTab.setting.index,
                             ));
                       },
                     ),
