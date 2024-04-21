@@ -1,11 +1,7 @@
-import 'package:cakeke/blocs/map/map_bloc.dart';
-import 'package:cakeke/blocs/map/map_event.dart';
-import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
 class MapStoreListItem extends StatelessWidget {
@@ -20,12 +16,7 @@ class MapStoreListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          context.read<StoreBloc>().add(StoreEventStoreSelect(
-                selectStore: store,
-              ));
-          context.read<MapBloc>().add(const MapPageChanged(
-                selectedPage: 2,
-              ));
+          Navigator.pushNamed(context, '/store_detail', arguments: store);
         },
         child: SizedBox(
           width: 100.w,

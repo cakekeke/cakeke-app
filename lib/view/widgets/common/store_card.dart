@@ -21,16 +21,18 @@ class StoreCard extends StatelessWidget {
             Container(
               width: 100,
               height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: (store.imgUrlList.isEmpty
-                          ? const AssetImage("assets/images/logo.png")
-                          : NetworkImage(store.imgUrlList.first))
-                      as ImageProvider<Object>,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              decoration: !store.imgUrlList.isEmpty
+                  ? BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: NetworkImage(store.imgUrlList.first),
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey[200],
+                    ),
             ),
             const SizedBox(width: 16),
             Expanded(

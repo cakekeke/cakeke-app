@@ -1,7 +1,6 @@
 import 'package:cakeke/blocs/like/like_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
-import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
 import 'package:flutter/material.dart';
@@ -39,14 +38,8 @@ class LikePage extends StatelessWidget {
                       child: StoreCard(
                         store: storeList[index],
                         onTap: () {
-                          context.read<StoreBloc>().add(StoreEventStoreSelect(
-                                selectStore: storeList[index],
-                              ));
-                          context
-                              .read<MypageBloc>()
-                              .add(const MypagePageChanged(
-                                selectedPage: 3,
-                              ));
+                          Navigator.pushNamed(context, '/store_detail',
+                              arguments: storeList[index]);
                         },
                       ),
                     );

@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 enum HomeTab {
   main,
   list,
-  detail,
 }
 
 enum HomeStoreListType {

@@ -1,7 +1,6 @@
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_state.dart';
-import 'package:cakeke/view/pages/main/map/store_detail_page.dart';
 import 'package:cakeke/view/pages/main/mypage/like_page.dart';
 import 'package:cakeke/view/pages/main/mypage/mypage_main_page.dart';
 import 'package:cakeke/view/pages/main/mypage/policy_page.dart';
@@ -27,13 +26,6 @@ class MyPage extends StatelessWidget {
             const MypageMainPage(),
             const SettingPage(),
             const LikePage(),
-            StoreDetailPage(
-              onBackButtonPressed: () {
-                context
-                    .read<MypageBloc>()
-                    .add(const MypagePageChanged(selectedPage: 2));
-              },
-            ),
             TermsPage(),
             PolicyPage(),
             const VocPage()
