@@ -1,5 +1,13 @@
 part of 'tab_bloc.dart';
 
+enum TabIndex {
+  main,
+  map,
+  curation,
+  custom,
+  mypage,
+}
+
 sealed class TabState extends Equatable {
   const TabState({
     required this.tabIndex,
