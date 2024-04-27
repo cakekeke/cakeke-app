@@ -58,6 +58,7 @@ dependencies:
     git:
       url: https://github.com/LIMMIHEE/tutorial_coach_mark.git
   webview_flutter: ^4.4.2
+  modal_bottom_sheet: ^3.0.0-pre
 
 dev_dependencies:
   flutter_test:

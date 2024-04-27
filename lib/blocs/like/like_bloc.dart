@@ -10,7 +10,6 @@ part 'like_state.dart';
 class LikeBloc extends Bloc<LikeEvent, LikeState> {
   LikeBloc() : super(const LikeState()) {
     on<LikeEventFetchLike>(handleFetchLike);
-    on<LikeEventGetStoreLike>(handleGetStoreLike);
     on<LikeEventAddLike>(handleAddLike);
     on<LikeEventRemoveLike>(handleRemoveLike);
   }
@@ -22,11 +21,6 @@ class LikeBloc extends Bloc<LikeEvent, LikeState> {
       LikeEventFetchLike event, Emitter<LikeState> emit) async {
     final List<Store> storeList = await likeRepository.fetchLikeStoreList();
     emit(state.copyWith(likeStoreList: storeList));
-  }
-
-  void handleGetStoreLike(
-      LikeEventGetStoreLike event, Emitter<LikeState> emit) async {
-    await likeRepository.getStoreLike(event.storeId);
   }
 
   void handleAddLike(LikeEventAddLike event, Emitter<LikeState> emit) async {

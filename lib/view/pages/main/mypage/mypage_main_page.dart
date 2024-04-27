@@ -39,8 +39,8 @@ class MypageMainPage extends StatelessWidget {
                       iconData: Icons.settings_outlined,
                       text: "설정",
                       onPressed: () {
-                        context.read<MypageBloc>().add(const MypagePageChanged(
-                              selectedPage: 1,
+                        context.read<MypageBloc>().add(MypagePageChanged(
+                              selectedPage: MypageTab.setting.index,
                             ));
                       },
                     ),
@@ -48,9 +48,7 @@ class MypageMainPage extends StatelessWidget {
                       iconData: Icons.favorite_outline,
                       text: "찜 목록",
                       onPressed: () {
-                        context.read<MypageBloc>().add(const MypagePageChanged(
-                              selectedPage: 2,
-                            ));
+                        Navigator.pushNamed(context, '/like_store');
                       },
                     ),
                     VersionInfo(
