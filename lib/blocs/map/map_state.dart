@@ -14,6 +14,7 @@ class MapState extends Equatable {
     this.selectedPage = 0,
     this.selectStoreIndex = 0,
     this.setMakerFlag = false,
+    this.isMapCameraChanged = false,
   });
 
   final Location? location;
@@ -25,6 +26,7 @@ class MapState extends Equatable {
   final int selectedPage;
   final int selectStoreIndex;
   final bool setMakerFlag;
+  final bool isMapCameraChanged;
 
   MapState copyWith({
     Location? location,
@@ -37,6 +39,7 @@ class MapState extends Equatable {
     int? selectStoreIndex,
     int? displayingStoreIndex,
     bool? setMakerFlag,
+    bool? isMapCameraChanged,
   }) {
     return MapState(
       location: location ?? this.location,
@@ -48,6 +51,7 @@ class MapState extends Equatable {
       selectedPage: selectedPage ?? this.selectedPage,
       selectStoreIndex: selectStoreIndex ?? this.selectStoreIndex,
       setMakerFlag: setMakerFlag ?? this.setMakerFlag,
+      isMapCameraChanged: isMapCameraChanged ?? this.isMapCameraChanged,
     );
   }
 
@@ -61,6 +65,7 @@ class MapState extends Equatable {
         searchText,
         selectedPage,
         selectStoreIndex,
-        setMakerFlag
+        setMakerFlag,
+        isMapCameraChanged
       ];
 }

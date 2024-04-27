@@ -11,14 +11,16 @@ abstract class MapEvent extends Equatable {
 class SetMapControllerEvent extends MapEvent {
   const SetMapControllerEvent({
     required this.mapController,
-    required this.afterSetting,
+    required this.latitude,
+    required this.longitude,
   });
 
   final NaverMapController mapController;
-  final Function(NLatLng) afterSetting;
+  final double latitude;
+  final double longitude;
 
   @override
-  List<Object?> get props => [mapController, afterSetting];
+  List<Object?> get props => [mapController, latitude, longitude];
 }
 
 class CompleteSetMapControllerEvent extends MapEvent {
@@ -111,4 +113,22 @@ class MapPageChanged extends MapEvent {
 
   @override
   List<Object> get props => [selectedPage, isListChanged];
+}
+
+class ResearchFromMap extends MapEvent {
+  const ResearchFromMap({required this.afterSearch});
+
+  final Function(double, double) afterSearch;
+
+  @override
+  List<Object?> get props => [afterSearch];
+}
+
+class ResearchButtonVisible extends MapEvent {
+  const ResearchButtonVisible({required this.isVisible});
+
+  final bool isVisible;
+
+  @override
+  List<Object?> get props => [isVisible];
 }
