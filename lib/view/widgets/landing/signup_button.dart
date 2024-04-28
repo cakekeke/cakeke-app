@@ -1,5 +1,6 @@
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/config/routes/routes.dart';
+import 'package:cakeke/data/arguments/terms.dart';
 import 'package:flutter/material.dart';
 
 class SignupButton extends StatelessWidget {
@@ -17,7 +18,16 @@ class SignupButton extends StatelessWidget {
         elevation: 0,
       ),
       onPressed: () {
-        Navigator.pushNamed(context, Routes.signUp);
+        Navigator.pushNamed(
+          context,
+          Routes.terms,
+          arguments: TermsScreenArguments(
+            buttonText: "다음",
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.signUp);
+            },
+          ),
+        );
       },
       child: Text(
         "60초 회원가입",
