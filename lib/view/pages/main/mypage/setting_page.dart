@@ -3,6 +3,9 @@ import 'package:cakeke/blocs/auth/auth_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_state.dart';
+import 'package:cakeke/config/routes/routes.dart';
+import 'package:cakeke/data/arguments/webView.dart';
+import 'package:cakeke/utils/webview.dart';
 import 'package:cakeke/view/widgets/common/confirm_dialog.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/main/mypage/mypage_action_button.dart';
@@ -33,22 +36,22 @@ class SettingPage extends StatelessWidget {
                     iconData: Icons.feed_outlined,
                     text: "이용약관",
                     onPressed: () {
-                      context.read<MypageBloc>().add(
-                            MypagePageChanged(
-                              selectedPage: MypageTab.terms.index,
-                            ),
-                          );
+                      Navigator.pushNamed(context, Routes.webView,
+                          arguments: WebViewScreenArguments(
+                            url: "$webviewUrl/terms",
+                            title: "이용약관",
+                          ));
                     },
                   ),
                   MypageActionButton(
                     iconData: Icons.policy_outlined,
                     text: "개인정보 처리방침",
                     onPressed: () {
-                      context.read<MypageBloc>().add(
-                            MypagePageChanged(
-                              selectedPage: MypageTab.privacy.index,
-                            ),
-                          );
+                      Navigator.pushNamed(context, Routes.webView,
+                          arguments: WebViewScreenArguments(
+                            url: "$webviewUrl/privacy",
+                            title: "개인정보 처리방침",
+                          ));
                     },
                   ),
                   MypageActionButton(

@@ -1,6 +1,7 @@
 import 'package:cakeke/blocs/bloc_providers.dart';
 import 'package:cakeke/blocs/store/store_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
+import 'package:cakeke/config/routes/routes.dart';
 import 'package:cakeke/data/arguments/review.dart';
 import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/view/widgets/common/custom_elevated_button.dart';
@@ -86,7 +87,7 @@ class StoreDetailPage extends StatelessWidget {
                                 onTap: () {
                                   Navigator.pushNamed(
                                     context,
-                                    '/review',
+                                    Routes.review,
                                     arguments: ReviewScreenArguments(
                                         storeId: store.id),
                                   );
