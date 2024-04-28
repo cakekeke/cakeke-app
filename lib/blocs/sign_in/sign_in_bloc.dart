@@ -28,9 +28,11 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     bool isValidId = Utils.validateId(event.id);
 
     emit(state.copyWith(
-        id: event.id,
-        isValidId: isValidId,
-        isButtonActive: isValidId && state.password.length > 5));
+      id: event.id,
+      isValidId: isValidId,
+      isButtonActive: isValidId && state.password.length > 5,
+      loginFailure: false,
+    ));
   }
 
   void _handlePasswordChangedEvent(
@@ -40,7 +42,10 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     final password = event.password;
 
     emit(state.copyWith(
-        password: password, isButtonActive: password.length > 5));
+      password: password,
+      isButtonActive: state.isValidId && password.length > 5,
+      loginFailure: false,
+    ));
   }
 
   void _handleLoginEvent(
@@ -59,7 +64,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       emit(state.copyWith(
           loginSuccess: true, loginFailure: false, isButtonActive: false));
     } catch (e) {
-      emit(state.copyWith(loginSuccess: false, loginFailure: true));
+      emit(state.copyWith(
+          loginSuccess: false, loginFailure: true, isButtonActive: false));
     }
   }
 

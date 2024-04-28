@@ -42,5 +42,6 @@ class SignInState extends Equatable {
         isValidId,
         isButtonActive,
         loginSuccess,
+        loginFailure,
       ];
 }
