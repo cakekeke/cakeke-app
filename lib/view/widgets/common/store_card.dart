@@ -49,13 +49,17 @@ class StoreCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          store.name,
-                          style:
-                              DesignSystem.typography.heading3(const TextStyle(
-                            fontWeight: FontWeight.w700,
-                            height: 1,
-                          )),
+                        SizedBox(
+                          width: 210,
+                          child: Text(
+                            store.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: DesignSystem.typography
+                                .heading3(const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              height: 1,
+                            )),
+                          ),
                         ),
                         LikeIconButton(store: store)
                       ],

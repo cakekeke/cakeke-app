@@ -1,4 +1,4 @@
-const List<String> cities = ["서울", "성남시"];
+const List<String> cities = ["서울", "성남"];
 
 const Map<String, List<String>> cityDistricts = {
   "서울": [
