@@ -3,6 +3,7 @@ import 'package:cakeke/blocs/filter/filter_state.dart';
 import 'package:cakeke/blocs/home/home_bloc.dart';
 import 'package:cakeke/blocs/home/home_event.dart';
 import 'package:cakeke/blocs/home/home_state.dart';
+import 'package:cakeke/data/arguments/storeDetail.dart';
 import 'package:cakeke/view/widgets/common/empty_list_text.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
@@ -81,7 +82,9 @@ class _HomeStoreListPageState extends State<HomeStoreListPage> {
                                   onTap: () {
                                     Navigator.pushNamed(
                                         context, '/store_detail',
-                                        arguments: storeList[index]);
+                                        arguments: StoreDetailScreenArguments(
+                                          store: storeList[index],
+                                        ));
                                   },
                                 ),
                               );

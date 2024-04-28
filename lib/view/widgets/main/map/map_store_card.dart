@@ -1,3 +1,4 @@
+import 'package:cakeke/data/arguments/storeDetail.dart';
 import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ class MapStoreCard extends StatelessWidget {
       child: StoreCard(
         store: store,
         onTap: () {
-          Navigator.pushNamed(context, '/store_detail', arguments: store);
+          Navigator.pushNamed(context, '/store_detail',
+              arguments: StoreDetailScreenArguments(store: store));
         },
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:cakeke/config/design_system/design_system.dart';
+import 'package:cakeke/data/arguments/storeDetail.dart';
 import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,8 @@ class MapStoreListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/store_detail', arguments: store);
+          Navigator.pushNamed(context, '/store_detail',
+              arguments: StoreDetailScreenArguments(store: store));
         },
         child: SizedBox(
           width: 100.w,

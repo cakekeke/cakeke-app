@@ -1,5 +1,6 @@
 import 'package:cakeke/blocs/bloc_providers.dart';
 import 'package:cakeke/blocs/like/like_bloc.dart';
+import 'package:cakeke/data/arguments/storeDetail.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/common/store_card.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,8 @@ class LikePage extends StatelessWidget {
                           store: storeList[index],
                           onTap: () {
                             Navigator.pushNamed(context, '/store_detail',
-                                arguments: storeList[index]);
+                                arguments: StoreDetailScreenArguments(
+                                    store: storeList[index]));
                           },
                         ),
                       );
