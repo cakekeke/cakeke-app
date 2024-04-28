@@ -1,4 +1,3 @@
-
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/widgets.dart';
 
@@ -95,6 +94,16 @@ class Typographies {
       fontSize: 16.0,
       height: 1.60,
       debugLabel: 'body',
+      validations: [FontWeight.w400, FontWeight.w500, FontWeight.w700],
+    );
+  }
+
+  TextStyle body2([TextStyle? textStyle]) {
+    return _typography(
+      textStyle: textStyle ?? DesignSystem.textStyle.medium,
+      fontSize: 14.0,
+      height: 1.60,
+      debugLabel: 'body',
       validations: [FontWeight.w400, FontWeight.w500],
     );
   }
@@ -123,7 +132,7 @@ class Typographies {
 
     return textStyle.copyWith(
       fontSize: fontSize,
-      height: height,
+      height: textStyle.height ?? height,
     );
   }
 }

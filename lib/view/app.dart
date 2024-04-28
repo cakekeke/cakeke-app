@@ -1,32 +1,24 @@
+import 'package:cakeke/blocs/bloc_providers.dart';
 import 'package:cakeke/config/routes/router_generator.dart';
 import 'package:cakeke/config/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 
-class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
-
-  @override
-  _AppState createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  // todo: bloc 로직 추가하면 제거
-  @override
-  void didChangeDependencies() async {
-    await Future.delayed(const Duration(seconds: 3));
-    FlutterNativeSplash.remove();
-    super.didChangeDependencies();
-  }
-
+class App extends StatelessWidget {
+  const App({super.key});
   @override
   Widget build(BuildContext context) {
-    // todo: bloc provider를 주입하여 토큰 여부에 따라 라우팅
-    return const MaterialApp(
-      title: 'Cakeke',
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: RouteGenerator.generateRoute,
-      initialRoute: false ? Routes.home : Routes.landing,
-    );
+    return FlutterSizer(builder: (context, orientation, screenType) {
+      return MultiBlocProvider(
+        providers: AppBlocProviders.landingPageBlocProviders,
+        child: const MaterialApp(
+          title: 'Cakeke',
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: RouteGenerator.generateRoute,
+          initialRoute: Routes.landing,
+        ),
+      );
+    });
   }
 }
