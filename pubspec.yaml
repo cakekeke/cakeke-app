@@ -87,6 +87,7 @@ flutter:
     - assets/images/background/
     - assets/images/background/icon/
     - assets/images/common/
+    - assets/images/navigation/
     - assets/config/.env
 
   # An image asset can refer to one or more resolution-specific "variants", see
