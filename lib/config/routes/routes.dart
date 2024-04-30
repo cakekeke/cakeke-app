@@ -7,4 +7,5 @@ class Routes {
   static const String review = "/review";
   static const String likeStore = "/like_store";
   static const String webView = "/web_view";
+  static const String terms = "/terms";
 }
