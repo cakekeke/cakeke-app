@@ -1,3 +1,5 @@
+import 'package:cakeke/config/routes/routes.dart';
+import 'package:cakeke/data/arguments/storeDetail.dart';
 import 'package:cakeke/data/models/common/store.dart';
 import 'package:cakeke/view/widgets/home/home_store_card.dart';
 import 'package:flutter/material.dart';
@@ -58,8 +60,9 @@ class HomeStoreList extends StatelessWidget {
                 store: storeList[index],
                 index: index,
                 onTap: () {
-                  Navigator.pushNamed(context, '/store_detail',
-                      arguments: storeList[index]);
+                  Navigator.pushNamed(context, Routes.storeDetail,
+                      arguments:
+                          StoreDetailScreenArguments(store: storeList[index]));
                 },
                 isLast: index == storeList.length - 1,
               );

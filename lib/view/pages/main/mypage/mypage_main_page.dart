@@ -1,6 +1,7 @@
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_state.dart';
+import 'package:cakeke/config/routes/routes.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/main/mypage/mypage_action_button.dart';
 import 'package:cakeke/view/widgets/main/mypage/mypage_sub_title.dart';
@@ -48,7 +49,7 @@ class MypageMainPage extends StatelessWidget {
                       iconData: Icons.favorite_outline,
                       text: "찜 목록",
                       onPressed: () {
-                        Navigator.pushNamed(context, '/like_store');
+                        Navigator.pushNamed(context, Routes.likeStore);
                       },
                     ),
                     VersionInfo(

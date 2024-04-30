@@ -6,11 +6,5 @@ class Routes {
   static const String storeDetail = "/store_detail";
   static const String review = "/review";
   static const String likeStore = "/like_store";
-}
-
-class Tab {
-  static const int home = 0;
-  static const int curation = 1;
-  static const int custom = 2;
-  static const int myPage = 3;
+  static const String webView = "/web_view";
 }
