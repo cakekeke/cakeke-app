@@ -58,8 +58,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       final userInfo =
           await UserRepository(userProvider: UserProvider()).getUser();
       Storage.write(Storage.uid, '${userInfo.id}');
-      Prefs.setString(
-          Prefs.profileFileName, 'assets/images/profile_icon_1.svg');
+      Prefs.setString(Prefs.profileFileName, userInfo.image);
       Prefs.setString(Prefs.name, userInfo.name);
       emit(state.copyWith(
           loginSuccess: true, loginFailure: false, isButtonActive: false));

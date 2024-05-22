@@ -17,7 +17,6 @@ class AuthRepository {
   }
 
   Future<void> signout() async {
-    await userProvider.signout();
     tokenRepository.deleteAccessToken();
   }
 
