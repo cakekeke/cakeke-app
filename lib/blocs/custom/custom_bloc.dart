@@ -50,7 +50,7 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     InitImagesEvent event,
     Emitter<CustomState> emit,
   ) async {
-    PermissionUtil.requestAll();
+    PermissionUtil.requestStorage();
     final images = await customRepository.getCustomImages();
     final List<String> imageUrls = [...images.urlList, ...images.iconUrlList];
     final stickerPaths =
