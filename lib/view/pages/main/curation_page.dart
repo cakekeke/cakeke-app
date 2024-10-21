@@ -1,5 +1,6 @@
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:cakeke/utils/webview.dart';
+import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -40,19 +41,22 @@ class _CurationPageState extends State<CurationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Stack(
-      children: [
-        WebViewWidget(
-          controller: controller,
-        ),
-        if (isLoading)
-          Center(
-            child: CircularProgressIndicator(
-              color: DesignSystem.colors.appPrimary,
-            ),
+    return ScaffoldLayout(
+      backgroundColor: DesignSystem.colors.white,
+      isSafeArea: true,
+      bodyWidget: Stack(
+        children: [
+          WebViewWidget(
+            controller: controller,
           ),
-      ],
-    ));
+          if (isLoading)
+            Center(
+              child: CircularProgressIndicator(
+                color: DesignSystem.colors.appPrimary,
+              ),
+            ),
+        ],
+      ),
+    );
   }
 }
