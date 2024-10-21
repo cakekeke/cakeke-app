@@ -6,6 +6,15 @@ abstract class SignInEvent extends Equatable {
   const SignInEvent();
 }
 
+class SignInProgressEvent extends SignInEvent {
+  const SignInProgressEvent({required this.context});
+
+  final BuildContext context;
+
+  @override
+  List<Object?> get props => [context];
+}
+
 class IdChangedEvent extends SignInEvent {
   const IdChangedEvent({
     required this.id,
@@ -32,13 +41,15 @@ class LoginEvent extends SignInEvent {
   const LoginEvent({
     required this.id,
     required this.password,
+    required this.context,
   });
 
   final String id;
   final String password;
+  final BuildContext context;
 
   @override
-  List<Object> get props => [id, password];
+  List<Object> get props => [id, password, context];
 }
 
 class LoginSucessEvent extends SignInEvent {

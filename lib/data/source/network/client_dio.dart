@@ -24,11 +24,20 @@ class ApiClient {
           return handler.next(options);
         },
         onError: (error, handler) async {
-          if (error.response?.statusCode == 403) {
-            await refreshToken();
-            return handler.resolve(await _clientDio.request(
-                error.requestOptions.path,
-                options: error.requestOptions as Options));
+          // 토큰 갱신 시도 여부를 추적하는 플래그
+          var retry = error.requestOptions.extra["retry"] ?? false;
+
+          if (error.response?.statusCode == 403 && !retry) {
+            final refreshToken = await fetchRefreshToken();
+            if (refreshToken != null) {
+              // 재시도를 위한 옵션 설정 (retry 플래그 추가)
+              final options = error.requestOptions;
+              options.extra["retry"] = true; // 한 번만 재시도하게 설정
+              options.headers["Authorization"] =
+                  "Bearer $refreshToken"; // 새로운 토큰 설정
+              return handler.resolve(await _clientDio.request(options.path,
+                  options: options as Options));
+            }
           }
           return handler.next(error);
         },
@@ -36,22 +45,30 @@ class ApiClient {
     );
   }
 
-  Future<String> refreshToken() async {
-    final refreshToken = await tokenRepository.getRefreshToken();
-    if (refreshToken == null) {
+  Future<String?> fetchRefreshToken() async {
+    try {
+      final refreshToken = await tokenRepository.getRefreshToken();
+      if (refreshToken == null) {
+        final authRepository = AuthRepository();
+        await authRepository.signout();
+        return null;
+      }
+      final response = await client.dio
+          .fetch(client.clientOptions('POST', '/auth/refresh', data: {
+        "refreshToken": refreshToken,
+      }));
+
+      final refreshTokenInfo = RefreshTokenResponse.fromJson(response.data);
+      await tokenRepository.saveAccessToken(
+          '${refreshTokenInfo.grantType} ${refreshTokenInfo.accessToken}');
+      await tokenRepository.saveRefreshToken(refreshTokenInfo.refreshToken);
+
+      return response.data.accessToken;
+    } catch (e) {
       final authRepository = AuthRepository();
       await authRepository.signout();
+      return null;
     }
-    final response = await client.dio
-        .fetch(client.clientOptions('POST', '/auth/refresh', data: {
-      "refreshToken": refreshToken,
-    }));
-    final refreshTokenInfo = RefreshTokenResponse.fromJson(response.data);
-    await tokenRepository.saveAccessToken(
-        '${refreshTokenInfo.grantType} ${refreshTokenInfo.accessToken}');
-    await tokenRepository.saveRefreshToken(refreshTokenInfo.refreshToken);
-
-    return response.data.accessToken;
   }
 
   void setClientUpdateToken(String token) {

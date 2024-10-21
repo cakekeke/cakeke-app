@@ -63,8 +63,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       emit(state.copyWith(
           loginSuccess: true, loginFailure: false, isButtonActive: false));
     } catch (e) {
+      Utils.showSnackBar(event.context, '로그인에 실패하였습니다.');
       emit(state.copyWith(
-          loginSuccess: false, loginFailure: true, isButtonActive: false));
+          loginSuccess: false, loginFailure: false, isButtonActive: true));
     }
   }
 

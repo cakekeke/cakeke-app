@@ -107,8 +107,11 @@ class SiginInPage extends StatelessWidget {
                   buttonActive: state.isButtonActive,
                   text: "다음",
                   onTap: () {
-                    context.read<SignInBloc>().add(
-                        LoginEvent(id: state.id, password: state.password));
+                    context.read<SignInBloc>().add(LoginEvent(
+                          id: state.id,
+                          password: state.password,
+                          context: context,
+                        ));
                   },
                 )
               ],
