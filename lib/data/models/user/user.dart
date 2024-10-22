@@ -7,6 +7,7 @@ class User {
   String createdOn = '';
   String updatedOn = '';
   String description = '';
+  String image = '';
 
   User(
       {this.id = 0,
@@ -16,6 +17,7 @@ class User {
       this.age = 0,
       this.createdOn = '',
       this.updatedOn = '',
+      this.image = '',
       this.description = ''});
 
   User.fromJson(Map<String, dynamic> json) {
@@ -27,6 +29,7 @@ class User {
     createdOn = json['created_on'];
     updatedOn = json['updated_on'];
     description = json['description'] ?? '';
+    image = json['image'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +42,7 @@ class User {
     data['created_on'] = createdOn;
     data['updated_on'] = updatedOn;
     data['description'] = description;
+    data['image'] = image;
     return data;
   }
 }

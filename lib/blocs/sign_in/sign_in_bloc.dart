@@ -58,14 +58,14 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       final userInfo =
           await UserRepository(userProvider: UserProvider()).getUser();
       Storage.write(Storage.uid, '${userInfo.id}');
-      Prefs.setString(
-          Prefs.profileFileName, 'assets/images/profile_icon_1.svg');
+      Prefs.setString(Prefs.profileFileName, userInfo.image);
       Prefs.setString(Prefs.name, userInfo.name);
       emit(state.copyWith(
           loginSuccess: true, loginFailure: false, isButtonActive: false));
     } catch (e) {
+      Utils.showSnackBar(event.context, '로그인에 실패하였습니다.');
       emit(state.copyWith(
-          loginSuccess: false, loginFailure: true, isButtonActive: false));
+          loginSuccess: false, loginFailure: false, isButtonActive: true));
     }
   }
 

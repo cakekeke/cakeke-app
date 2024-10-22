@@ -14,13 +14,6 @@ class UserProvider {
     }
   }
 
-  Future<void> signout() async {
-    try {
-      await client.dio.fetch(client.clientOptions('POST', '/logout'));
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
 
   Future<void> withdrawal() async {
     try {
