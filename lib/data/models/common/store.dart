@@ -39,11 +39,11 @@ class Store {
     roadAddress = json['roadAddress'];
     latitude = json['latitude'];
     longitude = json['longitude'];
-    description = json['description'];
-    startTime = json['startTime'];
-    endTime = json['endTime'];
-    phoneNumber = json['phoneNumber'];
-    reservationLink = json['reservationLink'];
+    description = json['description'] ?? '';
+    startTime = json['startTime'] ?? '';
+    endTime = json['endTime'] ?? '';
+    phoneNumber = json['phoneNumber'] ?? '';
+    reservationLink = json['reservationLink'] ?? '';
     numberOfReviews = json['numberOfReviews'] ?? 0;
     imgUrlList = [];
     if (json['imgUrlList'] != null) {
@@ -52,7 +52,7 @@ class Store {
       });
     }
     representImgUrl = json['representImgUrl'] ?? '';
-    hashTag = json['hashTag'];
+    hashTag = json['hashTag'] ?? '';
     starRating = json['starRating'] ?? 0;
   }
 

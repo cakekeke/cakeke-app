@@ -13,13 +13,18 @@ class SignInRepository {
     required String id,
     required String password,
   }) async {
-    final res = await signinProvider.signin(id: id, password: password);
-    await tokenRepository
-        .saveAccessToken('${res.grantType} ${res.accessToken}');
+    try {
+      final res = await signinProvider.signin(id: id, password: password);
+      await tokenRepository
+          .saveAccessToken('${res.grantType} ${res.accessToken}');
+      await tokenRepository.saveRefreshToken(res.refreshToken);
 
-    Storage.write(Storage.id, id);
-    Storage.write(Storage.password, password);
+      Storage.write(Storage.id, id);
+      Storage.write(Storage.password, password);
 
-    return res;
+      return res;
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

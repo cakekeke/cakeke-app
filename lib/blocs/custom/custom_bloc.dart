@@ -203,8 +203,7 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     state.controller.widgets.clear();
     state.controller.notifyListeners();
 
-    emit(state.copyWith(
-        controller: state.controller, customList: []));
+    emit(state.copyWith(controller: state.controller, customList: []));
   }
 
   Future<void> _handleAddPhotoEvent(
@@ -253,7 +252,8 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
               Uint8List.fromList(pngBytes),
               quality: 100);
           if (result != null && result.isNotEmpty) {
-            Utils.showSnackBar(event.globalKey.currentContext!, '이미지가 저장되었습니다');
+            Utils.showSnackBar(event.globalKey.currentContext!,
+                '이미지가 저장되었습니다! 친구들에게 공유해보세요! ( ⌒︎︎•˕•⌒︎︎ )');
             return;
           }
         }

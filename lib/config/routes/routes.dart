@@ -3,17 +3,9 @@ class Routes {
   static const String signIn = '/signIn';
   static const String signUp = '/signUp';
   static const String main = "/main";
-}
-
-class Tab {
-  static const int home = 0;
-  static const int curation = 1;
-  static const int custom = 2;
-  static const int myPage = 3;
-}
-
-class MypagePage {
-  static const int defaultPage = 0;
-  static const int setting = 1;
-  static const int like = 2;
+  static const String storeDetail = "/store_detail";
+  static const String review = "/review";
+  static const String likeStore = "/like_store";
+  static const String webView = "/web_view";
+  static const String terms = "/terms";
 }

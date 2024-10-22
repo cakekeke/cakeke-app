@@ -52,9 +52,7 @@ class SignTextField extends StatelessWidget {
               color: DesignSystem.colors.textDisabled,
               fontWeight: FontWeight.w700)),
           enabledBorder: UnderlineInputBorder(
-            borderSide: isPassword
-                ? BorderSide(width: 2, color: DesignSystem.colors.appPrimary)
-                : BorderSide(color: DesignSystem.colors.divider),
+            borderSide: BorderSide(color: DesignSystem.colors.divider),
           ),
           focusedBorder: UnderlineInputBorder(
             borderSide:

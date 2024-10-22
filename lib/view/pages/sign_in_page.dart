@@ -75,7 +75,7 @@ class SiginInPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 12),
                           SignTextField(
-                            hintText: "",
+                            hintText: "비밀번호 입력",
                             inputType: TextInputType.number,
                             isPassword: true,
                             onChanged: (text) {
@@ -85,7 +85,7 @@ class SiginInPage extends StatelessWidget {
                                     password: text,
                                   ));
                             },
-                            autoFocus: true,
+                            autoFocus: false,
                           ),
                         ],
                       ),

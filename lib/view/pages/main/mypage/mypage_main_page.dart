@@ -1,6 +1,7 @@
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_state.dart';
+import 'package:cakeke/config/routes/routes.dart';
 import 'package:cakeke/view/widgets/common/scaffold_layout.dart';
 import 'package:cakeke/view/widgets/main/mypage/mypage_action_button.dart';
 import 'package:cakeke/view/widgets/main/mypage/mypage_sub_title.dart';
@@ -39,8 +40,8 @@ class MypageMainPage extends StatelessWidget {
                       iconData: Icons.settings_outlined,
                       text: "설정",
                       onPressed: () {
-                        context.read<MypageBloc>().add(const MypagePageChanged(
-                              selectedPage: 1,
+                        context.read<MypageBloc>().add(MypagePageChanged(
+                              selectedPage: MypageTab.setting.index,
                             ));
                       },
                     ),
@@ -48,9 +49,7 @@ class MypageMainPage extends StatelessWidget {
                       iconData: Icons.favorite_outline,
                       text: "찜 목록",
                       onPressed: () {
-                        context.read<MypageBloc>().add(const MypagePageChanged(
-                              selectedPage: 2,
-                            ));
+                        Navigator.pushNamed(context, Routes.likeStore);
                       },
                     ),
                     VersionInfo(

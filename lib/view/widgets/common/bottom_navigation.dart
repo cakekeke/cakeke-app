@@ -5,6 +5,7 @@ import 'package:cakeke/blocs/map/map_bloc.dart';
 import 'package:cakeke/blocs/map/map_event.dart';
 import 'package:cakeke/blocs/mypage/mypage_bloc.dart';
 import 'package:cakeke/blocs/mypage/mypage_event.dart';
+import 'package:cakeke/blocs/mypage/mypage_state.dart';
 import 'package:cakeke/blocs/tab/tab_bloc.dart';
 import 'package:cakeke/config/design_system/design_system.dart';
 import 'package:flutter/material.dart';
@@ -21,30 +22,59 @@ class BottomNavigation extends StatelessWidget {
         return BottomNavigationBar(
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: SvgPicture.asset(
+                    'assets/images/navigation/home_${state.tabIndex != TabIndex.main.index ? 'unselected' : 'selected'}.svg',
+                    width: 19,
+                    height: 20,
+                  ),
+                ),
                 label: '홈',
               ),
               BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/images/icon_navigation_map_${state.tabIndex != 1 ? 'unselected' : 'selected'}.svg',
-                  width: 19,
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: SvgPicture.asset(
+                    'assets/images/navigation/map_${state.tabIndex != TabIndex.map.index ? 'unselected' : 'selected'}.svg',
+                    width: 19,
+                    height: 20,
+                  ),
                 ),
                 label: '지도',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.edit_document),
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: SvgPicture.asset(
+                    'assets/images/navigation/curation_${state.tabIndex != TabIndex.curation.index ? 'unselected' : 'selected'}.svg',
+                    width: 19,
+                    height: 20,
+                  ),
+                ),
                 label: '큐레이션',
               ),
               BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/images/icon_navigation_custom_${state.tabIndex != 3 ? 'unselected' : 'selected'}.svg',
-                  width: 22,
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: SvgPicture.asset(
+                    'assets/images/navigation/custom_${state.tabIndex != TabIndex.custom.index ? 'unselected' : 'selected'}.svg',
+                    width: 22,
+                    height: 20,
+                  ),
                 ),
                 label: '커스텀',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.people),
-                label: '마이페이지',
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: SvgPicture.asset(
+                    'assets/images/navigation/mypage_${state.tabIndex != TabIndex.mypage.index ? 'unselected' : 'selected'}.svg',
+                    width: 17,
+                    height: 20,
+                  ),
+                ),
+                label: '마이',
               ),
             ],
             currentIndex: state.tabIndex,
@@ -67,7 +97,7 @@ class BottomNavigation extends StatelessWidget {
                   .add(const MapPageChanged(selectedPage: 0));
               context
                   .read<MypageBloc>()
-                  .add(const MypagePageChanged(selectedPage: 0));
+                  .add(MypagePageChanged(selectedPage: MypageTab.main.index));
             });
       },
     );
