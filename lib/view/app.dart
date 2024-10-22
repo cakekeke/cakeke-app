@@ -12,8 +12,9 @@ class App extends StatelessWidget {
     return FlutterSizer(builder: (context, orientation, screenType) {
       return MultiBlocProvider(
         providers: AppBlocProviders.landingPageBlocProviders,
-        child: const MaterialApp(
+        child: MaterialApp(
           title: 'Cakeke',
+          theme: ThemeData(useMaterial3: false),
           debugShowCheckedModeBanner: false,
           onGenerateRoute: RouteGenerator.generateRoute,
           initialRoute: Routes.landing,

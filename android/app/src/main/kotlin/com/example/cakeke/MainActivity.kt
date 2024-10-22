@@ -1,4 +1,4 @@
-package com.cakeke.cakeke
+package com.cakeke.cakekeApp
 
 import android.os.Bundle
 import io.flutter.embedding.android.FlutterActivity
