@@ -1,5 +1,6 @@
 import 'package:cakeke/config/api_config.dart';
 import 'package:cakeke/data/models/auth/refresh_token_reponse.dart';
+import 'package:cakeke/data/repositories/auth_repository.dart';
 import 'package:cakeke/data/repositories/token_repository.dart';
 import 'package:dio/dio.dart';
 
@@ -37,6 +38,10 @@ class ApiClient {
 
   Future<String> refreshToken() async {
     final refreshToken = await tokenRepository.getRefreshToken();
+    if (refreshToken == null) {
+      final authRepository = AuthRepository();
+      await authRepository.signout();
+    }
     final response = await client.dio
         .fetch(client.clientOptions('POST', '/auth/refresh', data: {
       "refreshToken": refreshToken,

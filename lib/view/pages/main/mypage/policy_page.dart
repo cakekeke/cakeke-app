@@ -40,7 +40,7 @@ class _PolicyPageState extends State<PolicyPage> {
           },
         ),
       )
-      ..loadRequest(Uri.parse("${webviewUrl}privacy"));
+      ..loadRequest(Uri.parse(webviewUrl));
   }
 
   @override

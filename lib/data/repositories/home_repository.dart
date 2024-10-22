@@ -15,4 +15,9 @@ class HomeRepository {
   Future<List<Store>> getPopularStore() async {
     return await homeProvider.getPopularStore();
   }
+
+  Future<List<Store>> getStoreRanking(
+      {required String city, required String district}) async {
+    return await homeProvider.getStoreRanking(city: city, district: district);
+  }
 }

@@ -25,6 +25,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<OnMapCameraChangedEvent>(_handleOnMapCameraChangedEvent);
     on<MapPageChanged>(_handleMapPageChangedEvent);
     on<SelectStoreMakerEvent>(_handleSelectStoreMakerEvent);
+    on<ResearchFromMap>(_handleResearchFromMap);
+    on<ResearchButtonVisible>(_handleResearchButtonVisible);
   }
 
   bool isMapPageListChanged = false;
@@ -33,14 +35,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     SetMapControllerEvent event,
     Emitter<MapState> emit,
   ) async {
-    final userLocation = await Location().getLocation();
-    final nowLocation = NLatLng(
-      userLocation.latitude ?? 0,
-      userLocation.longitude ?? 0,
-    );
-    await event.mapController
-        .updateCamera(NCameraUpdate.withParams(target: nowLocation));
-    event.afterSetting(nowLocation);
     emit(
         state.copyWith(mapController: event.mapController, setMakerFlag: true));
   }
@@ -163,6 +157,28 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) {
     emit(state.copyWith(searchText: event.searchText));
+  }
+
+  Future<void> _handleResearchFromMap(
+    ResearchFromMap event,
+    Emitter<MapState> emit,
+  ) async {
+    if (state.mapController != null) {
+      final camera = await state.mapController!.getCameraPosition();
+      final longitude = camera.target.longitude;
+      final latitude = camera.target.latitude;
+
+      event.afterSearch(longitude, latitude);
+    }
+  }
+
+  Future<void> _handleResearchButtonVisible(
+    ResearchButtonVisible event,
+    Emitter<MapState> emit,
+  ) async {
+    emit(state.copyWith(
+      isMapCameraChanged: event.isVisible,
+    ));
   }
 
   void _handleMapPageChangedEvent(

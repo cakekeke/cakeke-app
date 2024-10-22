@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-enum MypageTab { main, setting, like, detail, terms, privacy, voc }
+enum MypageTab { main, setting, detail, terms, privacy, voc }
 
 class MypageState extends Equatable {
   const MypageState({

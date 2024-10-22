@@ -35,3 +35,14 @@ class HomeStoreListFetch extends HomeEvent {
   @override
   List<Object> get props => [type];
 }
+
+class HomeRegionStoreRankingFetch extends HomeEvent {
+  const HomeRegionStoreRankingFetch(
+      {required this.city, required this.district});
+
+  final String city;
+  final String district;
+
+  @override
+  List<Object> get props => [city, district];
+}

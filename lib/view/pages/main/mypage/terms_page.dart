@@ -40,7 +40,7 @@ class _TermsPageState extends State<TermsPage> {
           },
         ),
       )
-      ..loadRequest(Uri.parse("${webviewUrl}terms"));
+      ..loadRequest(Uri.parse(webviewUrl));
   }
 
   @override

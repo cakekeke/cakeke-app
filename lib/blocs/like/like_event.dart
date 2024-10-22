@@ -13,17 +13,6 @@ class LikeEventFetchLike extends LikeEvent {
   List<Object> get props => [];
 }
 
-class LikeEventGetStoreLike extends LikeEvent {
-  const LikeEventGetStoreLike({
-    required this.storeId,
-  });
-
-  final int storeId;
-
-  @override
-  List<Object> get props => [storeId];
-}
-
 class LikeEventAddLike extends LikeEvent {
   const LikeEventAddLike({
     required this.store,
