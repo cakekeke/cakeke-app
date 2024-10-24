@@ -14,6 +14,7 @@ class UserProvider {
     }
   }
 
+
   Future<void> withdrawal() async {
     try {
       await client.dio.fetch(client.clientOptions('DELETE', '/users'));

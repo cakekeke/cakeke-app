@@ -2,14 +2,23 @@ import 'dart:io';
 import 'package:permission_handler/permission_handler.dart';
 
 class PermissionUtil {
-  static List<Permission> androidPermissions = <Permission>[Permission.storage];
+  static List<Permission> storagePermissions = <Permission>[Permission.storage];
+  static List<Permission> locationPermissions = <Permission>[
+    Permission.location
+  ];
 
-  static List<Permission> iosPermissions = <Permission>[Permission.storage];
-
-  static Future<Map<Permission, PermissionStatus>> requestAll() async {
+  static Future<Map<Permission, PermissionStatus>> requestStorage() async {
     if (Platform.isIOS) {
-      return await iosPermissions.request();
+      return await storagePermissions.request();
     }
-    return await androidPermissions.request();
+    return await storagePermissions.request();
+  }
+
+  static Future<Map<Permission, PermissionStatus>> requestLocation() async {
+    return await locationPermissions.request();
+  }
+
+  static Future<PermissionStatus> getLocationPermissionStatus() async {
+    return await Permission.location.status;
   }
 }
