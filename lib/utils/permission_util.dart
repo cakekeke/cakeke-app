@@ -18,7 +18,7 @@ class PermissionUtil {
     return await locationPermissions.request();
   }
 
-  static Future<PermissionStatus> allowedLocationPermission() async {
+  static Future<PermissionStatus> getLocationPermissionStatus() async {
     return await Permission.location.status;
   }
 }

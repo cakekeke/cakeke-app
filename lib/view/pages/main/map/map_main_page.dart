@@ -36,7 +36,7 @@ class _MapMainPageState extends State<MapMainPage> {
 
   Future<void> loacationPermission() async {
     final PermissionStatus result =
-        await PermissionUtil.allowedLocationPermission();
+        await PermissionUtil.getLocationPermissionStatus();
 
     switch (result) {
       case PermissionStatus.denied:
